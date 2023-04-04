@@ -21,8 +21,7 @@ class User(db.Model):
 
     # one user to many portfolios
     portfolios = db.relationship("Portfolio", 
-                                 back_populates="user",
-                                 cascade = "all, delete, delete-orphan")
+                                 back_populates="user")
 
     def __repr__(self):
         return f"<User user_id={self.user_id} email={self.email}>"
@@ -46,7 +45,7 @@ class Portfolio(db.Model):
     # one portfolio to many artworks
     artworks = db.relationship("Artwork", 
                                back_populates="portfolio",
-                               cascade = "all, delete, delete-orphan")
+                               cascade = "all, delete, delete-orphan") # delete related artworks if portfolio deleted
 
     def __repr__(self):
         return f"<Portfolio portfolio_id={self.portfolio_id} p_title={self.p_title}>"
