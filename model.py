@@ -1,4 +1,4 @@
-"""Models for art app"""
+"""Models for art app."""
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -6,13 +6,15 @@ db = SQLAlchemy()
 
 
 class User(db.Model):
-    """A User"""
+    """A User."""
 
     __tablename__ = "users"
 
     user_id  = db.Column(db.Integer, 
                          autoincrement=True, 
                          primary_key=True)
+    username = db.Column(db.String,
+                         nullable=False)
     email = db.Column(db.String, 
                       unique=True, 
                       nullable=False) 
@@ -28,7 +30,7 @@ class User(db.Model):
     
     
 class Portfolio(db.Model):
-    """A User Portfolio"""
+    """A User Portfolio."""
 
     __tablename__ = "portfolios"
 
@@ -52,7 +54,7 @@ class Portfolio(db.Model):
     
 
 class Artwork(db.Model):
-    """A completed user canvas"""
+    """A completed user canvas."""
 
     __tablename__ = "artworks"
 
