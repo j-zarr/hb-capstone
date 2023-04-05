@@ -28,7 +28,7 @@ def get_user_by_email(email):
 def create_portfolio(user, **kwargs):
     """Create and return a new portfolio."""
 
-    portfolio = Portfolio(user=user, p_title=kwargs.get('p_title'))
+    portfolio = Portfolio(user_id=user.user_id, p_title=kwargs.get('p_title'))
     return portfolio
 
 
@@ -58,13 +58,11 @@ def delete_portfolio_by_id(portfolio_id):
     portfolio = Portfolio.query.get(portfolio_id)
     db.session.delete(portfolio)
 
-#use **kwargs since fields are optional
-def create_artwork(**kwargs):
+#create artwork with id only to start, rest of fields updated on save
+def create_artwork():
     """Create and return a new artwork."""
 
-    artwork = Artwork(portfolio_id=kwargs.get('portfolio_id'), 
-                      file_path=kwargs.get('file_path'), 
-                      a_title=kwargs.get('a_title'))
+    artwork = Artwork()
     return artwork
 
 
@@ -85,12 +83,10 @@ def get_all_artworks_by_portfolio(portfolio):
 def update_artwork_by_id(artwork_id, **kwargs):
     """Update artwork title by primary key, or update it's portfolio by portfolio."""
 
-    artwork = Artwork.query.get(artwork_id)
-    artwork.a_title = kwargs.get('new_title')
-    portfolio_obj = kwargs.get('portfolio')
-
-    if portfolio_obj:
-        artwork.portfolio.portfolio_id = portfolio_obj.portfolio_id
+    artwork = Artwork.query.get(artwork_id) #exists before first save, created when hit "create new artwork"
+    artwork.file_path = kwargs.get('file_path') #gets created on first save
+    artwork.a_title = kwargs.get('new_title') #optional, can be updated
+    artwork.pprtfolio_id =  kwargs.get('portfolio_id') #must be added on first save, and can be updated
 
 
 def delete_artwork_by_id(artwork_id):
