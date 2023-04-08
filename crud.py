@@ -42,7 +42,10 @@ def get_portfolio_by_id(portfolio_id):
 def get_all_portfolios_by_user_id(user_id):
     """Return a list of all user portfolios by user_id."""
 
-    portfolios :list = (User.query.get(user_id)).portfolios
+    user = User.query.options(db.joinedload('portfolios'))
+    user = user.filter(User.user_id == user_id).first()
+
+    portfolios: list = user.portfolios
     return portfolios
 
 
