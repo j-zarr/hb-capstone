@@ -25,10 +25,10 @@ def get_user_by_email(email):
 
 
 #using **kwargs since the p_title is optional
-def create_portfolio(user, **kwargs):
+def create_portfolio(user_id, **kwargs):
     """Create and return a new portfolio."""
 
-    portfolio = Portfolio(user_id=user.user_id, 
+    portfolio = Portfolio(user_id, 
                           p_title=kwargs.get('p_title'))
     return portfolio
 
