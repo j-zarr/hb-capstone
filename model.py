@@ -13,12 +13,12 @@ class User(db.Model):
     user_id  = db.Column(db.Integer, 
                          autoincrement=True, 
                          primary_key=True)
-    username = db.Column(db.String,
+    username = db.Column(db.String(25),
                          nullable=False)
-    email = db.Column(db.String, 
+    email = db.Column(db.String(25), 
                       unique=True, 
                       nullable=False) 
-    password = db.Column(db.String, 
+    password = db.Column(db.String(25), 
                          nullable=False)
 
     # one user to many portfolios
@@ -37,7 +37,8 @@ class Portfolio(db.Model):
     portfolio_id = db.Column(db.Integer, 
                              autoincrement=True, 
                              primary_key=True) 
-    p_title = db.Column(db.String)
+    p_title = db.Column(db.String(75),
+                        unique=True)
     user_id = db.Column(db.Integer, 
                         db.ForeignKey("users.user_id"))
 
@@ -62,7 +63,8 @@ class Artwork(db.Model):
                            autoincrement=True, 
                            primary_key=True)
     file_path = db.Column(db.String)
-    a_title = db.Column(db.String)
+    a_title = db.Column(db.String(75),
+                        unique=True)
     portfolio_id = db.Column(db.Integer, 
                              db.ForeignKey("portfolios.portfolio_id"))
 
@@ -90,17 +92,18 @@ if __name__ == "__main__":
     connect_to_db(app, echo=False)
 
 # db.create_all()
-# test_user1 = User(email='test1@test.com', password='test1pswd')
+# test_user1 = User(username='justme', email='test1@test.com', password='test1pswd')
 # db.session.add(test_user1)
 # db.session.commit()
-# user1 = User.query.first()
 
-# user1.portfolios.append(Portfolio(p_title='abstract happy'))
-# db.session.add(user1)
+# test_user1.portfolios.append(Portfolio(p_title='abstract happy'))
+# test_user1.portfolios.append(Portfolio(p_title='port2'))
+# db.session.add(test_user1)
 # db.session.commit()
 
 # port1 = Portfolio.query.get(1)
+# port2 = Portfolio.query.get(2)
 # port1.artworks.append(Artwork(a_title='smiley splash'))
-# port1.artworks.append(Artwork(a_title='untitled001'))
-# db.session.add(port1)
+# port2.artworks.append(Artwork(a_title='untitled001'))
+# port2.artworks.append(Artwork(a_title='work3'))
 # db.session.commit()

@@ -1,6 +1,6 @@
 """Server for art app."""
 
-from flask import (Flask, render_template, request, flash, session, redirect)
+from flask import (Flask, render_template, request, flash, session, redirect, url_for)
 from jinja2 import StrictUndefined
 from model import connect_to_db, db
 import crud
@@ -9,6 +9,9 @@ import crud
 app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
+
+
+### routes that return html templates ###
 
 
 @app.route("/")
@@ -20,22 +23,49 @@ def homepage():
 
 @app.route("/login")
 def login():
-    """View user login-form."""
+    """View user login form."""
 
-    #if user exists in db, render user profile template
-    #else redirect to create new user 
-
-    #need to store user info in session so can only access routes if logged-in
-    #and to have access to the user_id
-
-   # return render_template("user.html")
+    return render_template("login.html", error=None) #Error=None on initial template render
 
 
-@app.route("/create-user-form")
+@app.route("/validate-user", methods=['POST'])
+def login_user():
+    """Validate user login info"""
+
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    user = crud.get_user_by_email(email)
+
+    if user and user.password == password:
+        
+        #store user info in session
+        session['user_id'] = user.user_id
+        session['username'] = user.username
+        session['logged_in'] = True
+        
+        return redirect("/user")
+    
+    else:
+        error = "Incorrect login details, try again or click signup to create an ARTwrks account"
+        return render_template("login.html", error=error)
+
+
+@app.route("/logout")
+def logout():
+
+    session['user_id'] = None
+    session['username'] = None
+    session['logged_in'] = False
+
+    return redirect("/")
+
+
+@app.route("/signup")
 def create_account():
-    """View create-user-form."""
+    """View signup form."""
 
-    return render_template("create-user-form.html")
+    return render_template("signup.html")
 
 
 @app.route("/create-user", methods=['POST'])
@@ -53,20 +83,24 @@ def create_user():
     db.session.add(new_user)
     db.session.commit()
 
-    print('*'*20, {crud.get_user_by_email(email)})
+    user = crud.get_user_by_email(email)
 
-    return redirect("/user")
-    #success message
-    #need to log them in automatiaclly after creates account
+    #login new user and store user info in session
+    session['user_id'] = user.user_id
+    session['username'] = user.username
+    session['logged_in'] = True
     
-   # return redirect('/user/<user>') or render template '/user.html'
+    return redirect("/user")
 
-
+   
 @app.route("/user")
 def user_page():
     """View user page"""
 
     return render_template("user.html")
+
+
+### routes that return json/text/flash messages to ajax fetch requests ###
 
 
 @app.route("/new-artwork")
@@ -81,7 +115,8 @@ def new_artwork():
     
     return "<h1>placeholder</h1>"
 
-#create a route to update artwork details: title, portfolio, path
+
+
 
 
 if __name__ == "__main__":

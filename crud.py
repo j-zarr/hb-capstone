@@ -28,7 +28,8 @@ def get_user_by_email(email):
 def create_portfolio(user, **kwargs):
     """Create and return a new portfolio."""
 
-    portfolio = Portfolio(user_id=user.user_id, p_title=kwargs.get('p_title'))
+    portfolio = Portfolio(user_id=user.user_id, 
+                          p_title=kwargs.get('p_title'))
     return portfolio
 
 
@@ -38,10 +39,19 @@ def get_portfolio_by_id(portfolio_id):
     return Portfolio.query.get(portfolio_id)
 
 
-def get_all_portfolios_by_user(user):
-    """Return a list of all user portfolios by user."""
+def get_all_portfolios_by_user_id(user_id):
+    """Return a list of all user portfolios by user_id."""
 
-    portfolios :list = (User.query.get(user.user_id)).portfolios
+    portfolios :list = (User.query.get(user_id)).portfolios
+    return portfolios
+
+
+def get_portfolios_by_search_param(search_param):
+    """Return a list of portfolios that match search input"""
+
+    portfolios: list = Portfolio.query.filter(
+        Portfolio.p_title.like(f'%{search_param}%')).all()
+
     return portfolios
 
 
@@ -72,10 +82,38 @@ def get_artwork_by_id(artwork_id):
     return Artwork.query.get(artwork_id)
 
 
-def get_all_artworks_by_portfolio(portfolio):
-    """Return a list of all artworks from one portfolio by portfolio."""
+def get_all_artworks_by_portfolio_id(portfolio_id):
+    """Return a list of all artworks from one portfolio by portfolio_id."""
 
-    artworks :list = (Portfolio.query.get(portfolio.portfolio_id)).artworks
+    portfolio = Portfolio.query.options(db.joinedload('artworks'))
+    portfolio = portfolio.filter(
+        Portfolio.portfolio_id == portfolio_id).first()
+    
+    artworks = portfolio.artworks
+
+    return artworks
+
+
+def get_all_artworks_by_user_id(user_id):
+    """Return a list of all artworks from all user portfolios"""
+
+    portfolios = Portfolio.query.options(db.joinedload('artworks'))
+    portfolios = portfolios.filter(Portfolio.user_id == user_id).all()
+   
+    artworks: list = []
+    
+    for portfolio in portfolios:
+       artworks.extend(portfolio.artworks)
+
+    return artworks
+
+
+def get_artworks_by_search_param(search_param):
+    """Return a list of artworks that match search input"""
+
+    artworks: list = Artwork.query.filter(
+        Artwork.a_title.like(f'%{search_param}%')).all()
+
     return artworks
 
 
@@ -86,7 +124,7 @@ def update_artwork_by_id(artwork_id, **kwargs):
     artwork = Artwork.query.get(artwork_id) #exists before first save, created when hit "create new artwork"
     artwork.file_path = kwargs.get('file_path') #gets created on first save
     artwork.a_title = kwargs.get('new_title') #optional, can be updated
-    artwork.pprtfolio_id =  kwargs.get('portfolio_id') #must be added on first save, and can be updated
+    artwork.portfolio_id = kwargs.get('portfolio_id') #must be added on first save, and can be updated
 
 
 def delete_artwork_by_id(artwork_id):

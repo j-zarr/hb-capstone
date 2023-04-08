@@ -2,17 +2,31 @@
 
 {% block title %} ARTwrks {% endblock %}
 
-{% block body %}
-
-<nav>
+{% block navbar %}
+<nav style="background-color: orange;">
+    <span>ARTwrks</span> 
+    <p>{{ session.get('username') }}</p>
     <ul>
-        <li><a href="/new-artwork">create new artwork</a></li>
-        <li><a href="/portfolios/">Select a Portfolio to view</a></li>
-        <li><a href="/portfolios">See Your Portfolios</a></li>
+        <li><a href="/new-artwork">Create new artwork</a></li>
+
+        <li><a href="/portfolios">View your portfolios</a></li>
+      
+        <li><input type="text" id="search-portfolios" placeholder="search portfolios by title"></li>
+
+        <li><a href="/all-artworks">View all your artworks</a></li>
+      
+        <li><input type="text" id="search-artworks" placeholder="search artworks by title"></li> 
+
+        <li><a href="/logout">Log out</a></li>
     </ul>
 </nav>
+{% endblock %}
 
-<div>
+{% block content %}
+
+
+
+ <div>
    
 </div>
 
