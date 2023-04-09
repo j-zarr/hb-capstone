@@ -1,9 +1,9 @@
 """Server for art app."""
 
-from flask import (Flask, render_template, request, flash, session, redirect, url_for)
+from flask import (Flask, render_template, request, flash, session, redirect)
 from jinja2 import StrictUndefined
 from model import connect_to_db, db
-import crud
+import crud_u, crud_p, crud_a 
 
 
 app = Flask(__name__)
@@ -35,7 +35,7 @@ def login_user():
     email = request.form.get('email')
     password = request.form.get('password')
 
-    user = crud.get_user_by_email(email)
+    user = crud_u.get_user_by_email(email)
 
     if user and user.password == password:
         
@@ -72,22 +72,20 @@ def create_account():
 def create_user():
     """Commit new user to database."""
 
-
     username = request.form.get("username")
     email = request.form.get("email")
     password = request.form.get("password")
    
-    new_user = crud.create_user(username=username,
+    new_user = crud_u.create_user(username=username,
                                 email=email, 
                                 password=password)
     db.session.add(new_user)
     db.session.commit()
 
-    user = crud.get_user_by_email(email)
 
     #login new user and store user info in session
-    session['user_id'] = user.user_id
-    session['username'] = user.username
+    session['user_id'] = new_user.user_id
+    session['username'] = new_user.username
     session['logged_in'] = True
     
     return redirect("/user")
@@ -100,20 +98,23 @@ def user_page():
     return render_template("user.html")
 
 
-### routes that return json/text/flash messages to ajax fetch requests ###
+### routes that return json/text to ajax fetch requests ###
 
 
 @app.route("/new-artwork")
 def new_artwork():
     """Create new artwork for user"""
 
-    aw = crud.create_artwork()
-    db.session.add(aw)
+    artwork = crud_a.create_artwork()
+    db.session.add(artwork)
     db.session.commit()
 
     #save to session 
+    session['artwork_id'] = artwork.artwork_id
+
+    #flash(f"success, new artwork created, artwork_id: {session['artwork_id']}")
     
-    return "<h1>placeholder</h1>"
+    return render_template('/new-artwork.html')
 
 
 

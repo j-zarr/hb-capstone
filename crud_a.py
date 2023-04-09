@@ -1,75 +1,7 @@
-"""CRUD operations for database."""
+"""CRUD operations Artwork for table in artworks database."""
 
 from model import db, connect_to_db, User, Portfolio, Artwork
 
-
-def create_user(username, email, password):
-    """Create and return a new user."""
-
-    user = User(username=username, 
-                email=email, 
-                password=password)
-    return user
-
-
-def get_user_by_id(user_id):
-    """Return a user by primary key."""
-
-    return User.query.get(user_id)
-
-
-def get_user_by_email(email):
-    """Return a user by email."""
-
-    return User.query.filter(User.email == email).first()
-
-
-#using **kwargs since the p_title is optional
-def create_portfolio(user_id, **kwargs):
-    """Create and return a new portfolio."""
-
-    portfolio = Portfolio(user_id, 
-                          p_title=kwargs.get('p_title'))
-    return portfolio
-
-
-def get_portfolio_by_id(portfolio_id):
-    """Return a user portfolio by primary key."""
-
-    return Portfolio.query.get(portfolio_id)
-
-
-def get_all_portfolios_by_user_id(user_id):
-    """Return a list of all user portfolios by user_id."""
-
-    user = User.query.options(db.joinedload('portfolios'))
-    user = user.filter(User.user_id == user_id).first()
-
-    portfolios: list = user.portfolios
-    return portfolios
-
-
-def get_portfolios_by_search_param(search_param):
-    """Return a list of portfolios that match search input"""
-
-    portfolios: list = Portfolio.query.filter(
-        Portfolio.p_title.like(f'%{search_param}%')).all()
-
-    return portfolios
-
-
-def update_portfolio_title(portfolio_id, new_title):
-    """Update portfolio title by primary key."""
-
-    portfolio = Portfolio.query.get(portfolio_id)
-    portfolio.p_title = new_title
-
-
-def delete_portfolio_by_id(portfolio_id):
-    """Delete a portfolio by primary key."""
-
-    portfolio = Portfolio.query.get(portfolio_id)
-    db.session.delete(portfolio)
 
 #create artwork with id only to start, rest of fields updated on save
 def create_artwork():
