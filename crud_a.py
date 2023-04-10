@@ -3,7 +3,7 @@
 from model import db, connect_to_db, User, Portfolio, Artwork
 
 
-#create artwork with id only to start, rest of fields updated on save
+#create artwork and save to DB - optional to give title and put in portfolio
 def create_artwork():
     """Create and return a new artwork."""
 
@@ -56,10 +56,10 @@ def get_artworks_by_search_param(search_param):
 def update_artwork_by_id(artwork_id, **kwargs):
     """Update artwork title by primary key, or update it's portfolio by portfolio."""
 
-    artwork = Artwork.query.get(artwork_id) #exists before first save, created when hit "create new artwork"
-    artwork.file_path = kwargs.get('file_path') #gets created on first save
-    artwork.a_title = kwargs.get('new_title') #optional, can be updated
-    artwork.portfolio_id = kwargs.get('portfolio_id') #must be added on first save, and can be updated
+    artwork = Artwork.query.get(artwork_id) 
+    artwork.file_path = kwargs.get('file_path') 
+    artwork.a_title = kwargs.get('new_title') 
+    artwork.portfolio_id = kwargs.get('portfolio_id') 
 
 
 def delete_artwork_by_id(artwork_id):

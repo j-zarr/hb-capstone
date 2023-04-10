@@ -1,6 +1,6 @@
 """Server for art app."""
 
-from flask import (Flask, render_template, request, flash, session, redirect)
+from flask import (Flask, render_template, request, flash, session, redirect, jsonify)
 from jinja2 import StrictUndefined
 from model import connect_to_db, db
 import crud_u, crud_p, crud_a 
@@ -53,11 +53,9 @@ def login_user():
 
 @app.route("/logout")
 def logout():
+    """Log out user"""
 
-    session['user_id'] = None
-    session['username'] = None
-    session['logged_in'] = False
-
+    session.clear()
     return redirect("/")
 
 
@@ -98,23 +96,29 @@ def user_page():
     return render_template("user.html")
 
 
-@app.route("/new-artwork")
-def new_artwork():
-    """Create new artwork for user"""
-
-    artwork = crud_a.create_artwork()
-    db.session.add(artwork)
-    db.session.commit()
-
-    #save to session 
-    session['artwork_id'] = artwork.artwork_id
-
-    flash(f"success, new artwork created, artwork_id: {session['artwork_id']}")
-    
-    return render_template('new-artwork.html')
-
-
 ### routes that return data to fetch requests ###
+
+
+# # will be ceated in DB when click save ""
+# @app.route("/api/save-artwork")
+# def new_artwork():
+#     """Create new artwork for user"""
+
+#     #get infputs for title and portfolio from modal form(still to be created)
+
+#     artwork = crud_a.create_artwork()
+#     db.session.add(artwork)
+#     db.session.commit()
+
+#     #save to session 
+#     session['artwork_id'] = artwork.artwork_id
+
+#     flash(f"Artwork saved artwork_id: {session['artwork_id']}")#just for testing
+    
+#     return jsonify()###complete function after build realted pieces
+
+
+
 
 
 

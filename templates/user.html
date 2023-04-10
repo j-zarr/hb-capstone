@@ -2,7 +2,7 @@
 
 {% block title %} ARTwrks - {{ session.get('username') }}{% endblock %}
 
-{% block head %} 
+{% block head %}
 
 {% endblock %}
 
@@ -18,52 +18,36 @@
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                 <span>ARTwrks</span>
                 <span class="fs-5 d-none d-sm-inline">Menu </span> <br></br>
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <li>
-                        <a href="/new-artwork" class="nav-link px-0 align-middle" >
-                            <span class="ms-1 d-none d-sm-inline" style="color: #7FFF00;">Create</span></a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link px-0 align-middle" >
-                            <span class="ms-1 d-none d-sm-inline" style="color: #7FFF00;">Gallery</span></a>
-                    </li>
-
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
                     <li>
                         <a href="#" class="nav-link px-0 align-middle">
-                            <span class="ms-1 d-none d-sm-inline">Portfolios</span></a>
+                            <span class="ms-1 d-none d-sm-inline" id="create-link">Create</span></a>
                     </li>
                     <li>
-                        <a href="#" class="nav-link px-0 align-middle">
-                            <span class="ms-1 d-none d-sm-inline">Artworks</span></a>
-                    </li>
-                    <br></br>
-                    <li>
-                        <div class="input-group input-group-sm mb-3">
-                            <input type="search" id="search-portfolios" class="form-control rounded" placeholder="Portfolio title" aria-label="Search" aria-describedby="search-addon" />
-                            <button type="button" class="btn btn-outline-primary">search</button>
-                        </div>
+                        <a href="#" class="nav-link px-0 align-middle" > 
+                            <span class="ms-1 d-none d-sm-inline" id="gallery-link">Gallery</span></a>
                     </li>
 
-                    <li>
-                        <div class="input-group input-group-sm mb-3">
-                            <input type="search" id="search-artworkss" class="form-control rounded" placeholder="Artwork title" aria-label="Search" aria-describedby="search-addon" />
-                            <button type="button" class="btn btn-outline-primary">search</button>
-                        </div>
+                    <div id="nav-menu"></div>
+
+                    
                     </li>
-                    <a href="/logout" class="nav-link px-0 align-middle">
-                        <li>Log out</li></a>
+                    <a href="/logout" class="nav-link px-0 align-middle" id="logout">
+                        <li>Log out</li>
+                    </a>
                 </ul>
             </div>
         </div>
 
 
-
-        <div class="col py-3" id="cards">
-            <p>GALLERY AS CARDS WILL GO HERE!</p>
-        </div>
+        <div id="content-area"></div>
 
 
     </div>
 </div>
 
+{% endblock %}
+
+{% block bodybottom %}
+<script src="/static/js/side-nav.js"></script> 
 {% endblock %}
