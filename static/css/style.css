@@ -1,0 +1,17 @@
+ #flash-msg{
+    /* position: absolute;  */
+    /* z-index: 1;   */
+    /* height: 5%;  */
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    /* background-color:#7FFF00;  */
+    text-align: center; 
+    /* width:100%; */
+    margin-bottom: 0;
+}
+
+/* #side-nav{
+    z-index: 2;
+    position: absolute; 
+}   */

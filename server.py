@@ -98,9 +98,6 @@ def user_page():
     return render_template("user.html")
 
 
-### routes that return json/text to ajax fetch requests ###
-
-
 @app.route("/new-artwork")
 def new_artwork():
     """Create new artwork for user"""
@@ -112,9 +109,14 @@ def new_artwork():
     #save to session 
     session['artwork_id'] = artwork.artwork_id
 
-    #flash(f"success, new artwork created, artwork_id: {session['artwork_id']}")
+    flash(f"success, new artwork created, artwork_id: {session['artwork_id']}")
     
-    return render_template('/new-artwork.html')
+    return render_template('new-artwork.html')
+
+
+### routes that return data to fetch requests ###
+
+
 
 
 
