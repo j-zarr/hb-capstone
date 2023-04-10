@@ -3,12 +3,11 @@
 from model import db, connect_to_db, User, Portfolio, Artwork
 
 
-#using **kwargs since the p_title is optional
-def create_portfolio(user_id, **kwargs):
+#p_title is required and unique
+def create_portfolio(user_id, p_title):
     """Create and return a new portfolio."""
 
-    portfolio = Portfolio(user_id, 
-                          p_title=kwargs.get('p_title'))
+    portfolio = Portfolio(user_id, p_title)
     return portfolio
 
 

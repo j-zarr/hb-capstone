@@ -53,7 +53,7 @@ def login_user():
 
 @app.route("/logout")
 def logout():
-    """Log out user"""
+    """Logout user."""
 
     session.clear()
     return redirect("/")
@@ -99,7 +99,7 @@ def user_page():
 ### routes that return data to fetch requests ###
 
 
-# # will be ceated in DB when click save ""
+# # will be ceated in DB when click save, ***required to add to a portfolio***
 # @app.route("/api/save-artwork")
 # def new_artwork():
 #     """Create new artwork for user"""
@@ -115,7 +115,7 @@ def user_page():
 
 #     flash(f"Artwork saved artwork_id: {session['artwork_id']}")#just for testing
     
-#     return jsonify()###complete function after build realted pieces
+#     return jsonify()###complete function after build related pieces
 
 
 

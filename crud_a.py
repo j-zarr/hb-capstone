@@ -3,11 +3,12 @@
 from model import db, connect_to_db, User, Portfolio, Artwork
 
 
-#create artwork and save to DB - optional to give title and put in portfolio
-def create_artwork():
+# create artwork, a_title optional, but attaching to a portfolio is required
+# otherwise artwork will not be connected to the user
+def create_artwork(portfolio_id):
     """Create and return a new artwork."""
 
-    artwork = Artwork()
+    artwork = Artwork(portfolio_id)
     return artwork
 
 

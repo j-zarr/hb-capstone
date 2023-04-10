@@ -66,7 +66,8 @@ class Artwork(db.Model):
     a_title = db.Column(db.String(75),
                         unique=True)
     portfolio_id = db.Column(db.Integer, 
-                             db.ForeignKey("portfolios.portfolio_id"))
+                             db.ForeignKey("portfolios.portfolio_id"),
+                             nullable=False)
 
     portfolio = db.relationship("Portfolio", 
                                 back_populates="artworks")
