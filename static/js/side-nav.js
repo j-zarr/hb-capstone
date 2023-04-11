@@ -69,12 +69,7 @@ $(document).ready(() => {
     
         $('#nav-menu').html(navCreateMenu).fadeIn();
             
-        $('#content-area').html(
-            `
-              <div class="col py-3" id="art-canvas">
-                 <p>CANVAS WILL GO HERE!</p>
-             </div> `
-               );
+        $('#content-area').html(artCanvas);
             
         });
         
