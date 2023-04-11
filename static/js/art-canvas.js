@@ -1,6 +1,6 @@
 $(document).ready(() => {
 
-$('#art-canvas"')
+//$('#art-canvas')
 
 
 
