@@ -4,6 +4,7 @@ from flask import (Flask, render_template, request, flash, session, redirect, js
 from jinja2 import StrictUndefined
 from model import connect_to_db, db
 import crud_u, crud_p, crud_a 
+#import /crud/crud_a
 
 
 app = Flask(__name__)

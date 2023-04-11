@@ -15,20 +15,20 @@ $(document).ready(() => {
         </li>
         <br>
         <hr>`;
-       
 
-        //update and delete should only be available on the gallery cards 
-        // <li>
-        //      <a href="#" class="nav-link px-0 align-middle">
-        //      <span class="ms-1 d-none d-sm-inline">Update</span></a>
-        // </li>
-        // <li>
-        //     <a href="#" class="nav-link px-0 align-middle">
-        //         <span class="ms-1 d-none d-sm-inline">Delete</span></a>
-        // </li>
-        // <hr> `;
-        
-    
+
+    //update and delete should only be available on the gallery cards themselves
+    // <li>
+    //      <a href="#" class="nav-link px-0 align-middle">
+    //      <span class="ms-1 d-none d-sm-inline">Update</span></a>
+    // </li>
+    // <li>
+    //     <a href="#" class="nav-link px-0 align-middle">
+    //         <span class="ms-1 d-none d-sm-inline">Delete</span></a>
+    // </li>
+    // <hr> `;
+
+
     const navGalleryMenu =
         `<li>
         <a href="#" class="nav-link px-0 align-middle">
@@ -53,45 +53,62 @@ $(document).ready(() => {
         </div> 
         <br>
         <hr>`;
-        
-        
+
+
     const blueColor = $('#logout').css('color')
 
+    //use 'function()' syntax to maintain access to $(this)
+    $('#create-link').click(function() {
 
-    $('#create-link').click(() => {
-       
         $('#gallery-link').css('color', blueColor);
-        $('#gallery-link').prop('disabled', false); 
+        $('#gallery-link').prop('disabled', false);
 
-        $('#create-link').prop('disabled', true);  
-        $('#create-link').css('color', '#55DD33');
-        
-    
+        $(this).prop('disabled', true);
+        $(this).css('color', '#55DD33');
+
+
         $('#nav-menu').html(navCreateMenu).fadeIn();
-            
-        $('#content-area').html(artCanvas);
-            
-        });
-        
 
-     $('#gallery-link').click(() => {   
-        
+        // canvas = artCanvas['fabricCanvas'];
+        // redRect = artCanvas['rect'];
+        // // "add" rectangle onto canvas
+        // canvas.add(redRect);
+
+
+        $('#content-area').html(artCanvas.mainHTML);
+       
+       // const myCanvas = new fabric.Canvas('c');
+
+        //Just a test
+        // var rect = artCanvas.rect; // start test
+        //   // "add" rectangle onto canvas
+        //   myCanvas.add(rect); // end test
+
+
+          //call functions from art-canvas.js 
+          activateBtnClick();
+
+    });
+
+
+    $('#gallery-link').click(function() {
+
         $('#create-link').css('color', blueColor);
-        $('#create-link').prop('disabled', false); 
-        
-        $('#gallery-link').prop('disabled', true); 
-        $('#gallery-link').css('color', '#55DD33');
-        
-           
+        $('#create-link').prop('disabled', false);
+
+        $(this).prop('disabled', true);
+        $(this).css('color', '#55DD33');
+
+
         $('#nav-menu').html(navGalleryMenu).fadeIn();
-            
+
         $('#content-area').html(
-             `
-            <div class="col py-3" id="gallery-cards">
+            `
+            <div id="gallery-cards">
                  <p>GALLERY AS CARDS WILL GO HERE!</p>
             </div> `
-            );
-        });
+        );
+    });
 
 
 }); // closing for document.ready
