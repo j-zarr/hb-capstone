@@ -31,7 +31,7 @@ def get_portfolios_by_search_param(search_param):
     """Return a list of portfolios that match search input"""
 
     portfolios: list = Portfolio.query.filter(
-        Portfolio.p_title.like(f'%{search_param}%')).all()
+        Portfolio.p_title.ilike(f'%{search_param}%')).all()
 
     return portfolios
 

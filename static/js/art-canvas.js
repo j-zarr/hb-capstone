@@ -7,7 +7,7 @@ const artCanvas = `
         <span><button>ERASE</button></span>
         <span><button>SHAPEs...</button></span>
     </div>
-    <canvas width="500" height="500" style="border:1px solid black;""></canvas>`
+    <canvas id="c" width="500" height="500" style="border:1px solid black;"></canvas>`
 
 
 

@@ -48,7 +48,7 @@ def get_artworks_by_search_param(search_param):
     """Return a list of artworks that match search input"""
 
     artworks: list = Artwork.query.filter(
-        Artwork.a_title.like(f'%{search_param}%')).all()
+        Artwork.a_title.ilike(f'%{search_param}%')).all()
 
     return artworks
 
