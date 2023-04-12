@@ -11,6 +11,12 @@ app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 
 
+# helper function to not allow user to navigate to user page in url wwithiout logging in 
+def checkIsLoggedIn():
+    if session.get('user_id', 0) == 0:
+        return False
+
+
 ### routes that return html templates ###
 
 
@@ -88,6 +94,10 @@ def create_user():
 def user_page():
     """View user page"""
 
+    logged_in = checkIsLoggedIn
+    if logged_in() == False:
+        return redirect("/")
+
     return render_template("user.html")
 
 
@@ -111,10 +121,6 @@ def user_page():
 #     flash(f"Artwork saved artwork_id: {session['artwork_id']}")#just for testing
     
 #     return jsonify()###complete function after build related pieces
-
-
-
-
 
 
 

@@ -6,11 +6,11 @@ $(document).ready(() => {
             <span class="ms-1 d-none d-sm-inline" style="color:#98FB98;">Save</span></a>
         </li> 
         <li>
-             <a href="#" class="nav-link px-0 align-middle">
+             <a href="#" class="nav-link px-0 align-middle" id="clear">
              <span class="ms-1 d-none d-sm-inline" style="color:#98FB98;">Clear</span></a>
         </li>
         <li>
-             <a href="#" class="nav-link px-0 align-middle">
+             <a href="#" class="nav-link px-0 align-middle" id="restore">
              <span class="ms-1 d-none d-sm-inline" style="color:#98FB98;">Restore</span></a>
         </li>
         <br>
@@ -74,17 +74,25 @@ $(document).ready(() => {
         // canvas.add(redRect);
 
         $('#content-area').html(artCanvas.mainHTML);
-       
-       // const myCanvas = new fabric.Canvas('c');
 
-        //Just a test
-        // var rect = artCanvas.rect; // start test
-        //   // "add" rectangle onto canvas
-        //   myCanvas.add(rect); // end test
+        //instantiate fabric.js canvas on html camvas id
+        const myCanvas = new fabric.Canvas('c', {
+            width: 800, 
+            height: 800,
+        });
+
+        //call functions from art-canvas.js 
+        activateBtnClick(myCanvas);
 
 
-          //call functions from art-canvas.js 
-          activateBtnClick();
+        $('#clear').click(function(){
+            myCanvas.clear();
+        });
+
+        //let savedPosition = myCanvas.toJSON();
+        // $('#restore').click(function(){
+        //     myCanvas.loadFromJSON(savedPosition,myCanvas.renderAll.bind(myCanvas) )
+        // })
 
     });
 
