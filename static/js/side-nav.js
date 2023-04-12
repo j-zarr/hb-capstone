@@ -66,14 +66,12 @@ $(document).ready(() => {
         $(this).prop('disabled', true);
         $(this).css('color', '#55DD33');
 
-
         $('#nav-menu').html(navCreateMenu).fadeIn();
 
         // canvas = artCanvas['fabricCanvas'];
         // redRect = artCanvas['rect'];
         // // "add" rectangle onto canvas
         // canvas.add(redRect);
-
 
         $('#content-area').html(artCanvas.mainHTML);
        

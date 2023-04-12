@@ -4,7 +4,6 @@ from flask import (Flask, render_template, request, flash, session, redirect, js
 from jinja2 import StrictUndefined
 from model import connect_to_db, db
 import crud_u, crud_p, crud_a 
-#import /crud/crud_a
 
 
 app = Flask(__name__)
@@ -19,17 +18,12 @@ app.jinja_env.undefined = StrictUndefined
 def homepage():
     """View homepage."""
 
-    return render_template("homepage.html")
+    error = None #set error to none on initial page load
+
+    return render_template("homepage.html", error=error)
 
 
-@app.route("/login")
-def login():
-    """View user login form."""
-
-    return render_template("login.html", error=None) #Error=None on initial template render
-
-
-@app.route("/validate-user", methods=['POST'])
+@app.route("/login", methods=['POST'])
 def login_user():
     """Validate user login info"""
 
@@ -39,7 +33,7 @@ def login_user():
     user = crud_u.get_user_by_email(email)
 
     if user and user.password == password:
-        
+
         #store user info in session
         session['user_id'] = user.user_id
         session['username'] = user.username
@@ -49,7 +43,7 @@ def login_user():
     
     else:
         error = "Incorrect login details, try again or click signup to create an ARTwrks account"
-        return render_template("login.html", error=error)
+        return render_template("homepage.html", error=error)
 
 
 @app.route("/logout")

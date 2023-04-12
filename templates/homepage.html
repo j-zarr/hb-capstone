@@ -5,18 +5,34 @@
 {% block navbar %} 
 <nav>
     <span>ARTwrks</span>       
-    <form action="/login" method="GET">
-         <button type="submit">LOGIN</button>
-    </form> 
-    <form action="/signup" method="GET">
-          <button>SIGNUP</button>
-    </form>  
 </nav>
 {% endblock %}
 
 {% block content %}
 
-<h4>Welcome to ARTwrks!</h4>
+<form action="/login" method="POST">
+    <h4>LOGIN</h4>
+
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email"><br>
+
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password"><br>
+
+    <input type = "submit">
+</form>
+
+<form action="/signup" method="GET">
+    <span>Don't have an account?</span><button>SIGNUP</button>
+</form>  
+
+{% if error %}
+    <p> {{ error }} </p>
+   
+{% endif %}
+
+
+
 
 
 {% endblock %}

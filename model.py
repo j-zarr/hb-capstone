@@ -1,6 +1,7 @@
-"""Models for art app."""
+"""Models for ARTwrks app."""
 
 from flask_sqlalchemy import SQLAlchemy
+
 
 db = SQLAlchemy()
 
@@ -13,11 +14,14 @@ class User(db.Model):
     user_id  = db.Column(db.Integer, 
                          autoincrement=True, 
                          primary_key=True)
+    
     username = db.Column(db.String(25),
                          nullable=False)
+    
     email = db.Column(db.String(25), 
                       unique=True, 
                       nullable=False) 
+    
     password = db.Column(db.String(25), 
                          nullable=False)
 
@@ -37,8 +41,10 @@ class Portfolio(db.Model):
     portfolio_id = db.Column(db.Integer, 
                              autoincrement=True, 
                              primary_key=True) 
+    
     p_title = db.Column(db.String(75),
                         unique=True)
+    
     user_id = db.Column(db.Integer, 
                         db.ForeignKey("users.user_id"))
 
@@ -48,7 +54,8 @@ class Portfolio(db.Model):
     # one portfolio to many artworks
     artworks = db.relationship("Artwork", 
                                back_populates="portfolio",
-                               cascade = "all, delete, delete-orphan") # delete related artworks if portfolio deleted
+                               # delete related artworks if portfolio deleted
+                               cascade = "all, delete, delete-orphan") 
 
     def __repr__(self):
         return f"<Portfolio portfolio_id={self.portfolio_id} p_title={self.p_title}>"
@@ -62,9 +69,11 @@ class Artwork(db.Model):
     artwork_id = db.Column(db.Integer, 
                            autoincrement=True, 
                            primary_key=True)
+    
     file_path = db.Column(db.String)
     a_title = db.Column(db.String(75),
                         unique=True)
+    
     portfolio_id = db.Column(db.Integer, 
                              db.ForeignKey("portfolios.portfolio_id"),
                              nullable=False)
