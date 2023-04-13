@@ -58,7 +58,7 @@ $(document).ready(() => {
     const blueColor = $('#logout').css('color')
 
     //use 'function()' syntax to maintain access to $(this)
-    $('#create-link').click(function() {
+    $('#create-link').click(function () {
 
         $('#gallery-link').css('color', blueColor);
         $('#gallery-link').prop('disabled', false);
@@ -77,15 +77,49 @@ $(document).ready(() => {
 
         //instantiate fabric.js canvas on html camvas id
         const myCanvas = new fabric.Canvas('c', {
-            width: 800, 
+            width: 800,
             height: 800,
+            selectionFullyContained: true,
         });
+
+        //customize color picker
+        Coloris({
+            a11y: {
+                open: 'Open color picker',
+                close: 'Close color picker',
+                hueSlider: 'Hue slider',
+                alphaSlider: 'Opacity slider',
+                input: 'Color value field',
+                format: 'Color format',
+                swatch: 'Color swatch'
+            },
+            closeButton: true,
+            closeLabel: 'Close',
+            el: '.color-field',
+            wrap: true,
+            rtl: true,
+            format: 'rgb',
+            //themeMode: 'dark',    
+            onChange: (color) => {
+                $('.color-field').css('color, color')
+              //  $('#selected-color').css('border', `solid ${color} 4px`)
+                }
+        });
+
+        //get selected color
+        // document.addEventListener('coloris:pick', event => {
+        //     console.log('New color', event.detail.color);
+        //   });
+
+         //basic html color picker
+         const inputColor = $('#input-color') 
+         const colorLabel = $('#color-label')
 
         //call functions from art-canvas.js 
         activateBtnClick(myCanvas);
 
 
-        $('#clear').click(function(){
+        $('#clear').click(function () {
             myCanvas.clear();
         });
 
@@ -97,7 +131,7 @@ $(document).ready(() => {
     });
 
 
-    $('#gallery-link').click(function() {
+    $('#gallery-link').click(function () {
 
         $('#create-link').css('color', blueColor);
         $('#create-link').prop('disabled', false);
