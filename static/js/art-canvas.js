@@ -5,7 +5,7 @@ const artCanvas = {
     <div id="art-canvas">
         <div class="coloring-options">
             <div style="border: 1px solid black; display: flex; justify-content: center; align-items: center;"> 
-                <label for="color-hex">Color</label>
+                <label for="color-hex"><i class="bi bi-palette2"></i></label>
                 <input type="color" id="selected-color" value="#00FF00" oninput="this.nextElementSibling.value = this.value">
                 <output>#00FF00<output> 
             </div>
@@ -26,7 +26,7 @@ const artCanvas = {
          
         <div class="canvas-buttons">
             <span><button id="select-object" title="select-object"><i class="bi bi-arrows-move"></i></button></span>
-            <span><button id="water-color" title="water-color"<i class="bi bi-water"></i></button></span>
+            <span><button id="spray-paint" title="water-color"<i class="bi bi-water"></i></button></span>
             <span><button id="paint" title="paint"><i class="bi bi-brush"></i></button></span>
             <span><button id="draw" title="draw"><i class="bi bi-pencil"></i></button></span>
             <span><button id="eraser" title="eraser"><i class="bi bi-eraser"></i></button></span>
@@ -44,19 +44,25 @@ const artCanvas = {
 
 // Set event handlers for interactivity with the dynamically added canvas and related buttons/inputs
 function activateBtnClick(canvas) {
-
-    // Note: the select-object button doesn't do anything, it's included to make the UX more user friendly.
-    // it's just a mock-button to simulate allowing user to select their drawing to move around the canvas.
-    // Shape objects in fabric.js are automatically selectable once inserted onto the canvas. 
-    // For drawing, need to set drawingMode to false. So clicking any non-drawingg button 
-    // will do the same if the click sets drawingMode to false. 
-    // All the select-object button does is set the drawingMode to false.
-
+    
     // Deselect buttons if selected from coloring otions (color picker, opacity, width)
     $('.coloring-options').on('input', function () {
         $('button').css('color', 'white');
-        canvas.isDrawingMode = false;
-    })
+
+        // Set drawing mode and selectable to false after user selects color options
+        // so new clicks will be updated with new color options 
+        // and previous drawings will not become selectable objects unless click select
+        canvas.isDrawingMode = false; 
+        canvas.getObjects().map(obj => {
+            obj.selectable = false;
+        });
+    });
+
+    $('#select-object').click(function(){
+        canvas.getObjects().map(obj => {
+            obj.selectable = true;
+        });
+    });
 
     $('button').click(function () {
 
@@ -75,8 +81,9 @@ function activateBtnClick(canvas) {
     // change on color and change on opacity 
     // (only the shape objects in fabric.js have opacity properties so need to set manually with color property)
 
-    // Initialize selectedColor to default value (no opacity for default color)
-    let selectedColor = $('#selected-color').val();
+    // Initialize selectedColor and selectedOPacity to default value 
+    let selectedColor = "#00FF00";
+    let selectedOPacity = 1;
 
     // Helper function to convert the hexidecimal value to rgb
     function convertHexToRGB(hex) { //01 23 45
@@ -96,7 +103,7 @@ function activateBtnClick(canvas) {
     // Helper function to combine rgb and alpha values to set the final selectedColor
     function setColorToRGBA(alpha, color) {
         color = selectedColor;
-        alpha = document.getElementById('selected-opacity').valueAsNumber;
+        alpha = selectedOPacity;
         const rgb = convertHexToRGB(color)
 
         const rgba = [
@@ -107,26 +114,26 @@ function activateBtnClick(canvas) {
         ]
 
         selectedColor = `rgba(${rgba[0]}, ${rgba[1]}, ${rgba[2]}, ${rgba[3]} )`
-        return selectedColor
+        return selectedColor;
     }
-
-
-
 
 
     // Update the selected-opacity value on input change (as int)
     $('#selected-opacity').change(function () {
-        selectedOpacity = document.getElementById('selected-opacity').valueAsNumber;
+        
+        selectedOPacity = document.getElementById('selected-opacity').valueAsNumber;
+        selectedColor = $('#selected-color').val();
 
         // add alpha value to selectedColor and set final colorSelected value
-        setColorToRGBA(alpha = selectedOpacity, color = selectedColor)
+        setColorToRGBA(alpha = selectedOPacity, color = selectedColor)
     });
 
 
     // Get the selected-color value on input change
     $('#selected-color').change(function () {
+
+        selectedOPacity = document.getElementById('selected-opacity').valueAsNumber;
         selectedColor = $('#selected-color').val();
-        selectedOpacity = document.getElementById('selected-opacity').valueAsNumber;
 
         // add rgb color to the selectedOpacity and set final colorSelected value
         setColorToRGBA(alpha = selectedOpacity, rgb = selectedColor)
@@ -134,7 +141,7 @@ function activateBtnClick(canvas) {
 
 
     // Initialize selectedWidth  default value (as int)
-    let selectedWidth = 10;//document.getElementById('selected-width').valueAsNumber;
+    let selectedWidth = document.getElementById('selected-width').valueAsNumber;
 
 
     // Update selected-width on input change (as int)
@@ -155,7 +162,7 @@ function activateBtnClick(canvas) {
             strokeUniform: true,
             width: 75,
             height: 75,
-            objecctCaching: false //test if needed, can use obj.set('prop', 'val') instead 
+            selectable: false
         });
         canvas.add(rect);
     });
@@ -169,7 +176,8 @@ function activateBtnClick(canvas) {
             stroke: selectedColor,
             strokeWidth: selectedWidth,
             strokeUniform: true,
-            radius: 50
+            radius: 50,
+            selectable: false
         });
         canvas.add(circle);
     });
@@ -185,7 +193,8 @@ function activateBtnClick(canvas) {
             strokeUniform: true,
             width: 50,
             height: 50,
-            angle: 45
+            angle: 45,
+            selectable: false
         });
         canvas.add(triangle);
     });
@@ -198,6 +207,7 @@ function activateBtnClick(canvas) {
                 stroke: selectedColor,
                 strokeWidth: selectedWidth,
                 strokeUniform: true,
+                selectable: false
             });
         canvas.add(line);
     });
@@ -226,10 +236,23 @@ function activateBtnClick(canvas) {
         brush.strokeLineCap = 'bevel';
     });
 
+    // *****try tpo play with methods to mimmick water color
+    // Create new SprayBrush to draw with on click event of spray-can button
+    $('#spray-paint').click(function(){
+
+        // Set drawing mode to true
+        canvas.isDrawingMode = true;
+ 
+        const brush = new fabric.SprayBrush(canvas);
+        brush.color = selectedColor;
+        brush.width = selectedWidth;
+        canvas.freeDrawingBrush = brush;
+    });
+
+
     $('#eraser').click(function () {
 
     });
-
 
 
 

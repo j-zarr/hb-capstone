@@ -1,5 +1,6 @@
 $(document).ready(() => {
 
+    // Insert main user menu as side bar
     const navCreateMenu =
         `<li>
             <a href="#" class="nav-link px-0 align-middle">
@@ -17,7 +18,7 @@ $(document).ready(() => {
         <hr>`;
 
 
-    //update and delete should only be available on the gallery cards themselves
+    //update and delete should only be available when cards populate the page
     // <li>
     //      <a href="#" class="nav-link px-0 align-middle">
     //      <span class="ms-1 d-none d-sm-inline">Update</span></a>
@@ -28,7 +29,7 @@ $(document).ready(() => {
     // </li>
     // <hr> `;
 
-
+    // Update menu options (for gallery link click)
     const navGalleryMenu =
         `<li>
         <a href="#" class="nav-link px-0 align-middle">
@@ -54,25 +55,24 @@ $(document).ready(() => {
         <br>
         <hr>`;
 
-
+    // get the bootstrap shade of blue to use 
     const blueColor = $('#logout').css('color')
 
-    //use 'function()' syntax to maintain access to $(this)
+    //Note: use 'function()' syntax to maintain access to $(this)
+
+    // Set event handler for click on 'create' link
     $('#create-link').click(function () {
 
         $('#gallery-link').css('color', blueColor);
         $('#gallery-link').prop('disabled', false);
 
         $(this).prop('disabled', true);
-        $(this).css('color', '#55DD33');
+        $(this).css('color', '#00FF00');
 
+        // update the menu options in the HTML
         $('#nav-menu').html(navCreateMenu).fadeIn();
 
-        // canvas = artCanvas['fabricCanvas'];
-        // redRect = artCanvas['rect'];
-        // // "add" rectangle onto canvas
-        // canvas.add(redRect);
-
+        // update the HTML with the canvas and canvas features
         $('#content-area').html(artCanvas.canvasHTML);
 
         //instantiate fabric.js canvas on html camvas id
@@ -83,10 +83,10 @@ $(document).ready(() => {
         });
 
         
-        //call functions from art-canvas.js 
+        //Call functions from art-canvas.js to interact with the created canvas 
         activateBtnClick(myCanvas);
         
-
+        // set event handler for click on 'clear' to clear the canvas 
         $('#clear').click(function () {
             myCanvas.clear();
         });
@@ -98,18 +98,19 @@ $(document).ready(() => {
 
     });
 
-
+    // Set event handler for click on 'gallery' link
     $('#gallery-link').click(function () {
 
         $('#create-link').css('color', blueColor);
         $('#create-link').prop('disabled', false);
 
         $(this).prop('disabled', true);
-        $(this).css('color', '#55DD33');
+        $(this).css('color', '#00FF00');
 
-
+        // update the menu options in the HTML
         $('#nav-menu').html(navGalleryMenu).fadeIn();
 
+        // updtae the HTML with the gallery and features
         $('#content-area').html(
             `
             <div id="gallery-cards">
