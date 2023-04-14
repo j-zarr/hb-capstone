@@ -1,7 +1,8 @@
 
 //store html elements to dynamically add when "create" clicked in menu
 const artCanvas = {
-    mainHTML: `
+    canvasHTML: `
+    <div id="art-canvas">
         <div class="coloring-options">
             <div style="border: 1px solid black; display: flex; justify-content: center; align-items: center;"> 
                 <label for="color-hex">Color</label>
@@ -22,22 +23,23 @@ const artCanvas = {
             </div>
         </div>
 
-         <div id="art-canvas">
-                <div class="canvas-buttons">
-                    <span><button id="select-object" title="select-object"><i class="bi bi-arrows-move"></i></button></span>
-                    <span><button id="paint" title="paint"><i class="bi bi-brush"></i></button></span>
-                    <span><button id="draw" title="draw"><i class="bi bi-pencil"></i></button></span>
-                    <span><button id="eraser" title="eraser"><i class="bi bi-eraser"></i></button></span>
-                    <span><button id="color-fill" title="color-fill"><i class="bi bi-paint-bucket"></i></i></button></span> 
-                    <span><button id="square" title="square"><i class="bi bi-square"></i></i></button></span>
-                    <span><button id="circle" title="circle"><i class="bi bi-circle"></i></i></button></span>
-                    <span><button id="triangle" title="triangle"><i class="bi bi-triangle"></i></button></span>
-                    <span><button id="line" title="line"><i class="bi bi-dash-lg"></i></button></span>   
-                 </div>
+         
+        <div class="canvas-buttons">
+            <span><button id="select-object" title="select-object"><i class="bi bi-arrows-move"></i></button></span>
+            <span><button id="water-color" title="water-color"<i class="bi bi-water"></i></button></span>
+            <span><button id="paint" title="paint"><i class="bi bi-brush"></i></button></span>
+            <span><button id="draw" title="draw"><i class="bi bi-pencil"></i></button></span>
+            <span><button id="eraser" title="eraser"><i class="bi bi-eraser"></i></button></span>
+            <span><button id="color-fill" title="color-fill"><i class="bi bi-paint-bucket"></i></i></button></span> 
+            <span><button id="square" title="square"><i class="bi bi-square"></i></i></button></span>
+            <span><button id="circle" title="circle"><i class="bi bi-circle"></i></i></button></span>
+            <span><button id="triangle" title="triangle"><i class="bi bi-triangle"></i></button></span>
+            <span><button id="line" title="line"><i class="bi bi-dash-lg"></i></button></span>   
+        </div>
                 
-                <canvas id="c" style="border:1px solid black; border-radius: 5px;" ></canvas>
+        <canvas id="c" style="border:1px solid black; border-radius: 5px;" ></canvas>
             
-            </div>`,
+    </div>`
 }
 
 // Set event handlers for interactivity with the dynamically added canvas and related buttons/inputs
@@ -132,7 +134,7 @@ function activateBtnClick(canvas) {
 
 
     // Initialize selectedWidth  default value (as int)
-    let selectedWidth = document.getElementById('selected-width').valueAsNumber;
+    let selectedWidth = 10;//document.getElementById('selected-width').valueAsNumber;
 
 
     // Update selected-width on input change (as int)

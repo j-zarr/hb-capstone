@@ -73,7 +73,7 @@ $(document).ready(() => {
         // // "add" rectangle onto canvas
         // canvas.add(redRect);
 
-        $('#content-area').html(artCanvas.mainHTML);
+        $('#content-area').html(artCanvas.canvasHTML);
 
         //instantiate fabric.js canvas on html camvas id
         const myCanvas = new fabric.Canvas('c', {
