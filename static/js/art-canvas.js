@@ -53,6 +53,7 @@ function activateBtnClick(canvas) {
     // Deselect buttons if selected from coloring otions (color picker, opacity, width)
     $('.coloring-options').on('input', function () {
         $('button').css('color', 'white');
+        canvas.isDrawingMode = false;
     })
 
     $('button').click(function () {
@@ -103,8 +104,8 @@ function activateBtnClick(canvas) {
             alpha
         ]
 
-        console.log(rgba)
-
+        selectedColor = `rgba(${rgba[0]}, ${rgba[1]}, ${rgba[2]}, ${rgba[3]} )`
+        return selectedColor
     }
 
 
@@ -218,7 +219,7 @@ function activateBtnClick(canvas) {
         canvas.isDrawingMode = true;
 
         const brush = canvas.freeDrawingBrush;
-        brush.color = 'rgba(148, 81, 81, 0.1)';
+        brush.color = selectedColor;
         brush.width = selectedWidth;
         brush.strokeLineCap = 'bevel';
     });
