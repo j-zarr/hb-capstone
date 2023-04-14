@@ -82,42 +82,10 @@ $(document).ready(() => {
             selectionFullyContained: true,
         });
 
-        //customize color picker
-        Coloris({
-            a11y: {
-                open: 'Open color picker',
-                close: 'Close color picker',
-                hueSlider: 'Hue slider',
-                alphaSlider: 'Opacity slider',
-                input: 'Color value field',
-                format: 'Color format',
-                swatch: 'Color swatch'
-            },
-            closeButton: true,
-            closeLabel: 'Close',
-            el: '.color-field',
-            wrap: true,
-            rtl: true,
-            format: 'rgb',
-            //themeMode: 'dark',    
-            onChange: (color) => {
-                $('.color-field').css('color, color')
-              //  $('#selected-color').css('border', `solid ${color} 4px`)
-                }
-        });
-
-        //get selected color
-        // document.addEventListener('coloris:pick', event => {
-        //     console.log('New color', event.detail.color);
-        //   });
-
-         //basic html color picker
-         const inputColor = $('#input-color') 
-         const colorLabel = $('#color-label')
-
+        
         //call functions from art-canvas.js 
         activateBtnClick(myCanvas);
-
+        
 
         $('#clear').click(function () {
             myCanvas.clear();
