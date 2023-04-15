@@ -152,12 +152,16 @@ function activateBtnClick(canvas, currCanvas) {
         });
     });
 
+    // Helper function to set shape objects to be placed in center of canvas
+    const canvasCenter = (obj) => {
+        obj.top = canvas.getCenter().top;
+        obj.left = canvas.getCenter().left
+    }
+
     // Create new Square on click event of square button
     $('#square').click(function () {
 
         const rect = new fabric.Rect({
-            // left: 100,
-            // top: 100,
             fill: '',
             stroke: selectedColor,
             strokeWidth: selectedWidth,
@@ -166,14 +170,13 @@ function activateBtnClick(canvas, currCanvas) {
             height: 75,
             selectable: false
         });
+        canvasCenter(rect);
         canvas.add(rect);
     });
 
     // Create new circle on click event of circle button
     $('#circle').click(function () {
         const circle = new fabric.Circle({
-            // left: 100,
-            // top: 100,
             fill: '',
             stroke: selectedColor,
             strokeWidth: selectedWidth,
@@ -181,14 +184,14 @@ function activateBtnClick(canvas, currCanvas) {
             radius: 50,
             selectable: false
         });
+
+        canvasCenter(circle);
         canvas.add(circle);
     });
 
     // Create new Triangle on click event of triangle button
     $('#triangle').click(function () {
         const triangle = new fabric.Triangle({
-            left: 100,
-            top: 100,
             fill: '',
             stroke: selectedColor,
             strokeWidth: selectedWidth,
@@ -198,6 +201,7 @@ function activateBtnClick(canvas, currCanvas) {
             angle: 45,
             selectable: false
         });
+        canvasCenter(triangle);
         canvas.add(triangle);
     });
 
@@ -211,6 +215,7 @@ function activateBtnClick(canvas, currCanvas) {
                 strokeUniform: true,
                 selectable: false
             });
+        canvasCenter(line);
         canvas.add(line);
     });
 
@@ -251,83 +256,37 @@ function activateBtnClick(canvas, currCanvas) {
         canvas.freeDrawingBrush = brush;
     });
 
-
-    // Create new brush that only draws in white to mimmick erasing on white canvas, on eraser click
-    //Note: To be able to erase in fabric.js would need to use clipPath object to delete parts of the drawing objects --- If I have time later on, I will look into this. Since the canvas is allways a white background, not neccessary for the pupose of this app. 
-    $('#eraser').click(function () {
-
-        const brush = canvas.freeDrawingBrush;
-        brush.width = selectedWidth;
-        brush.color = 'white'; //always set to white
-    });
-
-
+    
     // Set fill to selected color on color-fill button click
    $('#color-fill').click(function(){
-        
-        // Get active selected object
-        const selectedObj = canvas.getActiveObject()
-        
-        // set the fill to the selected color
-        selectedObj.set('fill', selectedColor);
-
-        //set renderAll so fill takes place without waiting to leave selection
-        canvas.renderAll() 
+         
+         // Use getActiveObjects to include single or multiple selected objects
+         const selectedObjects = canvas.getActiveObjects();
+         selectedObjects.forEach((obj)=>{
+            obj.set('fill', selectedColor);
+         });
+        canvas.requestRenderAll();
    });
 
    
 // Delete selected object on click of delete-obj button
 $('#delete-obj').click(function(){
-    const selectedObj = canvas.getActiveObject()
-    //selectedObj.discardActiveObject()
-    canvas.remove(selectedObj).renderAll();
-})
 
-       
+    // Use getActiveObjects to include single or multiple selected objects
+    const selectedObjects = canvas.getActiveObjects()
+    selectedObjects.forEach((obj)=>{
+        canvas.remove(obj);
+     });  
+    canvas.requestRenderAll();
+});
+
+// saveState()
 // restore what was cleared
 
 
+//eraser -- need to custom build, use clipPath?
 
-// implement after MVP completed and gallery completed 
-// copy and paste selected objects-- code taken dirctely from fabric.js demo on website
-// they use buttons for the canvas that say 'copy objects', 'paste objects'
 
-// function Copy() {
-// 	// clone what are you copying since you
-// 	// may want copy and paste on different moment.
-// 	// and you do not want the changes happened
-// 	// later to reflect on the copy.
-// 	canvas.getActiveObject().clone(function(cloned) {
-// 		_clipboard = cloned;
-// 	});
-// }
-
-// function Paste() {
-// 	// clone again, so you can do multiple copies.
-// 	_clipboard.clone(function(clonedObj) {
-// 		canvas.discardActiveObject();
-// 		clonedObj.set({
-// 			left: clonedObj.left + 10,
-// 			top: clonedObj.top + 10,
-// 			evented: true,
-// 		});
-// 		if (clonedObj.type === 'activeSelection') {
-// 			// active selection needs a reference to the canvas.
-// 			clonedObj.canvas = canvas;
-// 			clonedObj.forEachObject(function(obj) {
-// 				canvas.add(obj);
-// 			});
-// 			// this should solve the unselectability
-// 			clonedObj.setCoords();
-// 		} else {
-// 			canvas.add(clonedObj);
-// 		}
-// 		_clipboard.top += 10;
-// 		_clipboard.left += 10;
-// 		canvas.setActiveObject(clonedObj);
-// 		canvas.requestRenderAll();
-// 	});
-// }
 
 } //close for activateBtnClick
 
