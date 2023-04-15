@@ -81,7 +81,7 @@ $(document).ready(() => {
             height: 800,
             selectionFullyContained: true,
         });
-
+         
         
         //Call functions from art-canvas.js to interact with the created canvas 
         activateBtnClick(myCanvas);

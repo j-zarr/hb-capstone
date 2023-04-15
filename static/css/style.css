@@ -37,6 +37,6 @@
     vertical-align: middle;
 }
 
- #eraser, #draw, #paint, #spray-paint, #color-fill, #select-object{
+#delete-obj, #eraser, #draw, #paint, #spray-paint, #color-fill, #select-object{
     border-radius: 50%;
 }
