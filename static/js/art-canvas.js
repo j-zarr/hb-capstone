@@ -26,9 +26,11 @@ const artCanvas = {
          
         <div class="canvas-buttons">
             <span><button id="delete-obj" title="delete-obj"><i class="bi bi-trash"></i></button></span>
+            <span><button class="redo-and-undo" id="redo" title="redo"><i class="bi bi-arrow-clockwise"></i></button></span>
+            <span><button class="redo-and-undo" id="undo" title="undo"><i class="bi bi-arrow-counterclockwise"></i></button></span>
             <span><button id="color-fill" title="color-fill"><i class="bi bi-paint-bucket"></i></button></span>
             <span><button id="select-object" title="select-object"><i class="bi bi-arrows-move"></i></button></span>
-            <span><button class="drawing-mode" id="spray-paint" title="spray-paint"><i class="bi bi-water"></i></button></span>
+            <span><button class="drawing-mode" id="water-color" title="water-color"><i class="bi bi-water"></i></button></span>
             <span><button class="drawing-mode" id="paint" title="paint"><i class="bi bi-brush"></i></button></span>
             <span><button class="drawing-mode" id="draw" title="draw"><i class="bi bi-pencil"></i></button></span>
             <span><button class="drawing-mode" id="eraser" title="eraser"><i class="bi bi-eraser"></i></button></span> 
@@ -247,8 +249,9 @@ function activateBtnClick(canvas, currCanvas) {
     });
 
 
+    // After MVP change from SprayBrush to custom patterBrush to mimmick watercolor strokes
     // Create new SprayBrush to draw with on click event of sguiggles button
-    $('#spray-paint').click(function () {
+    $('#water-color').click(function () {
 
         const brush = new fabric.SprayBrush(canvas);
         brush.color = selectedColor;
@@ -256,36 +259,74 @@ function activateBtnClick(canvas, currCanvas) {
         canvas.freeDrawingBrush = brush;
     });
 
-    
+
     // Set fill to selected color on color-fill button click
-   $('#color-fill').click(function(){
-         
-         // Use getActiveObjects to include single or multiple selected objects
-         const selectedObjects = canvas.getActiveObjects();
-         selectedObjects.forEach((obj)=>{
+    $('#color-fill').click(function () {
+
+        // Use getActiveObjects to include single or multiple selected objects
+        const selectedObjects = canvas.getActiveObjects();
+        selectedObjects.forEach((obj) => {
             obj.set('fill', selectedColor);
-         });
+        });
         canvas.requestRenderAll();
-   });
-
-   
-// Delete selected object on click of delete-obj button
-$('#delete-obj').click(function(){
-
-    // Use getActiveObjects to include single or multiple selected objects
-    const selectedObjects = canvas.getActiveObjects()
-    selectedObjects.forEach((obj)=>{
-        canvas.remove(obj);
-     });  
-    canvas.requestRenderAll();
-});
+    });
 
 
+    // Delete selected object on click of delete-obj button
+    $('#delete-obj').click(function () {
+
+        // Use getActiveObjects to include single or multiple selected objects
+        const selectedObjects = canvas.getActiveObjects()
+        selectedObjects.forEach((obj) => {
+            canvas.remove(obj);
+        });
+        canvas.requestRenderAll();
+    });
+
+    // Initialize stack (as array) to be accessible to both undo and redo
+    // Store stack of removed item to be able to restore
+    let removed = []
+
+    // Set undo click handler
+    $('#undo').click(function() {
+
+         // Check if objetcs exist on canvas
+         if (canvas.isEmpty()) {
+            return;
+        }
+        // get last object added to canvas, add to removed stack and remove from canvas
+        let last = canvas._objects.pop()
+        removed.push(last)
+        canvas.remove(last);
+        canvas.requestRenderAll();
+    });
+
+    
+    // Set redo click handler 
+    $('#redo').click(function() {
+
+        // Check if anything in removed stack to be added
+        if(removed.length < 1){
+            return;
+        }
+        // pop object from removed stack and add to canvas
+        canvas.add(removed.pop())
+        canvas.requestRenderAll()
+    });
+    
 
 
-//eraser -- need to custom build, use clipPath?
+
+
+
+
+
+
+//AFTER EVERYTHING ELSE COMPLETED
+//eraser -- need to custom build, use clipPath? fabric.Path?
 // 'fabric.Path has its own toObject — that knows to return path's "points" array,...'- intro-part-3-serialization
 
+//Also want to change spraybrush to custom water-color patternbrush
 
 
 } //close for activateBtnClick

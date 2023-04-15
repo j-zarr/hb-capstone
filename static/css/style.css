@@ -37,6 +37,14 @@
     vertical-align: middle;
 }
 
-#delete-obj, #eraser, #draw, #paint, #spray-paint, #color-fill, #select-object{
+#undo,
+#redo,
+#delete-obj, 
+#eraser, 
+#draw, 
+#paint, 
+#water-color, 
+#color-fill, 
+#select-object{
     border-radius: 50%;
 }
