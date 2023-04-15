@@ -43,6 +43,7 @@ const artCanvas = {
         <canvas id="c" style="border:1px solid black; border-radius: 5px;" ></canvas>
             
     </div>`
+
 }
 
 // Set event handlers for interactivity with the dynamically added canvas and related buttons/inputs
@@ -170,7 +171,8 @@ function activateBtnClick(canvas, currCanvas) {
             strokeUniform: true,
             width: 75,
             height: 75,
-            selectable: false
+            selectable: false,
+            hoverCursor: 'crosshair'
         });
         canvasCenter(rect);
         canvas.add(rect);
@@ -184,7 +186,8 @@ function activateBtnClick(canvas, currCanvas) {
             strokeWidth: selectedWidth,
             strokeUniform: true,
             radius: 50,
-            selectable: false
+            selectable: false,
+            hoverCursor: 'crosshair'
         });
 
         canvasCenter(circle);
@@ -201,7 +204,8 @@ function activateBtnClick(canvas, currCanvas) {
             width: 50,
             height: 50,
             angle: 45,
-            selectable: false
+            selectable: false,
+            hoverCursor: 'crosshair'
         });
         canvasCenter(triangle);
         canvas.add(triangle);
@@ -215,7 +219,8 @@ function activateBtnClick(canvas, currCanvas) {
                 stroke: selectedColor,
                 strokeWidth: selectedWidth,
                 strokeUniform: true,
-                selectable: false
+                selectable: false,
+                hoverCursor: 'crosshair'
             });
         canvasCenter(line);
         canvas.add(line);
@@ -285,7 +290,10 @@ function activateBtnClick(canvas, currCanvas) {
 
     // Initialize stack (as array) to be accessible to both undo and redo
     // Store stack of removed item to be able to restore
-    let removed = []
+    let removed = [] 
+    
+    //Need to empty when clear canvas as that resets the entire canvas
+    $('#clear').click(() => removed.length = 0);
 
     // Set undo click handler
     $('#undo').click(function() {

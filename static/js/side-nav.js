@@ -79,7 +79,7 @@ $(document).ready(() => {
         const myCanvas = new fabric.Canvas('c', {
             width: 800,
             height: 800,
-            selectionFullyContained: true,
+            selectionFullyContained: true
         });
          
         
@@ -91,8 +91,14 @@ $(document).ready(() => {
         
         // set event handler for click on 'clear' to clear the canvas 
         $('#clear').click(function () {
+
+            // Check if canvas empty - prevent saving a blank canvas to restore
+            if (myCanvas.isEmpty()) {
+                return;
+            }
+    
             //Store canvas state before clearing to be able to restore
-            canvasState = myCanvas.toJSON();
+            canvasState = myCanvas.toJSON();  
             
             //Clear the canvas
             myCanvas.clear();
