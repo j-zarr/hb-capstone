@@ -85,16 +85,23 @@ $(document).ready(() => {
         
         //Call functions from art-canvas.js to interact with the created canvas 
         activateBtnClick(myCanvas);
+
+        // Initialize variable to hold canvas state
+        let canvasState = '';
         
         // set event handler for click on 'clear' to clear the canvas 
         $('#clear').click(function () {
+            //Store canvas state before clearing to be able to restore
+            canvasState = myCanvas.toJSON();
+            
+            //Clear the canvas
             myCanvas.clear();
         });
 
-        //let savedPosition = myCanvas.toJSON();
-        // $('#restore').click(function(){
-        //     myCanvas.loadFromJSON(savedPosition,myCanvas.renderAll.bind(myCanvas) )
-        // })
+        //restore cleared canvas
+        $('#restore').click(function(){
+            myCanvas.loadFromJSON(canvasState).requestRenderAll(); 
+         });
 
     });
 

@@ -280,11 +280,11 @@ $('#delete-obj').click(function(){
     canvas.requestRenderAll();
 });
 
-// saveState()
-// restore what was cleared
+
 
 
 //eraser -- need to custom build, use clipPath?
+// 'fabric.Path has its own toObject — that knows to return path's "points" array,...'- intro-part-3-serialization
 
 
 
