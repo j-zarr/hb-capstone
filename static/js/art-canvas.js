@@ -151,6 +151,7 @@ function activateBtnClick(canvas, currCanvas) {
     $('#select-object').click(function () {
         canvas.getObjects().map(obj => {
             obj.selectable = true;
+            obj.hoverCursor = 'move'
         });
     });
 
@@ -204,7 +205,10 @@ function activateBtnClick(canvas, currCanvas) {
             height: 50,
             angle: 45,
             selectable: false,
-            hoverCursor: 'crosshair'
+            hoverCursor: 'crosshair',
+            strokeLineJoin: 'miter',
+            strokeMiterLimit: 20
+
         });
         canvasCenter(triangle);
         canvas.add(triangle);

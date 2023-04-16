@@ -4,15 +4,15 @@ $(document).ready(() => {
     const navCreateMenu =
         `<li>
             <a href="#" class="nav-link px-0 align-middle">
-            <span class="ms-1 d-none d-sm-inline" style="color:#98FB98;">Save</span></a>
+            <span class="ms-1 d-none d-sm-inline" style="color:white;">Save</span></a>
         </li> 
         <li>
              <a href="#" class="nav-link px-0 align-middle" id="clear">
-             <span class="ms-1 d-none d-sm-inline" style="color:#98FB98;">Clear</span></a>
+             <span class="ms-1 d-none d-sm-inline" style="color:white;">Clear</span></a>
         </li>
         <li>
              <a href="#" class="nav-link px-0 align-middle" id="restore">
-             <span class="ms-1 d-none d-sm-inline" style="color:#98FB98;">Restore</span></a>
+             <span class="ms-1 d-none d-sm-inline" style="color:white;">Restore</span></a>
         </li>
         <br>
         <hr>`;
@@ -33,24 +33,24 @@ $(document).ready(() => {
     const navGalleryMenu =
         `<li>
         <a href="#" class="nav-link px-0 align-middle">
-            <span class="ms-1 d-none d-sm-inline" style="color:#98FB98;">Portfolios</span></a>
+            <span class="ms-1 d-none d-sm-inline" style="color:white;">Portfolios</span></a>
         </li>
         <li>
         <a href="#" class="nav-link px-0 align-middle">
-            <span class="ms-1 d-none d-sm-inline" style="color:#98FB98;">Artworks</span></a>
+            <span class="ms-1 d-none d-sm-inline" style="color:white;">Artworks</span></a>
         </li>
         <br>
          <li>
         <div class="input-group input-group-sm mb-3">
             <input type="search" id="search-portfolios" class="form-control rounded" placeholder="Portfolio title" aria-label="Search" aria-describedby="search-addon" />
-            <button type="button" class="btn btn-outline-primary" style="color:#98FB98; border-color:#98FB98">search</button>
+            <button type="button" class="btn btn-outline-primary" style="color:white; border-color:white">search</button>
         </div>
         </li>
 
         <li>
         <div class="input-group input-group-sm mb-3">
             <input type="search" id="search-artworkss" class="form-control rounded" placeholder="Artwork title" aria-label="Search" aria-describedby="search-addon" />
-            <button type="button" class="btn btn-outline-primary" style="color:#98FB98; border-color:#98FB98;">search</button>
+            <button type="button" class="btn btn-outline-primary" style="color:white; border-color:white;">search</button>
         </div> 
         <br>
         <hr>`;
