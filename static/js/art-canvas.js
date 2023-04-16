@@ -33,7 +33,6 @@ const artCanvas = {
             <span><button class="drawing-mode" id="water-color" title="water-color"><i class="bi bi-water"></i></button></span>
             <span><button class="drawing-mode" id="paint" title="paint"><i class="bi bi-brush"></i></button></span>
             <span><button class="drawing-mode" id="draw" title="draw"><i class="bi bi-pencil"></i></button></span>
-            <span><button class="drawing-mode" id="eraser" title="eraser"><i class="bi bi-eraser"></i></button></span> 
             <span><button id="square" title="square"><i class="bi bi-square"></i></i></button></span>
             <span><button id="circle" title="circle"><i class="bi bi-circle"></i></i></button></span>
             <span><button id="triangle" title="triangle"><i class="bi bi-triangle"></i></button></span>
@@ -290,10 +289,8 @@ function activateBtnClick(canvas, currCanvas) {
 
     // Initialize stack (as array) to be accessible to both undo and redo
     // Store stack of removed item to be able to restore
-    let removed = [] 
+    let removed = []  //To be emptied on clear canvas
     
-    //Need to empty when clear canvas as that resets the entire canvas
-    $('#clear').click(() => removed.length = 0);
 
     // Set undo click handler
     $('#undo').click(function() {
@@ -322,19 +319,32 @@ function activateBtnClick(canvas, currCanvas) {
         canvas.requestRenderAll()
     });
     
+// Initialize variable to hold canvas state
+let canvasState = '';
+        
+// set event handler for click on 'clear' to clear the canvas 
+$('#clear').click(function () {
+
+    // Check if canvas empty - prevent saving a blank canvas to restore
+    if (canvas.isEmpty()) {
+        return;
+    }
+
+    //Empty removed array so user cannot redo, clear resets the entire canvas
+    removed.length = 0;
+
+    //Store canvas state before clearing to be able to restore
+    canvasState = canvas.toJSON();  
+    
+    //Clear the canvas
+    canvas.clear();
+});
 
 
-
-
-
-
-
-
-//AFTER EVERYTHING ELSE COMPLETED
-//eraser -- need to custom build, use clipPath? fabric.Path?
-// 'fabric.Path has its own toObject — that knows to return path's "points" array,...'- intro-part-3-serialization
-
-//Also want to change spraybrush to custom water-color patternbrush
+//restore cleared canvas
+$('#restore').click(function(){
+    canvas.loadFromJSON(canvasState).requestRenderAll(); 
+ });
 
 
 } //close for activateBtnClick

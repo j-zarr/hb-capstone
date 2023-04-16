@@ -81,33 +81,9 @@ $(document).ready(() => {
             height: 800,
             selectionFullyContained: true
         });
-         
-        
-        //Call functions from art-canvas.js to interact with the created canvas 
-        activateBtnClick(myCanvas);
-
-        // Initialize variable to hold canvas state
-        let canvasState = '';
-        
-        // set event handler for click on 'clear' to clear the canvas 
-        $('#clear').click(function () {
-
-            // Check if canvas empty - prevent saving a blank canvas to restore
-            if (myCanvas.isEmpty()) {
-                return;
-            }
-    
-            //Store canvas state before clearing to be able to restore
-            canvasState = myCanvas.toJSON();  
             
-            //Clear the canvas
-            myCanvas.clear();
-        });
-
-        //restore cleared canvas
-        $('#restore').click(function(){
-            myCanvas.loadFromJSON(canvasState).requestRenderAll(); 
-         });
+        //Call functions from art-canvas.js to interact with the created canvas 
+        activateBtnClick(myCanvas);  
 
     });
 
