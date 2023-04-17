@@ -31,8 +31,7 @@ def get_all_artworks_by_portfolio_id(portfolio_id):
     """Return a list of all artworks from one portfolio by portfolio_id."""
 
     portfolio = Portfolio.query.options(db.joinedload('artworks'))
-    portfolio = portfolio.filter(
-        Portfolio.portfolio_id == portfolio_id).first()
+    portfolio = portfolio.filter(Portfolio.portfolio_id == portfolio_id).first()
     
     artworks = portfolio.artworks
 
@@ -42,7 +41,7 @@ def get_all_artworks_by_portfolio_id(portfolio_id):
 def get_all_artworks_by_user_id(user_id):
     """Return a list of all artworks from all user portfolios"""
 
-    portfolios = Portfolio.query.options(db.joinedload('artworks')).order_by(Artwork.a_title)
+    portfolios = Portfolio.query.options(db.joinedload('artworks'))
     portfolios = portfolios.filter(Portfolio.user_id == user_id).all()
    
     artworks: list = []
@@ -58,8 +57,8 @@ def get_artworks_by_search_param(search_param, user_id):
 
     artworks: list = db.session.query(Artwork).filter(
         Artwork.user_id == user_id).filter(
-        Artwork.a_title.ilike(f'%{search_param}%')).order_by(
-        Artwork.a_title).all()
+        Artwork.a_title.ilike(f'%{search_param}%')).order_by(db.func.lower(
+        Artwork.a_title)).all()
     
     return artworks
 

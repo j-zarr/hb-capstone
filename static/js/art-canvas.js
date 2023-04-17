@@ -360,8 +360,22 @@ $('#save-artwork').click((evt) => {
         alert('Unsuccessful - cannot save an empty canvas')
     }
 
-    fetch('/api/save-artwork', method) 
+    
+    formInputs = {
+       /////////ADD DATA///////// 
+    }
 
+    fetch('/api/save-artwork', {
+        method: 'POST',
+        body: JSON.stringify(formInputs),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => response.json())
+      .then( data => {
+        console.log(data);
+
+      });
 });
 
 

@@ -103,12 +103,27 @@ def user_page():
 
 ### routes that return data to fetch requests ###
 
-@app.route("/api/-user-portfolio-titles")
+@app.route("/api/user-portfolio-titles")
 def get_user_portfolio_titles():
     """Return user portfolio titles"""
 
+    
     portfolios = crud_p.get_all_portfolios_by_user_id(session['user_id'])
-    return jsonify(portfolios)
+    titles: list = []
+
+    # Check if user no portfolios
+    if not portfolios:
+        return {'status' : 'none found'}
+
+    # Append the portfolio titles 
+    for portfolio in portfolios:
+        titles.append(portfolio.p_title.capitalize()) #capitalize before sorting
+
+    return {'status' : 'success',
+            'data': sorted(titles)
+            }
+
+    
 
 
 # # will be ceated in DB when click save, ***required to add to a portfolio***
@@ -119,9 +134,9 @@ def save_new_artwork():
    ###Split up into helper functions
 
     # Get inputs for title and portfolio from save form
-    a_title = request.form.get("arwork-title")
-    existing_portfolio = request.form.get("portfolio-title")
-    new_portfolio = request.form.get("new-portfoilio-title")
+    a_title = request.json.get("arwork-title")
+    existing_portfolio = request.json.get("portfolio-title")
+    new_portfolio = request.json.get("new-portfoilio-title")
 
     # Get either existing portfolio title or newly created portfolio title
     p_title =  new_portfolio if new_portfolio else existing_portfolio
@@ -141,8 +156,9 @@ def save_new_artwork():
     db.session.add(new_artwork)
     db.session.commit()
 
-    flash(f"Artwork saved artwork_id: {session['artwork_id']}")#just for testing
-    message = f"Artwork saved artwork_id: {session['artwork_id']}"
+
+   
+    message = "Artwork saved"#just for testing
     return message
 
 
