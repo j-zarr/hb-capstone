@@ -20,7 +20,8 @@ def get_portfolio_by_id(portfolio_id):
 def get_all_portfolios_by_user_id(user_id):
     """Return a list of all user portfolios by user_id."""
 
-    user = User.query.options(db.joinedload('portfolios'))
+    user = User.query.options(db.joinedload('portfolios')).order_by(
+        Portfolio.p_title)
     user = user.filter(User.user_id == user_id).first()
 
     portfolios: list = user.portfolios
@@ -56,4 +57,4 @@ def delete_portfolio_by_id(portfolio_id):
 if __name__ == "__main__":
     from server import app
 
-    connect_to_db(app, echo=False)
+    connect_to_db(app, echo=True)

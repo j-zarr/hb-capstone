@@ -42,7 +42,7 @@ def get_all_artworks_by_portfolio_id(portfolio_id):
 def get_all_artworks_by_user_id(user_id):
     """Return a list of all artworks from all user portfolios"""
 
-    portfolios = Portfolio.query.options(db.joinedload('artworks'))
+    portfolios = Portfolio.query.options(db.joinedload('artworks')).order_by(Artwork.a_title)
     portfolios = portfolios.filter(Portfolio.user_id == user_id).all()
    
     artworks: list = []
