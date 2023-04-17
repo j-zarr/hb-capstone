@@ -20,10 +20,9 @@ def get_portfolio_by_id(portfolio_id):
 def get_all_portfolios_by_user_id(user_id):
     """Return a list of all user portfolio by user_id."""
 
-    user = User.query.options(db.joinedload('portfolios'))
-    user = user.filter(User.user_id == user_id).first()
-
-    portfolios: list = user.portfolios
+    portfolios: list = Portfolio.query.filter(
+        Portfolio.user_id == user_id).order_by(
+        db.func.lower(Portfolio.p_title)).all()
  
     return portfolios
 

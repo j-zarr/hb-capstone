@@ -30,10 +30,14 @@ def get_artwork_by_id(artwork_id):
 def get_all_artworks_by_portfolio_id(portfolio_id):
     """Return a list of all artworks from one portfolio by portfolio_id."""
 
-    portfolio = Portfolio.query.options(db.joinedload('artworks'))
-    portfolio = portfolio.filter(Portfolio.portfolio_id == portfolio_id).first()
+    # portfolio = Portfolio.query.options(db.joinedload('artworks'))
+    # portfolio = portfolio.filter(Portfolio.portfolio_id == portfolio_id).first()
     
-    artworks = portfolio.artworks
+    # artworks = portfolio.artworks
+    artworks: list = Artwork.query.filter(
+        Artwork.portfolio_id == portfolio_id).order_by(
+        db.func.lower(Artwork.a_title)).all()
+        
 
     return artworks
 
