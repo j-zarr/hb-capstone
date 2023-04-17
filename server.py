@@ -103,24 +103,47 @@ def user_page():
 
 ### routes that return data to fetch requests ###
 
+@app.route("/api/-user-portfolio-titles")
+def get_user_portfolio_titles():
+    """Return user portfolio titles"""
+
+    portfolios = crud_p.get_all_portfolios_by_user_id(session['user_id'])
+    return jsonify(portfolios)
+
 
 # # will be ceated in DB when click save, ***required to add to a portfolio***
-# @app.route("/api/save-artwork")
-# def new_artwork():
-#     """Create new artwork for user"""
+@app.route("/api/save-artwork", methods=['POST'])
+def save_new_artwork():
+    """Create new artwork for user and commit to database"""
 
-#     #get infputs for title and portfolio from modal form(still to be created)
+   ###Split up into helper functions
 
-#     artwork = crud_a.create_artwork()
-#     db.session.add(artwork)
-#     db.session.commit()
+    # Get inputs for title and portfolio from save form
+    a_title = request.form.get("arwork-title")
+    existing_portfolio = request.form.get("portfolio-title")
+    new_portfolio = request.form.get("new-portfoilio-title")
 
-#     #save to session 
-#     session['artwork_id'] = artwork.artwork_id
+    # Get either existing portfolio title or newly created portfolio title
+    p_title =  new_portfolio if new_portfolio else existing_portfolio
 
-#     flash(f"Artwork saved artwork_id: {session['artwork_id']}")#just for testing
     
-#     return jsonify()###complete function after build related pieces
+    new_portfolio_to_add = crud_p.create_portfolio(session['user_id'], p_title)
+    db.session.add(new_portfolio_to_add)
+    db.session.commit()
+
+    #save image to Amazon S3
+    # get file path to amazon S3
+    file_path = 'fake-path-just-testing'
+
+    new_artwork = crud_a.create_artwork(portfolio_title=p_title, 
+                                          a_title= a_title,
+                                          file_path=file_path)
+    db.session.add(new_artwork)
+    db.session.commit()
+
+    flash(f"Artwork saved artwork_id: {session['artwork_id']}")#just for testing
+    message = f"Artwork saved artwork_id: {session['artwork_id']}"
+    return message
 
 
 

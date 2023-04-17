@@ -16,10 +16,11 @@
     <div class="row flex-nowrap">
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                
+
                 <span style="display: flex; align-items: center;  height: 60px; width: 100px; background-image: url('../../static/assets/water-color1.png'); 
-                background-size: 40px 40px; background-position: 70% 40%; background-repeat: no-repeat;" > ARTwrks</span>   
-                 <br></br>
+                background-size: 40px 40px; background-position: 70% 40%; background-repeat: no-repeat;">
+                    ARTwrks</span>
+                <br></br>
                 <!-- <span class="fs-5 d-none d-sm-inline" id="menu"> Menu </span>  -->
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
                     <li>
@@ -39,14 +40,19 @@
                         <a href="/logout" class="nav-link px-0 align-middle" id="logout">
                             <span class="ms-1 d-none d-sm-inline">Logout</span></a>
                     </li>
-
                 </ul>
+                <hr>
+
+                <div class="pb-4">    
+                        <span><i class="bi bi-person-circle"></i></span>
+                        <span class="d-none d-sm-inline mx-1">{{ session.get('username') }}</span>
+                   
+                </div>
             </div>
         </div>
 
 
         <div class="col py-3" id="content-area"></div>
-
 
     </div>
 </div>

@@ -1,3 +1,4 @@
+'use strict';
 
 //store html elements to dynamically add when "create" clicked in menu
 const artCanvas = {
@@ -349,6 +350,20 @@ $('#clear').click(function () {
 $('#restore').click(function(){
     canvas.loadFromJSON(canvasState).requestRenderAll(); 
  });
+
+// Set event handler for submit button in dropdown form (save click)
+// Make Ajax request when submit from from save link
+$('#save-artwork').click((evt) => {
+    
+    if (canvas.isEmpty()) {
+        evt.preventDefault()
+        alert('Unsuccessful - cannot save an empty canvas')
+    }
+
+    fetch('/api/save-artwork', method) 
+
+});
+
 
 
 } //close for activateBtnClick

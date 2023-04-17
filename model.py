@@ -43,10 +43,12 @@ class Portfolio(db.Model):
                              primary_key=True) 
     
     p_title = db.Column(db.String(75),
-                        unique=True)
+                        unique=True,
+                        nullable=False)
     
     user_id = db.Column(db.Integer, 
-                        db.ForeignKey("users.user_id"))
+                        db.ForeignKey("users.user_id"),
+                        nullable=False)
 
     user = db.relationship("User", 
                            back_populates="portfolios")
@@ -70,13 +72,13 @@ class Artwork(db.Model):
                            autoincrement=True, 
                            primary_key=True)
     
-    file_path = db.Column(db.String)
-    a_title = db.Column(db.String(75),
-                        unique=True)
-    
     portfolio_id = db.Column(db.Integer, 
                              db.ForeignKey("portfolios.portfolio_id"),
                              nullable=False)
+
+    a_title = db.Column(db.String(75))   
+    
+    file_path = db.Column(db.String)
 
     portfolio = db.relationship("Portfolio", 
                                 back_populates="artworks")

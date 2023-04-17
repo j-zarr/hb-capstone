@@ -5,10 +5,19 @@ from model import db, connect_to_db, User, Portfolio, Artwork
 
 # create artwork, a_title optional, but attaching to a portfolio is required
 # otherwise artwork will not be connected to the user
-def create_artwork(portfolio_id):
+def create_artwork(portfolio_title, **kwargs):
     """Create and return a new artwork."""
 
-    artwork = Artwork(portfolio_id)
+    portfolio = db.session.query(Portfolio).filter(
+        Portfolio.p_title == portfolio_title).first()
+    
+    a_title = kwargs.get('a_title') 
+    file_path = kwargs.get('file_path')
+
+
+    artwork = Artwork(portfolio_id=portfolio.portfolio_id,
+                       a_title=a_title, 
+                       file_path=file_path)
     return artwork
 
 
@@ -44,12 +53,14 @@ def get_all_artworks_by_user_id(user_id):
     return artworks
 
 
-def get_artworks_by_search_param(search_param):
+def get_artworks_by_search_param(search_param, user_id):
     """Return a list of artworks that match search input"""
 
-    artworks: list = Artwork.query.filter(
-        Artwork.a_title.ilike(f'%{search_param}%')).all()
-
+    artworks: list = db.session.query(Artwork).filter(
+        Artwork.user_id == user_id).filter(
+        Artwork.a_title.ilike(f'%{search_param}%')).order_by(
+        Artwork.a_title).all()
+    
     return artworks
 
 

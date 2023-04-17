@@ -7,7 +7,7 @@ from model import db, connect_to_db, User, Portfolio, Artwork
 def create_portfolio(user_id, p_title):
     """Create and return a new portfolio."""
 
-    portfolio = Portfolio(user_id, p_title)
+    portfolio = Portfolio(user_id=user_id, p_title=p_title)
     return portfolio
 
 
@@ -27,11 +27,13 @@ def get_all_portfolios_by_user_id(user_id):
     return portfolios
 
 
-def get_portfolios_by_search_param(search_param):
+def get_portfolios_by_search_param(user_id, search_param):
     """Return a list of portfolios that match search input"""
 
-    portfolios: list = Portfolio.query.filter(
-        Portfolio.p_title.ilike(f'%{search_param}%')).all()
+    portfolios: list = db.session.query(Portfolio).filter(
+        Portfolio.user_id == user_id).filter(
+        Portfolio.p_title.ilike(f'%{search_param}%')).order_by(
+        Portfolio.p_title).all()
 
     return portfolios
 

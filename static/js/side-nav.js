@@ -1,20 +1,53 @@
+'use strict';
+
 $(document).ready(() => {
 
-    // Insert main user menu as side bar
+    // Create updated menu options (for create link click)
     const navCreateMenu =
-        `<li>
-            <a href="#" class="nav-link px-0 align-middle">
-            <span class="ms-1 d-none d-sm-inline" style="color:white;">Save</span></a>
+        ` <li>
+            <a href="#" class="nav-link px-0 align-middle" id="clear">
+            <span class="ms-1 d-none d-sm-inline" style="color:white;">Clear</span></a>
+        </li>
+        <li>
+            <a href="#" class="nav-link px-0 align-middle" id="restore">
+            <span class="ms-1 d-none d-sm-inline" style="color:white;">Restore</span></a>
+        </li>
+        
+        <li>
+            <div class="dropdown nav-link px-0 align-middle">
+             <a href="#" class="d-flex align-items-center align-middle text-white text-decoration-none dropdown-toggle" id="dropdown-save" data-bs-toggle="dropdown" aria-expanded="false">
+             <span class="ms-1 d-none d-sm-inline" style="color:white;">Save</span></a>
+
+                <ul class="dropdown-menu dropdown-menu" aria-labelledby="dropdown-save">
+                    <form action="" method="post">
+                    
+                        <li style="margin: 20px">
+                            <label for="arwork-title">Artwork title: </label>
+                            <input type="text" name="arwork-title" id="arwork-title" value="untitled">
+                        </li>
+                        <li style="margin: 20px">
+                            <label for="portfolio-title">Choose your portfolio: </label>
+                            <select name="porfolios" id="portfolio-title">
+                                <option value="">--Choose an option--</option>
+                            </select>
+                        </li>
+                        <li style="margin: 20px">
+                             <label for="new-portfoilio-title">Create a new portfolio: </label>
+                            <input type="text" name="new-portfoilio-title" id="new-portfoilio-title">
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li style=" display: flex; justify-content: center; align-items: center;">
+                            <input type="submit" id="save-artwork" value="Submit" class="btn btn-outline-dark">
+                        </li>
+                    </form>
+                </ul>
+                
+            </div>
         </li> 
-        <li>
-             <a href="#" class="nav-link px-0 align-middle" id="clear">
-             <span class="ms-1 d-none d-sm-inline" style="color:white;">Clear</span></a>
-        </li>
-        <li>
-             <a href="#" class="nav-link px-0 align-middle" id="restore">
-             <span class="ms-1 d-none d-sm-inline" style="color:white;">Restore</span></a>
-        </li>
-        <br>
+        
         <hr>`;
 
 
@@ -29,7 +62,7 @@ $(document).ready(() => {
     // </li>
     // <hr> `;
 
-    // Update menu options (for gallery link click)
+    // Create updated menu options (for gallery link click)
     const navGalleryMenu =
         `<li>
         <a href="#" class="nav-link px-0 align-middle">
@@ -86,6 +119,7 @@ $(document).ready(() => {
         activateBtnClick(myCanvas);  
 
     });
+
 
     // Set event handler for click on 'gallery' link
     $('#gallery-link').click(function () {
