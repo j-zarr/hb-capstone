@@ -3,7 +3,7 @@
 from model import db, connect_to_db, User, Portfolio, Artwork
 
 
-# create artwork, a_title optional, but attaching to a portfolio is required
+# create artwork, a_title can be optional, but attaching to a portfolio is required
 # otherwise artwork will not be connected to the user
 def create_artwork(portfolio_title, **kwargs):
     """Create and return a new artwork."""

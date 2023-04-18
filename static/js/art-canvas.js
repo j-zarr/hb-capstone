@@ -80,9 +80,9 @@ function activateBtnClick(canvas, currCanvas) {
     // change on color and change on opacity 
     // (only the shape objects in fabric.js have opacity properties so need to set manually with color property)
 
-    // Initialize selectedColor and selectedOPacity to default value 
+    // Initialize selectedColor and selectedOpacity to default value 
     let selectedColor = "#00FF00";
-    let selectedOPacity = 1;
+    let selectedOpacity = 1;
 
     // Helper function to convert the hexidecimal value to rgb
     function convertHexToRGB(hex) { //01 23 45
@@ -102,7 +102,7 @@ function activateBtnClick(canvas, currCanvas) {
     // Helper function to combine rgb and alpha values to set the final selectedColor
     function setColorToRGBA(alpha, color) {
         color = selectedColor;
-        alpha = selectedOPacity;
+        alpha = selectedOpacity;
         const rgb = convertHexToRGB(color)
 
         const rgba = [
@@ -120,11 +120,11 @@ function activateBtnClick(canvas, currCanvas) {
     // Update the selected-opacity value on input change (as int)
     $('#selected-opacity').change(function () {
 
-        selectedOPacity = document.getElementById('selected-opacity').valueAsNumber;
+        selectedOpacity = document.getElementById('selected-opacity').valueAsNumber;
         selectedColor = $('#selected-color').val();
 
         // add alpha value to selectedColor and set final colorSelected value
-        setColorToRGBA(alpha = selectedOPacity, color = selectedColor)
+        setColorToRGBA(selectedOpacity, selectedColor)
     });
 
 
@@ -135,7 +135,7 @@ function activateBtnClick(canvas, currCanvas) {
         selectedColor = $('#selected-color').val();
 
         // add rgb color to the selectedOpacity and set final colorSelected value
-        setColorToRGBA(alpha = selectedOpacity, rgb = selectedColor)
+        setColorToRGBA(selectedOpacity, selectedColor)
     });
 
 
@@ -324,59 +324,73 @@ function activateBtnClick(canvas, currCanvas) {
         canvas.requestRenderAll()
     });
     
-// Initialize variable to hold canvas state
-let canvasState = '';
+    // Initialize variable to hold canvas state
+    let canvasState = '';
         
-// set event handler for click on 'clear' to clear the canvas 
-$('#clear').click(function () {
+    // set event handler for click on 'clear' to clear the canvas 
+    $('#clear').click(function() {
 
-    // Check if canvas empty - prevent saving a blank canvas to restore
-    if (canvas.isEmpty()) {
+        // Check if canvas empty - prevent saving a blank canvas to restore
+        if (canvas.isEmpty()) {
         return;
-    }
-
-    //Empty removed array so user cannot redo, clear resets the entire canvas
-    removed.length = 0;
-
-    //Store canvas state before clearing to be able to restore
-    canvasState = canvas.toJSON();  
-    
-    //Clear the canvas
-    canvas.clear();
-});
-
-
-//restore cleared canvas
-$('#restore').click(function(){
-    canvas.loadFromJSON(canvasState).requestRenderAll(); 
- });
-
-// Set event handler for submit button in dropdown form (save click)
-// Make Ajax request when submit from from save link
-$('#save-artwork').click((evt) => {
-    
-    if (canvas.isEmpty()) {
-        evt.preventDefault()
-        alert('Unsuccessful - cannot save an empty canvas')
-    }
-
-    
-    formInputs = {
-       /////////ADD DATA///////// 
-    }
-
-    fetch('/api/save-artwork', {
-        method: 'POST',
-        body: JSON.stringify(formInputs),
-        headers: {
-            'Content-Type': 'application/json'
         }
-    }).then(response => response.json())
-      .then( data => {
-        console.log(data);
 
-      });
-});
+        //Empty removed array so user cannot redo, clear resets the entire canvas
+        removed.length = 0;
+
+         //Store canvas state before clearing to be able to restore
+         canvasState = canvas.toJSON();  
+    
+        //Clear the canvas
+        canvas.clear();
+        });
+
+
+    //restore cleared canvas
+    $('#restore').click(function(){
+         canvas.loadFromJSON(canvasState).requestRenderAll(); 
+    });
+
+
+    // Set event handler for submit button in dropdown form (save click)
+    // Make Ajax request when submit from from save link
+    $('#submit-form').submit(function(evt){
+    
+        if (canvas.isEmpty()) {
+          evt.preventDefault();
+            alert('Unsuccessful - cannot save an empty canvas');
+           return;
+        }
+        evt.preventDefault();
+
+        // check which portfolio input has a value -ternary statement and use that 
+       const formInputData = new FormData();
+    //    let formInputData = {
+    //      artworkTitle : `${$('#arwork-title').val()}`,
+    //      portfoilioTitle: `${$('#portfolio-title').val()}`,
+    //    }
+
+    formInputData.append("arwork-title", `${$('#arwork-title').val()}`);
+    formInputData.append("portfolio-title", `${$('#portfolio-title').val()}`);
+        
+        //formInputData.append("new-portfoilio-title": `${$('#new-portfoilio-title').val()}`);
+        
+        // $('#portfolio-title').children(':selected').attr('id')
+
+       console.log(FormData)
+        
+        //  fetch('/api/save-artwork', {
+        //     method: 'POST',
+        //     mode: 'cors',
+        //     body: formInputData,
+        //  })
+        //    .then(response => response.json())
+        //    .then( data => {
+        //      console.log(data.message);
+     
+        //    }); 
+    });
+
 
 
 

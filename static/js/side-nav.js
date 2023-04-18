@@ -19,11 +19,11 @@ $(document).ready(() => {
              <span class="ms-1 d-none d-sm-inline" style="color:white;">Save</span></a>
 
                 <ul class="dropdown-menu dropdown-menu" aria-labelledby="dropdown-save">
-                    <form action="/api/save-artwork" method="post">
+                    <form action="/api/save-artwork" method="post" id="submit-form">
                     
                         <li style="margin: 20px">
                             <label for="arwork-title">Artwork title: </label>
-                            <input type="text" name="arwork-title" id="arwork-title" value="untitled">
+                            <input type="text" name="arwork-title" id="arwork-title" placeholder="untitled">
                         </li>
                         <li style="margin: 20px">
                             <label for="portfolio-title">Choose your portfolio: </label>
@@ -32,15 +32,15 @@ $(document).ready(() => {
                             </select>
                         </li>
                         <li style="margin: 20px">
-                             <label for="new-portfoilio-title">Create a new portfolio: </label>
-                            <input type="text" name="new-portfoilio-title" id="new-portfoilio-title">
+                             <label for="new-portfolio-title">Create a new portfolio: </label>
+                            <input type="text" name="new-portfolio-title" id="new-portfolio-title">
                         </li>
 
                         <li>
                             <hr class="dropdown-divider">
                         </li>
                         <li style=" display: flex; justify-content: center; align-items: center;">
-                            <input type="submit"  value="Submit" id="save-artwork" class="btn btn-outline-dark">
+                            <input type="submit"  value="submit" class="btn btn-outline-dark" id="submit-save">
                         </li>
                     </form>
                 </ul>
@@ -94,8 +94,10 @@ $(document).ready(() => {
     //Note: use 'function()' syntax to maintain access to $(this)
 
     // Set event handler for click on 'create' link
-    $('#create-link').click(function() {
+    $('#create-link').click(function () {
 
+        // disable create link from being clicked again and reloading page
+        // Change color of create link to indicate which menu currently on 
         $('#gallery-link').css('color', blueColor);
         $('#gallery-link').prop('disabled', false);
 
@@ -108,52 +110,53 @@ $(document).ready(() => {
 
         // Populate the portfolio tiles for the save dropdown form
         fetch('/api/user-portfolio-titles')
-          .then(response => response.json())
-            .then(jsonData => {
-              if (jsonData.status == 'success') {
-                jsonData.data.forEach((title, idx) => {
-                    let element = `<option id=${idx} value=${title}>${title}</option>`
-                    $('#options').after(element);
-                    });
+            .then(response => response.json())
+            .then(data => {
+                if (data.status == 'success') {
+                    data.message.forEach((pair) => {
+                        let element = `<option id=${pair[1]} value=${pair[0]}>${pair[0]}</option>`
+                        $('#options').before(element);
+                   });
                 }
+            });
+
+        // update the HTML with the canvas and canvas features
+        $('#content-area').html(artCanvas.canvasHTML);
+
+        //instantiate fabric.js canvas on html camvas id
+        const myCanvas = new fabric.Canvas('c', {
+            width: 800,
+            height: 800,
+            selectionFullyContained: true
         });
 
-    // update the HTML with the canvas and canvas features
-    $('#content-area').html(artCanvas.canvasHTML);
-
-    //instantiate fabric.js canvas on html camvas id
-    const myCanvas = new fabric.Canvas('c', {
-        width: 800,
-        height: 800,
-        selectionFullyContained: true
+        //Call functions from art-canvas.js to interact with the created canvas 
+        activateBtnClick(myCanvas);
     });
 
-    //Call functions from art-canvas.js to interact with the created canvas 
-    activateBtnClick(myCanvas);
-
-});
 
 
-// Set event handler for click on 'gallery' link
-$('#gallery-link').click(function () {
+    // Set event handler for click on 'gallery' link
+    $('#gallery-link').click(function () {
 
-    $('#create-link').css('color', blueColor);
-    $('#create-link').prop('disabled', false);
+        // disable gallery link from being clicked again and reloading page
+        // Change color of gallery link to indicate which menu currently on 
+        $('#create-link').css('color', blueColor);
+        $('#create-link').prop('disabled', false);
+        $(this).prop('disabled', true);
+        $(this).css('color', '#00FF00');
 
-    $(this).prop('disabled', true);
-    $(this).css('color', '#00FF00');
+        // update the menu options in the HTML
+        $('#nav-menu').html(navGalleryMenu).fadeIn();
 
-    // update the menu options in the HTML
-    $('#nav-menu').html(navGalleryMenu).fadeIn();
-
-    // update the HTML with the gallery and features
-    $('#content-area').html(
-        `
-            <div id="gallery-cards">
-                 <p>GALLERY AS CARDS WILL GO HERE!</p>
-            </div> `
-    );
-});
+        // update the HTML with the gallery and features
+        $('#content-area').html(
+            `
+                <div id="gallery-cards">
+                    <p>GALLERY AS CARDS WILL GO HERE!</p>
+                </div> `
+        );
+    });
 
 
 }); // closing for document.ready
