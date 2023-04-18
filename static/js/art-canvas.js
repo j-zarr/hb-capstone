@@ -281,21 +281,24 @@ function activateBtnClick(canvas, currCanvas) {
     });
 
 
+    // Initialize stack (as array) to be accessible to undo, redo, delete
+    // Store stack of removed item to be able to restore
+    let removed = []  //To be emptied on clear canvas
+
     // Delete selected object on click of delete-obj button
     $('#delete-obj').click(function () {
 
         // Use getActiveObjects to include single or multiple selected objects
         const selectedObjects = canvas.getActiveObjects()
         selectedObjects.forEach((obj) => {
+
+            // Push to removed array so can undo the delete
+            removed.push(obj)
             canvas.remove(obj);
         });
         canvas.requestRenderAll();
     });
 
-    // Initialize stack (as array) to be accessible to both undo and redo
-    // Store stack of removed item to be able to restore
-    let removed = []  //To be emptied on clear canvas
-    
 
     // Set undo click handler
     $('#undo').click(function() {
@@ -324,7 +327,7 @@ function activateBtnClick(canvas, currCanvas) {
         canvas.requestRenderAll()
     });
     
-    // Initialize variable to hold canvas state
+    // Initialize variable to hold canvas state, to be accessible to clear and restore
     let canvasState = '';
         
     // set event handler for click on 'clear' to clear the canvas 
@@ -335,8 +338,9 @@ function activateBtnClick(canvas, currCanvas) {
         return;
         }
 
-        //Empty removed array so user cannot redo, clear resets the entire canvas
+        //Empty removed array to prevent redo - clear resets the entire canvas
         removed.length = 0;
+        console.log(removed)
 
          //Store canvas state before clearing to be able to restore
          canvasState = canvas.toJSON();  
@@ -349,6 +353,8 @@ function activateBtnClick(canvas, currCanvas) {
     //restore cleared canvas
     $('#restore').click(function(){
          canvas.loadFromJSON(canvasState).requestRenderAll(); 
+         //reset canvasState 
+         canvasState = '';
     });
 
 
@@ -364,31 +370,27 @@ function activateBtnClick(canvas, currCanvas) {
         evt.preventDefault();
 
         // check which portfolio input has a value -ternary statement and use that 
-       const formInputData = new FormData();
-    //    let formInputData = {
-    //      artworkTitle : `${$('#arwork-title').val()}`,
-    //      portfoilioTitle: `${$('#portfolio-title').val()}`,
-    //    }
-
-    formInputData.append("arwork-title", `${$('#arwork-title').val()}`);
-    formInputData.append("portfolio-title", `${$('#portfolio-title').val()}`);
-        
-        //formInputData.append("new-portfoilio-title": `${$('#new-portfoilio-title').val()}`);
+        // "portfolio-title": `${$('#portfolio-title').val()}
         
         // $('#portfolio-title').children(':selected').attr('id')
+   
+        const formInputData = {"artwork-title": `${$('#artwork-title').val()}`,
+                               "portfolio-id": `${$('#portfolio-title')
+                                                    .children(':selected')
+                                                    .attr('id')}`,
+                              }
 
-       console.log(FormData)
-        
-        //  fetch('/api/save-artwork', {
-        //     method: 'POST',
-        //     mode: 'cors',
-        //     body: formInputData,
-        //  })
-        //    .then(response => response.json())
-        //    .then( data => {
-        //      console.log(data.message);
+         fetch('/api/save-artwork', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(formInputData),
+         })
+           .then(response => response.json())
+           .then( data => {
+             console.log(data.message);
      
-        //    }); 
+           }); 
     });
 
 

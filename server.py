@@ -127,40 +127,34 @@ def get_user_portfolio_titles():
 @app.route("/api/save-artwork", methods=['POST'])
 def save_new_artwork():
     """Create new artwork for user and commit to database"""
-    print(f"*"*40)
-    print(request.content_type)
+    
     ###Split up into helper functions
 
     # Get inputs for title and portfolio from save form
-    a_title = request.form.get("artwork-title")
-    existing_portfolio =  request.form.get("portfoilio-title")
-    # new_portfolio = #request.form.get("new-portfoilio-title")
-    #portfolio_id = request.json.get("portfolioId")
-    print(f"********************* title: {a_title} portfolio: {existing_portfolio} *****")
-
-
-    # Get either existing portfolio title or newly created portfolio title
-    # p_title =  new_portfolio if new_portfolio else existing_portfolio
+    a_title = request.json.get("artwork-title")
+    portfolio_id =  request.json.get("portfolio-id")
+    # # new_portfolio = #request.json.get("new-portfoilio-title")
 
     # If new_portfolio, create new_portfolio
-    # new_portfolio_to_add = crud_p.create_portfolio(session['user_id'], p_title)
+    # new_portfolio = crud_p.create_portfolio(session['user_id'], p_title)
     # db.session.add(new_portfolio_to_add)
     # db.session.commit()
+
+    #portfolio_id = portfolio_id if portfolio_id else new_portfolio.id
 
     #save image to Amazon S3
     # get file path to amazon S3
     file_path = 'fake-path-just-testing'
-    p_title = existing_portfolio
+   
 
-    #portfolio_id = 
-    new_artwork = crud_a.create_artwork(portfolio_title=p_title, 
-                                          a_title=a_title,
-                                          file_path=file_path)
+    new_artwork = crud_a.create_artwork(portfolio_id=portfolio_id, 
+                                        a_title=a_title,
+                                        file_path=file_path)
     db.session.add(new_artwork)
     db.session.commit()
 
-    msg = jsonify(f"Artwork saved: {new_artwork.a_title}")
-    return { 'status': 'success', 'message': msg }
+    msg = (f"Artwork saved: {new_artwork.a_title}")
+    return jsonify({ 'status': 'success', 'message': msg })
 
 
 

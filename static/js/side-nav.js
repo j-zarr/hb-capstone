@@ -22,8 +22,8 @@ $(document).ready(() => {
                     <form action="/api/save-artwork" method="post" id="submit-form">
                     
                         <li style="margin: 20px">
-                            <label for="arwork-title">Artwork title: </label>
-                            <input type="text" name="arwork-title" id="arwork-title" placeholder="untitled">
+                            <label for="artwork-title">Artwork title: </label>
+                            <input type="text" name="artwork-title" id="artwork-title" placeholder="untitled">
                         </li>
                         <li style="margin: 20px">
                             <label for="portfolio-title">Choose your portfolio: </label>

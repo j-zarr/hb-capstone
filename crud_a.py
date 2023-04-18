@@ -5,17 +5,14 @@ from model import db, connect_to_db, User, Portfolio, Artwork
 
 # create artwork, a_title can be optional, but attaching to a portfolio is required
 # otherwise artwork will not be connected to the user
-def create_artwork(portfolio_title, **kwargs):
+def create_artwork(portfolio_id, **kwargs):
     """Create and return a new artwork."""
-
-    portfolio = db.session.query(Portfolio).filter(
-        Portfolio.p_title == portfolio_title).first()
-    
+   
     a_title = kwargs.get('a_title') 
     file_path = kwargs.get('file_path')
 
 
-    artwork = Artwork(portfolio_id=portfolio.portfolio_id,
+    artwork = Artwork(portfolio_id=portfolio_id,
                        a_title=a_title, 
                        file_path=file_path)
     return artwork
