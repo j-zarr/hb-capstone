@@ -370,7 +370,7 @@ function activateBtnClick(canvas, currCanvas) {
         evt.preventDefault();
 
         // check which portfolio input has a value -ternary statement and use that 
-        // "portfolio-title": `${$('#portfolio-title').val()}
+        // 
         
         // $('#portfolio-title').children(':selected').attr('id')
    
@@ -378,6 +378,7 @@ function activateBtnClick(canvas, currCanvas) {
                                "portfolio-id": `${$('#portfolio-title')
                                                     .children(':selected')
                                                     .attr('id')}`,
+                                "new-portfolio-title":`${$('#new-portfolio-title').val()}`,
                               }
 
          fetch('/api/save-artwork', {

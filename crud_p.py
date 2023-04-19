@@ -11,6 +11,17 @@ def create_portfolio(user_id, p_title):
     return portfolio
 
 
+def get_portfolio_by_user_id_p_title(user_id, p_title):
+    """Return a user porfolio by user_id and portfolio title as p_title"""
+
+   
+    portfolio = Portfolio.query.filter(
+        db.func.lower(Portfolio.p_title) == p_title.lower(), 
+        Portfolio.user_id == user_id).first()
+
+    return portfolio
+
+
 def get_portfolio_by_id(portfolio_id):
     """Return a user portfolio by primary key."""
 

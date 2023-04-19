@@ -123,24 +123,34 @@ def get_user_portfolio_titles():
             }
 
 
-# # will be ceated in DB when click save, ***required to add to a portfolio***
+
 @app.route("/api/save-artwork", methods=['POST'])
 def save_new_artwork():
     """Create new artwork for user and commit to database"""
     
-    ###Split up into helper functions
+    ###Split up into helper functions####
 
     # Get inputs for title and portfolio from save form
     a_title = request.json.get("artwork-title")
-    portfolio_id =  request.json.get("portfolio-id")
-    # # new_portfolio = #request.json.get("new-portfoilio-title")
+    existing_portfolio_id = request.json.get("portfolio-id")
+    new_portfolio_title = request.json.get("new-portfolio-title")
 
-    # If new_portfolio, create new_portfolio
-    # new_portfolio = crud_p.create_portfolio(session['user_id'], p_title)
-    # db.session.add(new_portfolio_to_add)
-    # db.session.commit()
+    
+    def get_new_portfolio_id():
+         # Create the new_portfolio
+        new_portfolio = crud_p.create_portfolio(
+            user_id=session['user_id'], p_title=new_portfolio_title)
+        db.session.add(new_portfolio)
+        db.session.commit()
 
-    #portfolio_id = portfolio_id if portfolio_id else new_portfolio.id
+        # Get the portfolio_if of the new portfolio
+        created_portfolio = crud_p.get_portfolio_by_user_id_p_title(
+            user_id=session['user_id'], p_title=new_portfolio_title)
+        return created_portfolio.portfolio_id
+
+    # Get the portfolio relevant portfolio id based on user selection 
+    # (id of existing portfolio or the newly created portfolio)
+    portfolio_id = get_new_portfolio_id() if existing_portfolio_id == 'options' else existing_portfolio_id
 
     #save image to Amazon S3
     # get file path to amazon S3
