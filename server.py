@@ -115,7 +115,7 @@ def get_user_portfolio_titles():
 
     # Append the portfolio titles 
     for portfolio in portfolios:
-        titles_ids.append([portfolio.p_title.capitalize(), 
+        titles_ids.append([portfolio.p_title, 
                        portfolio.portfolio_id]) 
 
     return {'status' : 'success',
@@ -132,7 +132,8 @@ def save_new_artwork():
 
     # Get inputs for title and portfolio from save form
     a_title = request.json.get("artwork-title")
-    existing_portfolio_id = request.json.get("portfolio-id")
+    existing_portfolio_id = '' #request.json.get("portfolio-id")
+    existing_portfolio_title = '' #request.json.get("portfolio_title")
     new_portfolio_title = request.json.get("new-portfolio-title")
 
     
@@ -147,10 +148,12 @@ def save_new_artwork():
         created_portfolio = crud_p.get_portfolio_by_user_id_p_title(
             user_id=session['user_id'], p_title=new_portfolio_title)
         return created_portfolio.portfolio_id
-
+    
     # Get the portfolio relevant portfolio id based on user selection 
     # (id of existing portfolio or the newly created portfolio)
-    portfolio_id = get_new_portfolio_id() if existing_portfolio_id == 'options' else existing_portfolio_id
+    portfolio_id = get_new_portfolio_id() if not existing_portfolio_id else existing_portfolio_id
+    portfolio_title = new_portfolio_title if not existing_portfolio_id else existing_portfolio_title
+   
 
     #save image to Amazon S3
     # get file path to amazon S3
@@ -163,7 +166,7 @@ def save_new_artwork():
     db.session.add(new_artwork)
     db.session.commit()
 
-    msg = (f"Artwork saved: {new_artwork.a_title}")
+    msg = (f"{new_artwork.a_title} saved to portfolio:{portfolio_title}!")
     return jsonify({ 'status': 'success', 'message': msg })
 
 

@@ -352,6 +352,7 @@ function activateBtnClick(canvas, currCanvas) {
 
     //restore cleared canvas
     $('#restore').click(function(){
+        if (canvas.isEmpty()) return;
          canvas.loadFromJSON(canvasState).requestRenderAll(); 
          //reset canvasState 
          canvasState = '';
@@ -360,24 +361,30 @@ function activateBtnClick(canvas, currCanvas) {
 
     // Set event handler for submit button in dropdown form (save click)
     // Make Ajax request when submit from from save link
-    $('#submit-form').submit(function(evt){
+    $('#save-form').submit(function(evt){
     
         if (canvas.isEmpty()) {
           evt.preventDefault();
+            // Create error message if tries to save an empty canvas and return
             alert('Unsuccessful - cannot save an empty canvas');
            return;
         }
         evt.preventDefault();
 
+        // Only pass portfolio data for either selected portfolio or new portfolio
+        // Create error message if both portfolio fields filled out and return
+        // Create error message if neither portfolio fileds filled out and return
         // check which portfolio input has a value -ternary statement and use that 
         // 
         
         // $('#portfolio-title').children(':selected').attr('id')
+
    
         const formInputData = {"artwork-title": `${$('#artwork-title').val()}`,
-                               "portfolio-id": `${$('#portfolio-title')
-                                                    .children(':selected')
-                                                    .attr('id')}`,
+                            //    "portfolio-id": `${$('#portfolio-title')
+                            //                         .children(':selected')
+                            //                         .attr('id')}`,
+                                "portfolio_title": `${$('#portfolio-title').val()}`,
                                 "new-portfolio-title":`${$('#new-portfolio-title').val()}`,
                               }
 
@@ -389,8 +396,17 @@ function activateBtnClick(canvas, currCanvas) {
          })
            .then(response => response.json())
            .then( data => {
-             console.log(data.message);
-     
+            document.getElementById('save-form').reset()
+            $('#save-form').append(
+                `<div id="message" class="alert alert-success" role="alert"> ${data.message} </div>`)
+                setTimeout(()=>{
+                    $('#message').remove();
+                    setTimeout(()=>{
+                        //reload create page 
+                        $('#create-link').prop('disabled', false);
+                        $('#create-link').click()
+                    }, 1500);
+                }, 2000);
            }); 
     });
 

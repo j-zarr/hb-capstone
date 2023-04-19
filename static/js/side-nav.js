@@ -19,21 +19,21 @@ $(document).ready(() => {
              <span class="ms-1 d-none d-sm-inline" style="color:white;">Save</span></a>
 
                 <ul class="dropdown-menu dropdown-menu" aria-labelledby="dropdown-save">
-                    <form action="/api/save-artwork" method="post" id="submit-form">
+                    <form action="/api/save-artwork" method="post" id="save-form">
                     
                         <li style="margin: 20px">
                             <label for="artwork-title">Artwork title: </label>
-                            <input type="text" name="artwork-title" id="artwork-title" placeholder="untitled">
+                            <input type="text" name="artwork-title" id="artwork-title" placeholder="untitled" minlength="1" maxlength="75">
                         </li>
                         <li style="margin: 20px">
                             <label for="portfolio-title">Choose your portfolio: </label>
                             <select name="porfolios" id="portfolio-title">
-                                <option id="options" value="">--Choose an option--</option>
+                                <option class="options" value="">--Choose an option--</option>
                             </select>
                         </li>
                         <li style="margin: 20px">
                              <label for="new-portfolio-title">Create a new portfolio: </label>
-                            <input type="text" name="new-portfolio-title" id="new-portfolio-title">
+                            <input type="text" name="new-portfolio-title" id="new-portfolio-title" minlength="1" maxlength="75">
                         </li>
 
                         <li>
@@ -115,7 +115,7 @@ $(document).ready(() => {
                 if (data.status == 'success') {
                     data.message.forEach((pair) => {
                         let element = `<option id=${pair[1]} value=${pair[0]}>${pair[0]}</option>`
-                        $('#options').before(element);
+                        $('.options').before(element);
                    });
                 }
             });
