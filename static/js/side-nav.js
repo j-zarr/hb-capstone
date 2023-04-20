@@ -44,7 +44,7 @@ $(document).ready(() => {
             });
 
         // update the HTML with the canvas and canvas features
-        $('#content-area').html(setCanvas.canvasHTML);
+        $('#content-area').html( canvasHTML);
 
         //instantiate fabric.js canvas on html camvas id
         const myCanvas = new fabric.Canvas('c', {
@@ -54,7 +54,7 @@ $(document).ready(() => {
         });
 
         //Call functions from art-canvas.js to interact with the created canvas 
-        activateBtnClick(myCanvas);
+        activateCanvasBtns(myCanvas);
     });
 
 

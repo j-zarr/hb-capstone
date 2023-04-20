@@ -1,7 +1,7 @@
 'use strict';
 
 // Set event handlers for interactivity with the dynamically added canvas 
-function activateBtnClick(canvas) {
+function activateCanvasBtns(canvas) {
 
     //**************<< Deactivate select, drawingMode for any user selection of color, opacity, line-width >>**************/
 

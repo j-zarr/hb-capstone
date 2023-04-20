@@ -3,9 +3,8 @@
 //html elements to dynamically add to main page body when "create" clicked in main user menu
 // **** accessed by art-canvas.js *****
 
-const setCanvas = {
-    canvasHTML: `
-    <div id="art-canvas">
+const canvasHTML = 
+   ` <div id="art-canvas">
         <div class="coloring-options">
             <div style="border: 1px solid black; display: flex; justify-content: center; align-items: center;"> 
                 <label for="color-hex"><i class="bi bi-palette2"></i></label>
@@ -44,6 +43,5 @@ const setCanvas = {
                 
         <canvas id="c" style="border:1px solid black; border-radius: 5px;" ></canvas>
             
-    </div>`
+    </div>`;
 
-}
