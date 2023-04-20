@@ -128,15 +128,16 @@ def get_user_portfolio_titles():
 def save_new_artwork():
     """Create new artwork for user and commit to database"""
     
+    ###### TO DO: ######################
     ###Split up into helper functions####
-
+    ####################################
+    
     # Get inputs for title and portfolio from save form
     a_title = request.json.get("artwork-title")
-    existing_portfolio_id = '' #request.json.get("portfolio-id")
-    existing_portfolio_title = '' #request.json.get("portfolio_title")
+    existing_portfolio_id = request.json.get("portfolio-id")
+    existing_portfolio_title = request.json.get("portfolio_title")
     new_portfolio_title = request.json.get("new-portfolio-title")
 
-    
     def get_new_portfolio_id():
          # Create the new_portfolio
         new_portfolio = crud_p.create_portfolio(
@@ -154,11 +155,11 @@ def save_new_artwork():
     portfolio_id = get_new_portfolio_id() if not existing_portfolio_id else existing_portfolio_id
     portfolio_title = new_portfolio_title if not existing_portfolio_id else existing_portfolio_title
    
-
-    #save image to Amazon S3
-    # get file path to amazon S3
+   ##### TO DO: #########################
+    # Save artwork image to Amazon S3
+    # Get file path to amazon S3 to store in database
     file_path = 'fake-path-just-testing'
-   
+   ########################################
 
     new_artwork = crud_a.create_artwork(portfolio_id=portfolio_id, 
                                         a_title=a_title,

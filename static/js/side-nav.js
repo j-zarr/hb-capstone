@@ -114,14 +114,19 @@ $(document).ready(() => {
             .then(data => {
                 if (data.status == 'success') {
                     data.message.forEach((pair) => {
-                        let element = `<option id=${pair[1]} value=${pair[0]}>${pair[0]}</option>`
+                        let element = `<option 
+                                            class="portfolio-options"
+                                            id=${pair[1]} 
+                                            value=${pair[0]}> 
+                                            ${pair[0]}
+                                        </option>`
                         $('.options').before(element);
                    });
                 }
             });
 
         // update the HTML with the canvas and canvas features
-        $('#content-area').html(artCanvas.canvasHTML);
+        $('#content-area').html(setCanvas.canvasHTML);
 
         //instantiate fabric.js canvas on html camvas id
         const myCanvas = new fabric.Canvas('c', {
