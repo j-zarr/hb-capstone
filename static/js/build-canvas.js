@@ -1,6 +1,7 @@
 'use strict';
 
-//html elements to dynamically add when "create" clicked in main user menu
+//html elements to dynamically add to main page body when "create" clicked in main user menu
+// **** accessed by art-canvas.js *****
 
 const setCanvas = {
     canvasHTML: `

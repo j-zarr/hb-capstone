@@ -37,7 +37,6 @@ function clearCanvas(canvas, removed) {
     if (canvas.isEmpty()) {
         return;
     }
-
     //Empty removed array to prevent redo - clear resets the entire canvas
     removed.length = 0;
 

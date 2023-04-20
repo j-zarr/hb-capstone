@@ -1,6 +1,6 @@
 'use strict';
 
-// function definitionscalled by activateBtnClick from art-canvas.js
+// function definitions called by activateBtnClick from art-canvas.js
 // functions for fetching to server to save artwork to database
 
 
@@ -61,10 +61,10 @@ function submitSaveForm() {
 
     // Add chosen existing portfolio title or new portfolio title to send to the server
     if ($('#portfolio-title').val()) {
-        formInputData['portfolio_title'] = $('#portfolio-title').val();
+        formInputData['portfolio-title'] = $('#portfolio-title').val();
         formInputData['portfolio-id'] = $('#portfolio-title')
-            .children(':selected')
-            .attr('id');
+                                            .children(':selected')
+                                            .attr('id');
 
     } else if ($('#new-portfolio-title').val()) {
         formInputData['new-portfolio-title'] = $('#new-portfolio-title').val();

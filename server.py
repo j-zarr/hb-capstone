@@ -135,7 +135,7 @@ def save_new_artwork():
     # Get inputs for title and portfolio from save form
     a_title = request.json.get("artwork-title")
     existing_portfolio_id = request.json.get("portfolio-id")
-    existing_portfolio_title = request.json.get("portfolio_title")
+    existing_portfolio_title = request.json.get("portfolio-title")
     new_portfolio_title = request.json.get("new-portfolio-title")
 
     def get_new_portfolio_id():
