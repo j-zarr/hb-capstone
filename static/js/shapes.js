@@ -4,67 +4,42 @@
 // functions for creating shapes to add to the canvas
 
  
-function createSquare(canvas, canvasCenter){
+function createSquare(canvas, commonShapeSettings){
     const rect = new fabric.Rect({
-        fill: '',
-        stroke: selectedColor,
-        strokeWidth: selectedWidth,
-        strokeUniform: true,
         width: 75,
         height: 75,
-        selectable: false,
-        hoverCursor: 'crosshair'
     });
-    canvasCenter(rect);
+    commonShapeSettings(rect);
     canvas.add(rect);
 }
 
 
-function createCircle(canvas, canvasCenter){
+function createCircle(canvas, commonShapeSettings){
     const circle = new fabric.Circle({
-        fill: '',
-        stroke: selectedColor,
-        strokeWidth: selectedWidth,
-        strokeUniform: true,
         radius: 50,
-        selectable: false,
-        hoverCursor: 'crosshair'
     });
-    canvasCenter(circle);
+    commonShapeSettings(circle);
     canvas.add(circle);
 }
 
 
-function createTriangle(canvas, canvasCenter){
+function createTriangle(canvas, commonShapeSettings){
     const triangle = new fabric.Triangle({
-        fill: '',
-        stroke: selectedColor,
-        strokeWidth: selectedWidth,
-        strokeUniform: true,
         width: 50,
         height: 50,
-        angle: 45,
-        selectable: false,
-        hoverCursor: 'crosshair',
+        angle: 45,    
         strokeLineJoin: 'miter',
         strokeMiterLimit: 10
-
     });
-    canvasCenter(triangle);
+    commonShapeSettings(triangle);
     canvas.add(triangle);
 }
 
 
-function createLine(canvas, canvasCenter){
+function createLine(canvas, commonShapeSettings){
     const line = new fabric.Line(
         [150, 50, 300, 50],
-        {
-            stroke: selectedColor,
-            strokeWidth: selectedWidth,
-            strokeUniform: true,
-            selectable: false,
-            hoverCursor: 'crosshair'
-        });
-        canvasCenter(line);
+        );
+        commonShapeSettings(line);
         canvas.add(line);
 }

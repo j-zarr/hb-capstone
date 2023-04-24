@@ -145,9 +145,6 @@ def save_new_artwork():
     new_portfolio_title = request.json.get("new-portfolio-title")
     base64_artwork_str = request.json.get('artwork-dataURL').split('base64,')[1] #remove prefix
 
-    # print(f"*"*20)
-    # print(base64_artwork_str)
-    # print(f"*"*20)
 
     def get_new_portfolio_id():
          # Create the new_portfolio
@@ -166,20 +163,10 @@ def save_new_artwork():
     portfolio_id = get_new_portfolio_id() if not existing_portfolio_id else existing_portfolio_id
     portfolio_title = new_portfolio_title if not existing_portfolio_id else existing_portfolio_title
       
-    # Create a unique filename in "folder"-like object with name == current user_id
-    file_name = f"{uuid.uuid4().hex}-{a_title}.png"
-
     # Set up key and accessibility to S3 bucket
     S3_KEY_ID = os.environ.get("S3_KEY_ID")
     S3_SECRET_KEY = os.environ.get("S3_SECRET_KEY")
    
-
-    # s3_client = boto3.client(
-    #     's3',
-    #      aws_access_key_id=S3_KEY_ID,
-    #      aws_secret_access_key=S3_SECRET_KEY
-    # )
-
     s3 = boto3.resource('s3', 
                         aws_access_key_id=S3_KEY_ID,  
                         aws_secret_access_key=S3_SECRET_KEY
@@ -187,9 +174,16 @@ def save_new_artwork():
     
     artwork_bucket = s3.Bucket(name='artworks-images')
 
-    # Save artwork image to Amazon S3
-    artwork_bucket.Object(file_name).put(Body=base64.b64decode(base64_artwork_str), Key=f"{session['user_id']}/{file_name}")
+    # Create a unique filename for the artwork
+    # Replace any spaces in user specified artwork title with "-" to store in S3
+    file_name = f"{uuid.uuid4().hex}-{a_title.replace('', '-')}.png"
 
+
+    # Save artwork image to Amazon S3
+    # Key = filename,  prepend {user_id/} to create "folder" objects for each user's artworks
+    # Body = the file sending, convert to image file from dataURL string
+    artwork_bucket.Object(file_name).put(Body=base64.b64decode(base64_artwork_str), Key=f"{session['user_id']}/{file_name}")
+    
     file_path = f"https://{artwork_bucket}.s3.amazonwas.com/{session['user_id']}/{file_name}"
    
     new_artwork = crud_a.create_artwork(portfolio_id=portfolio_id, 

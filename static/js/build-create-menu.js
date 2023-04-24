@@ -6,7 +6,16 @@
 
 // Create updated menu options (for create link click)
 const navCreateMenu =
-` <li>
+`
+<li>
+    <div class="px-0 align-middle" id="clear">
+        <span class="ms-1 d-none d-sm-inline" style="color:white;"> White Canvas 
+            <input type="checkbox" value="" id="set-canvas-bg" class="form-check-input">
+        </span>
+    </div>
+</li>
+
+<li>
     <a href="#" class="nav-link px-0 align-middle" id="clear">
     <span class="ms-1 d-none d-sm-inline" style="color:white;">Clear</span></a>
 </li>

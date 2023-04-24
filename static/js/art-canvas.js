@@ -52,33 +52,39 @@ function activateCanvasBtns(canvas) {
     //****************<< function definitions in shapes.js >>**************************************/
 
 
-    // Helper function to set canvas location shapes are added to 
-    const canvasCenter = (obj) => {
+    // Helper function to set canvas location and commomn attributes for shapes
+    const commonShapeSettings = (obj) => {
     obj.top = canvas.getCenter().top;
-    obj.left = canvas.getCenter().left
+    obj.left = canvas.getCenter().left;
+    obj.fill = '';
+    obj.stroke = selectedColor;
+    obj.strokeWidth = selectedWidth;
+    obj.strokeUniform = true;
+    obj.hoverCursor = 'crosshair';
+    obj.selectable = false;
 }
 
     // Create and add new Square on click event of square button
     $('#square').click(()=>{
-        createSquare(canvas, canvasCenter);
+        createSquare(canvas, commonShapeSettings);
     });
         
 
     // Create and add new circle on click event of circle button
     $('#circle').click(()=>{
-        createCircle(canvas, canvasCenter);
+        createCircle(canvas, commonShapeSettings);
     });
         
 
     // Create and add new Triangle on click event of triangle button
     $('#triangle').click(()=>{
-        createTriangle(canvas, canvasCenter);
+        createTriangle(canvas, commonShapeSettings);
     });
     
         
     // Create and add new Line on click event of line button
     $('#line').click(()=>{
-        createLine(canvas, canvasCenter);   
+        createLine(canvas, commonShapeSettings);   
     });
     
         
@@ -135,6 +141,13 @@ function activateCanvasBtns(canvas) {
         deleteObj(canvas, removed);   
     });
 
+
+    //********************<< Handler for changing canvas background to white/transparent>> *********************************/ 
+   //****************<< function definition in set-canvas-bg-color.js >>****************************/
+
+   $('#set-canvas-bg').change(()=> {
+        setCanvasBackground(canvas);
+   })
     
    //********************<< Handlers for undo + redo, clear + restore>> *********************************/ 
    //****************<< function definitions in undo-redo-clear-restore.js >>****************************/

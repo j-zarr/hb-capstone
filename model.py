@@ -103,6 +103,9 @@ if __name__ == "__main__":
 
     connect_to_db(app, echo=False)
 
+# import os
+# os.system("dropdb artworks")
+# os.system("createdb artworks")
 # db.create_all()
 # test_user1 = User(username='justme', email='test1@test.com', password='test1pswd')
 # db.session.add(test_user1)
