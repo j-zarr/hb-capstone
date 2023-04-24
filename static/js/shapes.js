@@ -3,8 +3,8 @@
 // function definitions for adding shapes, called by activateBtnClick from art-canvas.js
 // functions for creating shapes to add to the canvas
 
-
-function createSquare(){
+ 
+function createSquare(canvas, canvasCenter){
     const rect = new fabric.Rect({
         fill: '',
         stroke: selectedColor,
@@ -15,11 +15,12 @@ function createSquare(){
         selectable: false,
         hoverCursor: 'crosshair'
     });
-    return rect;
+    canvasCenter(rect);
+    canvas.add(rect);
 }
 
 
-function createCircle(){
+function createCircle(canvas, canvasCenter){
     const circle = new fabric.Circle({
         fill: '',
         stroke: selectedColor,
@@ -29,11 +30,12 @@ function createCircle(){
         selectable: false,
         hoverCursor: 'crosshair'
     });
-    return circle;
+    canvasCenter(circle);
+    canvas.add(circle);
 }
 
 
-function createTriangle(){
+function createTriangle(canvas, canvasCenter){
     const triangle = new fabric.Triangle({
         fill: '',
         stroke: selectedColor,
@@ -45,14 +47,15 @@ function createTriangle(){
         selectable: false,
         hoverCursor: 'crosshair',
         strokeLineJoin: 'miter',
-        strokeMiterLimit: 20
+        strokeMiterLimit: 10
 
     });
-    return triangle;
+    canvasCenter(triangle);
+    canvas.add(triangle);
 }
 
 
-function createLine(){
+function createLine(canvas, canvasCenter){
     const line = new fabric.Line(
         [150, 50, 300, 50],
         {
@@ -62,5 +65,6 @@ function createLine(){
             selectable: false,
             hoverCursor: 'crosshair'
         });
-        return line;
+        canvasCenter(line);
+        canvas.add(line);
 }

@@ -3,6 +3,10 @@
 //html elements to dynamically add to main page body when "create" clicked in main user menu
 // **** accessed by art-canvas.js *****
 
+
+// Note: There is a div (id="c-bg") under html canvas element with bg-image to indicate to user 
+// that the canavs is transparent. They should set their own bg-colors or leave as transparent.
+
 const canvasHTML = 
    ` <div id="art-canvas">
         <div class="coloring-options">
@@ -40,8 +44,10 @@ const canvasHTML =
             <span><button id="triangle" title="triangle"><i class="bi bi-triangle"></i></button></span>
             <span><button id="line" title="line"><i class="bi bi-dash-lg"></i></button></span>   
         </div>
-                
+         
+        <div id="c-bg" style="z-index: -20; background-image: url('../../static/assets/checks.png'); width: 800px; height:800px">
         <canvas id="c" style="border:1px solid black; border-radius: 5px;" ></canvas>
+        </div>
             
     </div>`;
 

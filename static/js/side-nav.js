@@ -9,6 +9,8 @@ $(document).ready(() => {
 
 
     //*****************<< Updated DOM for clicking "create" in main menu >>*****************/
+    //****************<< html in buid-create-menu.js, build-canvas.js >>********************/
+    //****************<< function definition in art-canvas.js >>****************************/
 
 
     // Set event handler for click on 'create' link
@@ -44,7 +46,7 @@ $(document).ready(() => {
             });
 
         // update the HTML with the canvas and canvas features
-        $('#content-area').html( canvasHTML);
+        $('#content-area').html(canvasHTML);
 
         //instantiate fabric.js canvas on html camvas id
         const myCanvas = new fabric.Canvas('c', {
@@ -59,6 +61,8 @@ $(document).ready(() => {
 
 
     //******************<< Updated DOM for clicking "gallery" in main menu >>***************/
+    //****************<< html in build-gallery-menu.js, build-art-gallery.js >>*************/
+    //****************<< function definition in art-gallery.js >>*******************************/
 
 
     // Set event handler for click on 'gallery' link

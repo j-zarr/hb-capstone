@@ -78,7 +78,7 @@ class Artwork(db.Model):
 
     a_title = db.Column(db.String(75))   
     
-    file_path = db.Column(db.String)
+    file_path = db.Column(db.String(100))
 
     portfolio = db.relationship("Portfolio", 
                                 back_populates="artworks")

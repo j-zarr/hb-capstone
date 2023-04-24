@@ -32,7 +32,7 @@
     margin: 0 auto;
 }
 
-#c{ 
+#c, #c-bg{ 
     display: inline-block;
     vertical-align: middle;
 }

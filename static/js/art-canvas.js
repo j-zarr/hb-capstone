@@ -35,8 +35,8 @@ function activateCanvasBtns(canvas) {
     });
 
 
-    // ***************<< Setting opacity, color, line-width on click >>***************/
-
+    // ***************<< Setting opacity, color, line-width on click >>****************/
+    //****************<< function definitions in coloring-options.js >>****************/
 
     // Update the selected-opacity value on input change (as int)
     $('#selected-opacity').change(setOpacity) ;
@@ -48,51 +48,43 @@ function activateCanvasBtns(canvas) {
     $('#selected-width').change(setLineWidth) 
 
     
-    //****************<< Adding shapes to the cnavas on shape button clicks >>*******************/
+    //****************<< Adding shapes to the canvas on shape button clicks >>*********************/
+    //****************<< function definitions in shapes.js >>**************************************/
 
 
     // Helper function to set canvas location shapes are added to 
     const canvasCenter = (obj) => {
-        obj.top = canvas.getCenter().top;
-        obj.left = canvas.getCenter().left
-    }
-
+    obj.top = canvas.getCenter().top;
+    obj.left = canvas.getCenter().left
+}
 
     // Create and add new Square on click event of square button
     $('#square').click(()=>{
-        const rect = createSquare()
-        canvasCenter(rect);
-        canvas.add(rect);
+        createSquare(canvas, canvasCenter);
     });
         
 
     // Create and add new circle on click event of circle button
     $('#circle').click(()=>{
-        const circle = createCircle();
-        canvasCenter(circle);
-        canvas.add(circle);
+        createCircle(canvas, canvasCenter);
     });
         
 
     // Create and add new Triangle on click event of triangle button
     $('#triangle').click(()=>{
-        const triangle = createTriangle();
-        canvasCenter(triangle);
-        canvas.add(triangle);
+        createTriangle(canvas, canvasCenter);
     });
     
         
     // Create and add new Line on click event of line button
     $('#line').click(()=>{
-        const line = createLine();
-        canvasCenter(line);
-        canvas.add(line);
+        createLine(canvas, canvasCenter);   
     });
     
         
     
-//************************<< Setting brush type for paint/draw button click >>***************************/
-
+//************************<< Setting brush type for paint/draw button click >>************************/
+//***********************<< function definitions in drawing-mode.js >>*********************************/
 
     // Helper function to set drawing mode to true on any drawing tool button click
     $('.drawing-mode').click(function () {
@@ -120,6 +112,7 @@ function activateCanvasBtns(canvas) {
 
 
     //***************** Adding select option and buttons that can use with select: color-fill, delete ***************/
+    //****************<< function definitions select-fill-delete.js >>***********************************************/
 
     // Initialize stack (as array) to be accessible to undo, redo, delete
     // Store stack of removed item to be able to restore
@@ -143,8 +136,8 @@ function activateCanvasBtns(canvas) {
     });
 
     
-   //********************<< Handlers for undo + redo, clear + restore>> */ 
-    
+   //********************<< Handlers for undo + redo, clear + restore>> *********************************/ 
+   //****************<< function definitions in undo-redo-clear-restore.js >>****************************/
 
     // Set undo click handler
     $('#undo').click(()=> {
@@ -170,8 +163,8 @@ function activateCanvasBtns(canvas) {
     });
 
 
-//*****************<< Saving the completed canvas to the database>>******************/
-
+//*****************<< Saving the completed canvas to the database>>*****************************/
+//****************<< function definition in save-artwork.js >>****************************************************/
     
     // Set event handler for submit button in dropdown form (save click)
     $('#save-form').submit((evt)=>{
@@ -186,7 +179,8 @@ function activateCanvasBtns(canvas) {
 
         evt.preventDefault();
 
-        submitSaveForm();
+        submitSaveForm(canvas);
+        
     });
     
 
