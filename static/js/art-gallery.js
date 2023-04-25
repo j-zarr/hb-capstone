@@ -62,7 +62,10 @@ function getAllPortfolios() {
                     let pId = pair[1];
 
                     $('#card-to-add').after(galleryHTML.portfolioCard);
-                    $('#card-to-add').attr('name', `p${pId}`);
+                    console.log(galleryHTML.portfolioCard)
+
+                    // Replace the id with the portfolio id (as p+id) so card can be selected
+                    $('#added-card').attr('id', `p${pId}`);
                     $('#p-artworks').text(title);
                     
 
@@ -71,8 +74,7 @@ function getAllPortfolios() {
                             .then(response => response.json())
                             .then(data => {
                                 if (data.status == 'success') {
-                                  //.remove() isnt working !!!
-                                  // HOW TO REMOVE FROM DOM W/O RELOAD//////
+                                   $(`#p${pId}`).remove()
                                    
                                 }
                             });

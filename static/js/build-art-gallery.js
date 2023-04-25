@@ -19,7 +19,7 @@ const galleryHTML = {
        
 
     portfolioCard:
-     `<div class="card" style="
+     `<div class="card" id="added-card" style="
      display: inline-block;
      width: 300px; 
      height: 250px;
