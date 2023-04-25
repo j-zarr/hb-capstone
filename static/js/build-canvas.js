@@ -66,4 +66,3 @@ const canvasHTML =
 
     
 
-//background-image: url('../../static/assets/checkered.png'); 

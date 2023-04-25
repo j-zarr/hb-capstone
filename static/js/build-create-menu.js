@@ -9,7 +9,7 @@ const navCreateMenu =
 `
 <li>
     <div class="px-0 align-middle" id="clear">
-        <span class="ms-1 d-none d-sm-inline" style="color:white;"> White Canvas 
+        <span class="ms-1 d-none d-sm-inline" style="color:#7B68EE;"> White Canvas 
             <input type="checkbox" value="" id="set-canvas-bg" class="form-check-input">
         </span>
     </div>
@@ -17,19 +17,20 @@ const navCreateMenu =
 
 <li>
     <a href="#" class="nav-link px-0 align-middle" id="clear">
-    <span class="ms-1 d-none d-sm-inline" style="color:white;">Clear</span></a>
+    <span class="ms-1 d-none d-sm-inline" style="color:#7B68EE;">Clear</span></a>
 </li>
 <li>
     <a href="#" class="nav-link px-0 align-middle" id="restore">
-    <span class="ms-1 d-none d-sm-inline" style="color:white;">Restore</span></a>
+    <span class="ms-1 d-none d-sm-inline" style="color:#7B68EE;">Restore</span></a>
 </li>
 
 <li>
     <div class="dropdown nav-link px-0 align-middle">
-     <a href="#" class="d-flex align-items-center align-middle text-white text-decoration-none dropdown-toggle" id="dropdown-save" data-bs-toggle="dropdown" aria-expanded="false">
-     <span class="ms-1 d-none d-sm-inline" style="color:white;">Save</span></a>
+     <a href="#" class="d-flex align-items-center align-middle text-decoration-none dropdown-toggle" 
+            id="dropdown-save" data-bs-toggle="dropdown" aria-expanded="false"  style="color:#7B68EE;">
+     <span class="ms-1 d-none d-sm-inline" style="color:#7B68EE;">Save</span></a>
 
-        <ul class="dropdown-menu dropdown-menu" aria-labelledby="dropdown-save">
+        <ul class="dropdown-menu" aria-labelledby="dropdown-save">
             <form action="/api/save-artwork" method="post" id="save-form">
             
                 <li style="margin: 20px">

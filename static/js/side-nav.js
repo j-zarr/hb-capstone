@@ -2,10 +2,31 @@
 
 $(document).ready(() => {
 
+     //Note: use 'function()' syntax to maintain access to $(this)
+
     // get the bootstrap shade of blue to use 
     const blueColor = $('#logout').css('color')
 
-    //Note: use 'function()' syntax to maintain access to $(this)
+
+     // Helper function to populate the portfolio tiles for the 
+         //save-dropdown-form and artwork-update-form
+         function populatePortfolioSelect(){
+            fetch('/api/user-portfolio-titles')
+            .then(response => response.json())
+            .then(data => {
+                if (data.status == 'success') {
+                    data.message.forEach((pair) => {
+                        let element = `<option 
+                                            class="portfolio-options"
+                                            id=${pair[1]} 
+                                            value=${pair[0]}> 
+                                            ${pair[0]}
+                                        </option>`
+                        $('.options').before(element);
+                   });
+                }
+            });
+        }
 
 
     //*****************<< Updated DOM for clicking "create" in main menu >>*****************/
@@ -22,28 +43,12 @@ $(document).ready(() => {
         $('#gallery-link').prop('disabled', false);
 
         $(this).prop('disabled', true);
-        $(this).css('color', '#00FF00');
+        $(this).css('color', '#e6e8fa');
 
         // update the menu options in the HTML
         $('#nav-menu').html(navCreateMenu).fadeIn();
-
-
-        // Populate the portfolio tiles for the save dropdown form in the menu
-        fetch('/api/user-portfolio-titles')
-            .then(response => response.json())
-            .then(data => {
-                if (data.status == 'success') {
-                    data.message.forEach((pair) => {
-                        let element = `<option 
-                                            class="portfolio-options"
-                                            id=${pair[1]} 
-                                            value=${pair[0]}> 
-                                            ${pair[0]}
-                                        </option>`
-                        $('.options').before(element);
-                   });
-                }
-            });
+        
+        populatePortfolioSelect();
 
         // update the HTML with the canvas and canvas features
         $('#content-area').html(canvasHTML);
@@ -73,18 +78,31 @@ $(document).ready(() => {
         $('#create-link').css('color', blueColor);
         $('#create-link').prop('disabled', false);
         $(this).prop('disabled', true);
-        $(this).css('color', '#00FF00');
+        $(this).css('color', '#e6e8fa');
 
         // update the menu options in the HTML
         $('#nav-menu').html(navGalleryMenu).fadeIn();
 
-        // update the HTML with the gallery and features
-        $('#content-area').html(
-            `
-                <div id="gallery-cards">
-                    <p>GALLERY AS CARDS WILL GO HERE!</p>
-                </div> `
-        );
+        // Add gallery background image
+        $('#content-area').html(galleryHTML.galleryWall);
+       
+         // update the HTML with the gallery and features for click of nav link "artworks"
+        $('#all-artworks').click(()=>{
+            $('#content-area').html(galleryHTML.artworkCard);
+            populatePortfolioSelect();
+
+            getAllArtworks() //will call a fetch fn
+        })
+        
+         // update the HTML with the gallery and features for click of nav link "portfolios"
+        $('#all-portfolios').click(()=>{
+            $('#content-area').html(galleryHTML.portfolioCardContainer);
+
+            getAllPortfolios() //will call a fetch fn
+        })
+            
+         //Call functions from art-gallery.js to display and interact with gallery cards 
+         activateGalleryCards();
     });
 
 

@@ -7,25 +7,25 @@
 // Create updated menu options (for gallery link click)
 const navGalleryMenu =
 `<li>
-<a href="#" class="nav-link px-0 align-middle">
-    <span class="ms-1 d-none d-sm-inline" style="color:white;">Portfolios</span></a>
+<a href="#" class="nav-link px-0 align-middle" id="all-portfolios">
+    <span class="ms-1 d-none d-sm-inline" style="color:#7B68EE;">Portfolios</span></a>
 </li>
 <li>
-<a href="#" class="nav-link px-0 align-middle">
-    <span class="ms-1 d-none d-sm-inline" style="color:white;">Artworks</span></a>
+<a href="#" class="nav-link px-0 align-middle" id="all-artworks">
+    <span class="ms-1 d-none d-sm-inline" style="color:#7B68EE;">Artworks</span></a>
 </li>
 <br>
  <li>
 <div class="input-group input-group-sm mb-3">
     <input type="search" id="search-portfolios" class="form-control rounded" placeholder="Portfolio title" aria-label="Search" aria-describedby="search-addon" />
-    <button type="button" class="btn btn-outline-primary" style="color:white; border-color:white">search</button>
+    <button type="button" class="btn btn-outline-primary" style="color:#7B68EE; border-color:#7B68EE">search</button>
 </div>
 </li>
 
 <li>
 <div class="input-group input-group-sm mb-3">
-    <input type="search" id="search-artworkss" class="form-control rounded" placeholder="Artwork title" aria-label="Search" aria-describedby="search-addon" />
-    <button type="button" class="btn btn-outline-primary" style="color:white; border-color:white;">search</button>
+    <input type="search" id="search-artworks" class="form-control rounded" placeholder="Artwork title" aria-label="Search" aria-describedby="search-addon" />
+    <button type="button" class="btn btn-outline-primary" style="color:#7B68EE; border-color:#7B68EE;">search</button>
 </div> 
 <br>
 <hr>`;

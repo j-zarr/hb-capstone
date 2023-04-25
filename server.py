@@ -196,6 +196,15 @@ def save_new_artwork():
     return jsonify({ 'status': 'success', 'message': msg })
 
 
+@app.route('/api/delete-porfolio/<pId>')
+def deletePortfolio(pId):
+    """Commit deletion of portfolio to database"""
+
+    crud_p.delete_portfolio_by_id(int(pId[1:]))
+    db.session.commit()
+
+    return {"status": "success"}
+    
 
 
 

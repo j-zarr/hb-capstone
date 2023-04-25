@@ -197,7 +197,7 @@ function activateCanvasBtns(canvas) {
     });
     
 
-} //close for activateBtnClick
+} //close for activateCanvasBtns
 
 
 

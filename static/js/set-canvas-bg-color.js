@@ -1,8 +1,8 @@
 'use strict';
 
-
 // function definition called by activateBtnClick from art-canvas.js
 // function for setting canvas background to transparent/white on checkbox change
+
 
 function setCanvasBackground(canvas){
     if ($('#set-canvas-bg').prop('checked')){
