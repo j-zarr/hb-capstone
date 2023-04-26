@@ -52,22 +52,20 @@ const galleryHTML = {
                  text-align:center; 
                  width:100%;
                  background-color:rgba(0,0,0, 0.5);">
-         <form action="/api/update-artwork" method="post" id="update-portfolio-form">
+         <form action="/api/update-portfolio-title" method="post" id="update-portfolio-form">
 
              <li>
                  <input type="text" placeholder="Update title" name="update-p-title" id="update-p-title"
                      minlength="1" maxlength="75">
+                     <span>
+                     <input type="submit" value="SAVE" id="submit-portfolio-update">
+                 </span>    
              </li>
+         </form>
 
-             <li>
-                 <input type="submit" value="SAVE" id="submit-portfolio-update">
-             </li>
-
-             <li>
+            <li>
                  <input type="button" value="DELETE PORTFOLIO" id="delete-portfolio">
              </li>
-
-         </form>
      </ul>
  </div>
 

@@ -152,6 +152,7 @@ function activateCanvasBtns(canvas) {
    //********************<< Handlers for undo + redo, clear + restore>> *********************************/ 
    //****************<< function definitions in undo-redo-clear-restore.js >>****************************/
 
+
     // Set undo click handler
     $('#undo').click(()=> {
         undo(canvas, removed)
@@ -166,13 +167,13 @@ function activateCanvasBtns(canvas) {
     
     // set event handler for click on 'clear' to clear the canvas 
     $('#clear').click(()=>{
-        clearCanvas(canvas, removed, canvasState)
+        clearCanvas(canvas, removed);
     });
 
 
     //restore cleared canvas
     $('#restore').click(()=>{
-        restoreCanvas(canvas, canvasState);
+        restoreCanvas(canvas);
     });
 
 

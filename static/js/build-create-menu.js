@@ -8,7 +8,7 @@
 const navCreateMenu =
 `
 <li>
-    <div class="px-0 align-middle" id="clear">
+    <div class="px-0 align-middle">
         <span class="ms-1 d-none d-sm-inline" style="color:#7B68EE;"> White Canvas 
             <input type="checkbox" value="" id="set-canvas-bg" class="form-check-input">
         </span>

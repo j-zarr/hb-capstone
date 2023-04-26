@@ -5,10 +5,13 @@
 
 
 function setCanvasBackground(canvas){
+    
     if ($('#set-canvas-bg').prop('checked')){
-        console.log('checked')
         canvas.setBackgroundColor('white', canvas.renderAll.bind(canvas));
-    } else{
+       
+    } else {
         canvas.setBackgroundColor('transparent', canvas.renderAll.bind(canvas));
+       
     }
+
 }

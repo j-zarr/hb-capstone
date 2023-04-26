@@ -91,18 +91,20 @@ $(document).ready(() => {
             $('#content-area').html(galleryHTML.artworkCard);
             populatePortfolioSelect();
 
-            getAllArtworks() //will call a fetch fn
+            getAllArtworks() //will call a fetch fn with inner functions
         })
+        
         
          // update the HTML with the gallery and features for click of nav link "portfolios"
         $('#all-portfolios').click(()=>{
             $('#content-area').html(galleryHTML.portfolioCardContainer);
 
-            getAllPortfolios() //will call a fetch fn
+
+            // fn def and class defs in art-gallery.js
+            getAllPortfolios() //will call a fetch fn with inner functions 
         })
             
-         //Call functions from art-gallery.js to display and interact with gallery cards 
-         activateGalleryCards();
+        
     });
 
 

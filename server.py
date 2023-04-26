@@ -197,15 +197,25 @@ def save_new_artwork():
 
 
 @app.route('/api/delete-porfolio/<pId>')
-def deletePortfolio(pId):
+def delete_portfolio(pId):
     """Commit deletion of portfolio to database"""
 
-    crud_p.delete_portfolio_by_id(int(pId[1:]))
+    crud_p.delete_portfolio_by_id(int(pId))
     db.session.commit()
 
     return {"status": "success"}
-    
 
+    
+@app.route('/api/update-portfolio-title/<pId>', methods=['POST'])
+def update_portfolio_title(pId):
+    """Commit updated portfolio title to database"""
+
+    title = request.json.get('title')
+
+    crud_p.update_portfolio_title(portfolio_id=int(pId),
+                                                new_title=title)
+    db.session.commit()
+    return {'status' : 'success'}
 
 
 

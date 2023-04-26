@@ -33,10 +33,12 @@ function redo(canvas, removed) {
 
 
 function clearCanvas(canvas, removed) {
-    // Check if canvas empty - prevent saving a blank canvas to restore
-    if (canvas.isEmpty()) {
+
+   // Check if canvas empty - prevent saving a blank canvas to restore 
+   if (canvas.isEmpty()){
         return;
     }
+   
     //Empty removed array to prevent redo - clear resets the entire canvas
     removed.length = 0;
 
@@ -45,10 +47,19 @@ function clearCanvas(canvas, removed) {
 
     //Clear the canvas
     canvas.clear();
+
+    //Keep the white background on clear, if checkbox checked
+    if ($('#set-canvas-bg').prop('checked')){
+        canvas.setBackgroundColor('white', canvas.renderAll.bind(canvas));
+    }
 }
 
 
 function restoreCanvas(canvas) {
+    if(canvasState == ''){
+        return;
+    }
+
     const objectsToRestore = canvas.loadFromJSON(canvasState)
     objectsToRestore.requestRenderAll();
     //reset canvasState 

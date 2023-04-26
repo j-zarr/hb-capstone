@@ -48,7 +48,22 @@
     color: white; 
 }
 
-#submit-artwork-update, #submit-portfolio-update{
+#update-p-title{
+    display: flex;
+    width: 75%;
+    
+}
+
+/* FIGURE OUT HOW TO DISPLAY SAVE BTN ON RIGHT SIDE OF INPUT*/
+#submit-portfolio-update{
+    display: grid;
+    color: #303030;
+    background-color: white;
+    width: 20%;
+    border-radius: 5px;
+}
+
+#submit-artwork-update{
     color: #303030;
     background-color: white;
     border-radius: 5px;
