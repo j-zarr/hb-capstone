@@ -4,22 +4,17 @@
 // functions for fetching to server to save artwork to database
 
 
-{/* <div id="flash-msg" class="alert alert-dark alert-dismissible fade show" role="alert">
-{{ msg }}
-<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div> */}
-
-
 // helper function for error messages for validateForm
 function displayErrorMessage(errorMessage) {
     $('#save-form').append(
-        `<div id="error-message" class="alert alert-danger alert-dismissible fade show" role="alert">
+        `<div id="error-message" class="alert alert-danger" role="alert">
             ${errorMessage}
         </div>`
     );
+    
     setTimeout(() => {
         $('#error-message').remove();
-    }, 2000);
+    }, 1500);
 }
 
 

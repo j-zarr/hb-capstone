@@ -35,7 +35,6 @@ def get_all_artworks_by_portfolio_id(portfolio_id):
         Artwork.portfolio_id == portfolio_id).order_by(
         db.func.lower(Artwork.a_title)).all()
         
-
     return artworks
 
 

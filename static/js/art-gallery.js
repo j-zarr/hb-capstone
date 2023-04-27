@@ -1,6 +1,13 @@
 'use strict';
 
-// Build class to with methods for each portfolio card instance 
+
+//********<< Note: Helper functions in card-adder.js >>*********//
+
+
+
+//************** Portfiolio Card Class ***********//
+
+//Portfolio Card Class
 class GalleryPortfolio {
     constructor(title, id) {
         this.title = title;
@@ -20,14 +27,37 @@ class GalleryPortfolio {
             .then(data => {
                 if (data.status == 'success') {
                     //update card title in DOM
-                   $(`a[title-me=${this.id}]`).text(this.title)
+                    $(`a[title-me=${this.id}]`).text(this.title)
                 }
             });
     }
 
-    //Display artworks from this portfolio
-    openPortfolio() {
-        //  this.artworks = artworks;
+    openPortfolio(populatePortfolioSelect) {
+        fetch(`/api/get-portfolio-artworks/${this.id}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status == 'success') {
+                    data.message.forEach((obj) => {
+
+                        if(Object.keys(data.message).length < 1){
+                            $('#card-to-add').after(
+                            ` <div class="alert alert-dark alert-dismissible fade show" role="alert">
+                                 Portfolio ${this.title} has no artworks!
+                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                             </div> `);
+                        }
+
+                        // remove portfolio cards by resetting html
+                        $('#content-area').html(galleryHTML.portfolioCardContainer);
+
+                        // create a card for each artwork
+                        createArtworkCard(obj, populatePortfolioSelect); //fn def in card-adder.js
+    
+                    }); 
+                }
+            });
+
+
     }
 
     // Delete this portfolio and all it's artworks
@@ -43,14 +73,19 @@ class GalleryPortfolio {
     }
 }
 
-// Build class with methods for each artwork card instance 
+
+//************** Artwork Card Class ***********//
+
+// Artwork Card class
 class GalleryArtwork {
-    constructor(title, portfolioId, id) {
+    constructor(title, id, portfolioId, path) {
         this.title = title;
-        this.portfolioId = portfolioId;
         this.id = id;
+        this.portfolioId = portfolioId;
+        this.path = path;
 
     }
+
     updateTitle(newTitle) {
         this.title = newTitle
         return this.title;
@@ -67,9 +102,10 @@ class GalleryArtwork {
     }
 }
 
+//*************<< set cards for all portfolios >>***********/
 
-
-function getAllPortfolios() {
+// Get all user portfolios and create a card for each
+function getAllPortfolios(populatePortfolioSelect) {
 
     fetch('/api/user-portfolio-titles')
         .then(response => response.json())
@@ -77,60 +113,73 @@ function getAllPortfolios() {
             if (data.status == 'success') {
 
                 data.message.forEach((pair) => {
-                    const title = pair[0];
-                    const pId = pair[1];
 
-                    const p = new GalleryPortfolio(title, pId); // create class instance
+                    // create a card for each portfolio 
+                    createPortfolioCard(pair, populatePortfolioSelect);
 
-                    // Add to new portfolio card to DOM
-                    $('#card-to-add').after(galleryHTML.portfolioCard);
-
-                    $('#p-artworks').text(title); // add the potrfolio title to the card
-                    $('#p-artworks').attr('title-me', pId) //add unique attr to be able to select
-
-                    // Replace the id with the portfolio id (as pId) so card can be selected
-                    $('#added-card').attr('id', pId);
-                    //add unique attr to be able to select specific card clicked to update
-                    $('#update-p-title').attr('update-me', pId)
-
-
-                    // Set event listener/handler for clicking delete
-                    $('#delete-portfolio').click(() => {
-                        p.deletePortfolio(); //class method
-                    });
-
-
-                    //  Set event listener/handler for clicking update title
-                    $('#update-portfolio-form').submit((evt) => {
-                        evt.preventDefault();
-
-                        
-
-                        const newTitle = $(`input[update-me = ${pId} ]`)
-                        if (newTitle.val() == '') {
-                            return;
-                        }
-                        p.updateTitle(newTitle.val()) //class method
-                    });
-
-
-                    // Set event listener/handler for clicking see portfolio's artwworks
-                    $('#p-artworks').click(() => {
-                        return /////////// SET UP LATER
-                    });
-
-
-                }); // closure for forEach loop
-            } // closure if success check
-        }); // fetch closure
-} // outer function closure
-
-
-
-
-function getAllArtworks() {
-
+                }); 
+            }
+        });
 }
 
 
 
+//*********<< set cards for searched portfolios >>**********//
+function getSearchPortfolioResults(){
+    fetch('/api/search-porfolios', {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({searchParam: 
+                                $('#search-portfolios-input').val()})
+    })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status == 'success') {
+                   
+                    if(Object.keys(data.message).length < 1){
+                        $('#card-to-add').after(
+                        ` <div class="alert alert-dark alert-dismissible fade show" role="alert">
+                             No results found for ${$('#search-portfolios-input').val()}
+                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                         </div> `);
+                    }
+
+                   data.message.forEach((pair) => {
+
+                    // create a card for each portfolio 
+                    createPortfolioCard(pair);
+
+                }); 
+
+                }
+            });
+
+}
+
+
+//*******<< set cards for one portfolio's artwworks >>*******//
+
+
+//***********<< set cards for searched artwworks >>**********//
+
+
+
+//*************<< set cards for all artwworks >>*************//
+
+// Get all user artworks and create a card for each
+function getAllArtworks(populatePortfolioSelect) {
+
+    fetch('api/get-user-artworks')
+        .then(response => response.json())
+        .then(data => {
+            if (data.status == 'success') {
+
+                data.message.forEach((obj) => {
+
+                    // create a card for each artwork
+                    createArtworkCard(obj, populatePortfolioSelect); //fn def in card-adder.js
+
+                }); 
+            }
+        });
+}

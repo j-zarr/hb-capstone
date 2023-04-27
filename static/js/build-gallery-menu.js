@@ -17,15 +17,15 @@ const navGalleryMenu =
 <br>
  <li>
 <div class="input-group input-group-sm mb-3">
-    <input type="search" id="search-portfolios" class="form-control rounded" placeholder="Portfolio title" aria-label="Search" aria-describedby="search-addon" />
-    <button type="button" class="btn btn-outline-primary" style="color:#7B68EE; border-color:#7B68EE">search</button>
+    <input type="search" id="search-portfolios-input" class="form-control rounded" placeholder="Portfolio title" aria-label="Search" aria-describedby="search-addon" />
+    <button type="button" id="search-portfolios-btn" class="btn btn-outline-primary" style="color:#7B68EE; border-color:#7B68EE">search</button>
 </div>
 </li>
 
 <li>
 <div class="input-group input-group-sm mb-3">
-    <input type="search" id="search-artworks" class="form-control rounded" placeholder="Artwork title" aria-label="Search" aria-describedby="search-addon" />
-    <button type="button" class="btn btn-outline-primary" style="color:#7B68EE; border-color:#7B68EE;">search</button>
+    <input type="search" id="search-artworks-input" class="form-control rounded" placeholder="Artwork title" aria-label="Search" aria-describedby="search-addon" />
+    <button type="button" id="search-artworks-btn" class="btn btn-outline-primary" style="color:#7B68EE; border-color:#7B68EE;">search</button>
 </div> 
 <br>
 <hr>`;

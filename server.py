@@ -110,16 +110,16 @@ def user_page():
 
 @app.route("/api/user-portfolio-titles")
 def get_user_portfolio_titles():
-    """Return user portfolio titles"""
+    """Return user portfolio titles and corresponding ids"""
 
     portfolios = crud_p.get_all_portfolios_by_user_id(session['user_id'])
     titles_ids: list = []
 
-    # Check if user no portfolios
+    # Check if user has no portfolios
     if not portfolios:
         return {'status' : 'none found'}
 
-    # Append the portfolio titles 
+    # Append each portfolio [title and id]
     for portfolio in portfolios:
         titles_ids.append([portfolio.p_title, 
                        portfolio.portfolio_id]) 
@@ -128,7 +128,7 @@ def get_user_portfolio_titles():
             'message': titles_ids
             }
 
-boto3.set_stream_logger('botocore', level='DEBUG')
+
 
 @app.route("/api/save-artwork", methods=['POST'])
 def save_new_artwork():
@@ -166,6 +166,8 @@ def save_new_artwork():
     # Set up key and accessibility to S3 bucket
     S3_KEY_ID = os.environ.get("S3_KEY_ID")
     S3_SECRET_KEY = os.environ.get("S3_SECRET_KEY")
+
+    boto3.set_stream_logger('botocore', level='DEBUG')
    
     s3 = boto3.resource('s3', 
                         aws_access_key_id=S3_KEY_ID,  
@@ -176,7 +178,7 @@ def save_new_artwork():
 
     # Create a unique filename for the artwork
     # Replace any spaces in user specified artwork title with "-" to store in S3
-    file_name = f"{uuid.uuid4().hex}-{a_title.replace('', '-')}.png"
+    file_name = f"{uuid.uuid4().hex}-{a_title.replace(' ', '-')}.png"
 
 
     # Save artwork image to Amazon S3
@@ -184,7 +186,7 @@ def save_new_artwork():
     # Body = the file sending, convert to image file from dataURL string
     artwork_bucket.Object(file_name).put(Body=base64.b64decode(base64_artwork_str), Key=f"{session['user_id']}/{file_name}")
     
-    file_path = f"https://{artwork_bucket}.s3.amazonwas.com/{session['user_id']}/{file_name}"
+    file_path = f"https://{artwork_bucket.name}.s3.amazonwas.com/{session['user_id']}/{file_name}"
    
     new_artwork = crud_a.create_artwork(portfolio_id=portfolio_id, 
                                         a_title=a_title,
@@ -216,6 +218,75 @@ def update_portfolio_title(pId):
                                                 new_title=title)
     db.session.commit()
     return {'status' : 'success'}
+
+
+@app.route('/api/search-porfolios',  methods=['POST'])
+def get_portfolio_searcg_results():
+    """Return list of matched portfolio titles"""
+
+    search_param = request.json.get('searchParam')
+
+    portfolios = crud_p.get_portfolios_by_search_param(
+        user_id=session['user_id'], search_param=search_param)
+    titles_ids: list = []
+
+    # Append each portfolio [title and id]
+    for portfolio in portfolios:
+        titles_ids.append([portfolio.p_title, 
+                       portfolio.portfolio_id]) 
+
+    return {'status' : 'success',
+            'message': titles_ids
+            }
+
+
+@app.route('/api/get-user-artworks')
+def get_all_user_artworks():
+    """Return list of all user artworks"""
+
+    artworks = crud_a.get_all_artworks_by_user_id(session['user_id'])
+    all_artworks: list = []
+
+    # Check if user has noartworks
+    if not artworks:
+        return {'status' : 'none found'}
+
+    # Append each portfolio [title and id]
+    for artwork in artworks:
+        all_artworks.append([ artwork.a_title,
+                             artwork.artwork_id,
+                             artwork.portfolio_id,
+                             artwork.file_path
+                            ]) 
+
+    return {'status' : 'success',
+            'message': all_artworks
+            }
+
+
+@app.route('/api/get-portfolio-artworks/<pId>')
+def get_portfolio_artworks(pId):
+    """Return list of all artworks from one portfolio"""
+
+    artworks = crud_a.get_all_artworks_by_portfolio_id(portfolio_id=pId)
+
+    all_artworks: list = []
+
+    # Check if user has noartworks
+    if not artworks:
+        return {'status' : 'none found'}
+
+    # Append each portfolio [title and id]
+    for artwork in artworks:
+        all_artworks.append([ artwork.a_title,
+                             artwork.artwork_id,
+                             artwork.portfolio_id,
+                             artwork.file_path
+                            ]) 
+
+    return {'status' : 'success',
+            'message': all_artworks
+            }
 
 
 

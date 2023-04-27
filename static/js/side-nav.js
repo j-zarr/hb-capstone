@@ -67,7 +67,7 @@ $(document).ready(() => {
 
     //******************<< Updated DOM for clicking "gallery" in main menu >>***************/
     //****************<< html in build-gallery-menu.js, build-art-gallery.js >>*************/
-    //****************<< function definition in art-gallery.js >>*******************************/
+    //****************<< function definitions in art-gallery.js >>*******************************/
 
 
     // Set event handler for click on 'gallery' link
@@ -88,10 +88,10 @@ $(document).ready(() => {
        
          // update the HTML with the gallery and features for click of nav link "artworks"
         $('#all-artworks').click(()=>{
-            $('#content-area').html(galleryHTML.artworkCard);
-            populatePortfolioSelect();
-
-            getAllArtworks() //will call a fetch fn with inner functions
+            $('#content-area').html(galleryHTML.artworkCardContainer);
+            
+            // fn def in art-gallery.js
+            getAllArtworks(populatePortfolioSelect) 
         })
         
         
@@ -99,11 +99,19 @@ $(document).ready(() => {
         $('#all-portfolios').click(()=>{
             $('#content-area').html(galleryHTML.portfolioCardContainer);
 
-
-            // fn def and class defs in art-gallery.js
-            getAllPortfolios() //will call a fetch fn with inner functions 
+            // fn def in art-gallery.js
+            getAllPortfolios(populatePortfolioSelect);  
         })
             
+        // update DOM with portfolio search results
+        $('#search-portfolios-btn').click(()=>{
+            if( !$('#search-portfolios-input').val()){ return}
+
+            $('#content-area').html(galleryHTML.portfolioCardContainer);
+
+             // fn def in art-gallery.js
+             getSearchPortfolioResults();
+        });
         
     });
 

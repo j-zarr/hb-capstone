@@ -6,9 +6,9 @@
 const galleryHTML = {
 
     galleryWall: `<div class="parallax"> </div>`,
-                  
+
     portfolioCardContainer:
-       `
+        `
         <div class="parallax">
             <div class="cardsContainer" style="text-align: center; padding: 20px 100px 50px 100px;">
                 
@@ -16,10 +16,10 @@ const galleryHTML = {
                 
             </div>
         </div>`,
-       
+
 
     portfolioCard:
-     `<div class="card" id="added-card" style="
+        `<div class="card" id="added-card" style="
      display: inline-block;
      width: 300px; 
      height: 250px;
@@ -70,12 +70,21 @@ const galleryHTML = {
  </div>
 
 </div>`,
-        
-    artworkCard: 
+
+
+    artworkCardContainer:
         `
-        <div class="parallax">
-            <div class="cardsContainer" style="text-align: center; padding: 20px 100px 50px 100px;">
-                <div class="card" style="
+ <div class="parallax">
+     <div class="cardsContainer" style="text-align: center; padding: 20px 100px 50px 100px;">
+         
+     <div id="card-to-add"> </div>
+         
+     </div>
+ </div>`,
+
+    artworkCard:
+        `
+         <div class="card" id="added-card" style="
                     display: inline-block;
                     width: 250px; 
                     height: 300px;
@@ -85,15 +94,16 @@ const galleryHTML = {
                     border: 2px solid rgba(7, 7, 7, 0.12);
                     font-size: 16px;">
                     
-                        <div class="card-img" style="height:300px;"></div>
+            <div class="card-img" style="height:300px;"></div>
 
-                        <div class="card-options dropup">
-                            <a href="#" class="d-flex align-items-center align-middle text-decoration-none dropdown-toggle"
+                <div class="card-options dropup">
+                    <a href="#" class="d-flex align-items-center align-middle text-decoration-none dropdown-toggle"
                                     data-bs-toggle="dropdown" aria-expanded="false" id="dropdown-update" 
-                                        style="color: #404040; 
-                                        font-weight: bold;
-                                        justify-content:center;">
-                            <span class="ms-1 d-none d-sm-inline" style="color: #404040;">UPDATE</span></a>
+                                    style="color: #404040; 
+                                    font-weight: bold;
+                                    justify-content:center;">
+                        <span class="ms-1 d-none d-sm-inline" style="color: #404040;">UPDATE</span></a>
+
                     <ul class="dropdown-menu" aria-labelledby="dropdown-update" style="border: none; 
                         text-align:center; 
                         width:100%;
@@ -130,8 +140,7 @@ const galleryHTML = {
 
                 </div>
                       
-            </div>
         </div> `
-            
+
 
 }
