@@ -93,7 +93,17 @@ $(document).ready(() => {
             
             // fn def in art-gallery.js
             getAllArtworks() 
-        })
+        });
+
+        // update DOM with artwork search results
+        $('#search-artworks-btn').click(()=>{
+            if( !$('#search-artworks-input').val()){ return}
+
+            $('#content-area').html(galleryHTML.cardContainer);
+
+             // fn def in art-gallery.js
+             getSearchArtworkResults();
+        });
         
         
          // update the HTML with the gallery and features for click of nav link "portfolios"
@@ -102,7 +112,7 @@ $(document).ready(() => {
 
             // fn def in art-gallery.js
             getAllPortfolios();  
-        })
+        });
             
         // update DOM with portfolio search results
         $('#search-portfolios-btn').click(()=>{

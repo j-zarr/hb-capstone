@@ -335,6 +335,30 @@ def update_artwork_newly_created_portfolio(aId):
     return {'status' : 'success', 'message': new_p_id}
 
 
+@app.route('/api/search-artworks',  methods=['POST'])
+def get_artwork_search_results():
+    """Return list of matched artwork titles."""
+
+    search_param = request.json.get('searchParam')
+
+    artworks = crud_a.get_artworks_by_search_param(
+        user_id=session['user_id'], search_param=search_param)
+    matched_artworks: list = []
+
+    # Append each artwork 
+    for artwork in artworks:
+        matched_artworks.append([artwork.a_title,
+                                 artwork.artwork_id,
+                                 artwork.portfolio_id,
+                                 artwork.file_path
+                                ]) 
+
+    return {'status' : 'success',
+            'message': matched_artworks
+            }
+
+
+
 
 if __name__ == "__main__":
     connect_to_db(app)

@@ -55,8 +55,9 @@ def get_all_artworks_by_user_id(user_id):
 def get_artworks_by_search_param(search_param, user_id):
     """Return a list of artworks that match search input"""
 
-    artworks: list = db.session.query(Artwork).filter(
-        Artwork.user_id == user_id).filter(
+    #### HOW TO DO JOIN PROPERLY HERE ###
+    artworks: list= db.session.query(Artwork).filter(
+        Portfolio.user_id == user_id).filter(
         Artwork.a_title.ilike(f'%{search_param}%')).order_by(db.func.lower(
         Artwork.a_title)).all()
     

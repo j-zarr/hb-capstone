@@ -107,18 +107,3 @@ if __name__ == "__main__":
 # os.system("dropdb artworks")
 # os.system("createdb artworks")
 # db.create_all()
-# test_user1 = User(username='justme', email='test1@test.com', password='test1pswd')
-# db.session.add(test_user1)
-# db.session.commit()
-
-# test_user1.portfolios.append(Portfolio(p_title='abstract happy'))
-# test_user1.portfolios.append(Portfolio(p_title='port2'))
-# db.session.add(test_user1)
-# db.session.commit()
-
-# port1 = Portfolio.query.get(1)
-# port2 = Portfolio.query.get(2)
-# port1.artworks.append(Artwork(a_title='smiley splash'))
-# port2.artworks.append(Artwork(a_title='untitled001'))
-# port2.artworks.append(Artwork(a_title='work3'))
-# db.session.commit()

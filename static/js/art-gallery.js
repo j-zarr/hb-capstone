@@ -126,12 +126,6 @@ class GalleryArtwork {
 
 
     updateCreatedPortfolio(newPortfolioTitle){
-        // fetch to create new portfolio
-
-        // update this.portfolioId to return from fetch
-
-        // update DOM card to have this.portfolioID
-
         const pTitle = { pTitle: newPortfolioTitle}
         
         fetch(`/api/update-artwork-new-portfolio/${this.id}`, {
@@ -217,7 +211,35 @@ function getSearchPortfolioResults(){
 
 
 //***********<< set cards for searched artwworks >>**********//
+function getSearchArtworkResults(){
+    fetch('/api/search-artworks', {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({searchParam: 
+                                $('#search-artworks-input').val()})
+    })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status == 'success') {
+                   
+                    if(Object.keys(data.message).length < 1){
+                        $('#card-to-add').after(
+                        ` <div class="alert alert-dark alert-dismissible fade show" role="alert">
+                             No results found for ${$('#search-artworks-input').val()}
+                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                         </div> `);
+                    }
 
+                   data.message.forEach((obj) => {
+                    // create a card for each portfolio 
+                    createArtworkCard(obj);  //fn def in card-adder.js
+
+                }); 
+
+                }
+            });
+
+}
 
 
 //*************<< set cards for all artwworks >>*************//
