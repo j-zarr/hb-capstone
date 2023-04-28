@@ -165,11 +165,16 @@ function createArtworkCard(obj) {
         //get value of new portfolio tile to create
         const createNewPortfolio = $(`input[update-me-new-p = ${aId}]`)
 
+
         // return if no values to update
         if (newTitle.val() == ''
             && selectPortfolio.val() == ''
             && createNewPortfolio.val() == '') {
             return;
+        }
+
+        if(newTitle.val()){
+            a.updateTitle(newTitle.val())
         }
 
         // check if more than one portfolio field changed

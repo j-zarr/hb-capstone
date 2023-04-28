@@ -68,7 +68,7 @@ def update_artwork_by_id(artwork_id, **kwargs):
     """Update artwork title by primary key, or update it's portfolio by portfolio."""
 
     artwork = Artwork.query.get(artwork_id) 
-    artwork.file_path = kwargs.get('file_path') 
+    
     artwork.a_title = kwargs.get('new_title') 
     artwork.portfolio_id = kwargs.get('portfolio_id') 
 

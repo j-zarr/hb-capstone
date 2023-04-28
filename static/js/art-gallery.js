@@ -17,7 +17,7 @@ class GalleryPortfolio {
     updateTitle(newTitle) {
         this.title = newTitle;
         const title = { title: this.title }
-        //console.log(this.title)
+        
         fetch(`/api/update-portfolio-title/${this.id}`, {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
@@ -52,7 +52,7 @@ class GalleryPortfolio {
                         }
 
                         // create a card for each artwork
-                        createArtworkCard(obj); 
+                        createArtworkCard(obj); //fn def in card-adder.js
     
                     }); 
                 }
@@ -89,7 +89,21 @@ class GalleryArtwork {
 
     updateTitle(newTitle) {
         this.title = newTitle
-        return this.title;
+        const title = { title: this.title }
+        
+        fetch(`/api/update-artwork-title/${this.id}`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(title)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status == 'success') {
+                    //update card title in DOM
+                    $(`h6[title-me=${this.id}]`).text(this.title)
+                    console.log(this.title)
+                }
+            });
     }
 
     // Update based on either select option or newly created portfolio
@@ -127,7 +141,7 @@ class GalleryArtwork {
 //*************<< set cards for all portfolios >>***********/
 
 // Get all user portfolios and create a card for each
-function getAllPortfolios(populatePortfolioSelect) {
+function getAllPortfolios() {
 
     fetch('/api/user-portfolio-titles')
         .then(response => response.json())
@@ -169,7 +183,7 @@ function getSearchPortfolioResults(){
                    data.message.forEach((pair) => {
 
                     // create a card for each portfolio 
-                    createPortfolioCard(pair);
+                    createPortfolioCard(pair);  //fn def in card-adder.js
 
                 }); 
 

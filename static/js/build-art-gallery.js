@@ -123,9 +123,8 @@ const galleryHTML = {
                         </form>
                     </ul> 
                  </div>
-                    <h6 id="current-title">
-                        The Title Here - "#current-title"
-                    </h6>
+                 
+                    <h6 id="current-title"> </h6>
 
                 </div>
                       
