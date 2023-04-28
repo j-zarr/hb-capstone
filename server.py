@@ -245,18 +245,25 @@ def get_all_user_artworks():
 
     artworks = crud_a.get_all_artworks_by_user_id(session['user_id'])
     all_artworks: list = []
+   
 
     # Check if user has noartworks
     if not artworks:
         return {'status' : 'none found'}
 
-    # Append each portfolio [title and id]
+    # Append each artwork - sort by title 
     for artwork in artworks:
         all_artworks.append([ artwork.a_title,
                              artwork.artwork_id,
                              artwork.portfolio_id,
                              artwork.file_path
                             ]) 
+
+       
+        # titles are sorted within their portfolios only,
+        #  so sort here by all artwork titles
+        all_artworks.sort(key=lambda alphabetize : alphabetize[0], reverse=True)
+        
 
     return {'status' : 'success',
             'message': all_artworks

@@ -1,6 +1,6 @@
 """CRUD operations for User table in artworks database."""
 
-from model import db, connect_to_db, User, Portfolio, Artwork
+from model import db, connect_to_db, User
 
 
 def create_user(username, email, password):

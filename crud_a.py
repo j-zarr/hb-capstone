@@ -1,6 +1,6 @@
 """CRUD operations for Artwork table in artworks database."""
 
-from model import db, connect_to_db, User, Portfolio, Artwork
+from model import db, connect_to_db, Portfolio, Artwork
 
 
 # create artwork, a_title can be optional, but attaching to a portfolio is required
@@ -57,8 +57,8 @@ def get_artworks_by_search_param(search_param, user_id):
 
     artworks: list= db.session.query(Artwork).filter(
         Portfolio.user_id == user_id).filter(
-        Artwork.a_title.ilike(f'%{search_param}%')).order_by(db.func.lower(
-        Artwork.a_title)).join(Portfolio).all()
+        Artwork.a_title.ilike(f'%{search_param}%')).order_by(db.desc(db.func.lower(
+        Artwork.a_title))).join(Portfolio).all()
     
     return artworks
 
