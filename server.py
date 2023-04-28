@@ -97,7 +97,7 @@ def create_user():
    
 @app.route("/user")
 def user_page():
-    """View user page"""
+    """View user page."""
 
     logged_in = checkIsLoggedIn
     if logged_in() == False:
@@ -110,7 +110,7 @@ def user_page():
 
 @app.route("/api/user-portfolio-titles")
 def get_user_portfolio_titles():
-    """Return user portfolio titles and corresponding ids"""
+    """Return user portfolio titles and corresponding ids."""
 
     portfolios = crud_p.get_all_portfolios_by_user_id(session['user_id'])
     titles_ids: list = []
@@ -132,7 +132,7 @@ def get_user_portfolio_titles():
 
 @app.route("/api/save-artwork", methods=['POST'])
 def save_new_artwork():
-    """Create new artwork for user and commit to database"""
+    """Create new artwork for user and commit to database."""
     
     ###### TO DO: ######################
     ###Split up into helper functions####
@@ -200,7 +200,7 @@ def save_new_artwork():
 
 @app.route('/api/delete-porfolio/<pId>')
 def delete_portfolio(pId):
-    """Commit deletion of portfolio to database"""
+    """Commit deletion of portfolio to database."""
 
     crud_p.delete_portfolio_by_id(int(pId))
     db.session.commit()
@@ -210,7 +210,7 @@ def delete_portfolio(pId):
     
 @app.route('/api/update-portfolio-title/<pId>', methods=['POST'])
 def update_portfolio_title(pId):
-    """Commit updated portfolio title to database"""
+    """Commit updated portfolio title to database."""
 
     title = request.json.get('title')
 
@@ -222,7 +222,7 @@ def update_portfolio_title(pId):
 
 @app.route('/api/search-porfolios',  methods=['POST'])
 def get_portfolio_search_results():
-    """Return list of matched portfolio titles"""
+    """Return list of matched portfolio titles."""
 
     search_param = request.json.get('searchParam')
 
@@ -242,7 +242,7 @@ def get_portfolio_search_results():
 
 @app.route('/api/get-user-artworks')
 def get_all_user_artworks():
-    """Return list of all user artworks"""
+    """Return list of all user artworks."""
 
     artworks = crud_a.get_all_artworks_by_user_id(session['user_id'])
     all_artworks: list = []
@@ -266,7 +266,7 @@ def get_all_user_artworks():
 
 @app.route('/api/get-portfolio-artworks/<pId>')
 def get_portfolio_artworks(pId):
-    """Return list of all artworks from one portfolio"""
+    """Return list of all artworks from one portfolio."""
 
     artworks = crud_a.get_all_artworks_by_portfolio_id(portfolio_id=pId)
 
@@ -291,7 +291,7 @@ def get_portfolio_artworks(pId):
 
 @app.route('/api/delete-artwork/<aId>')
 def delete_artwork(aId):
-     """Commit deletion of artwork to database"""
+     """Commit deletion of artwork to database."""
 
      crud_a.delete_artwork_by_id(int(aId))
      db.session.commit()
@@ -301,6 +301,7 @@ def delete_artwork(aId):
 
 @app.route('/api/update-artwork-title/<aId>', methods=['POST'])
 def update_artwork_title(aId):
+    """ Commit updated artwork title to database."""
     
     title = request.json.get('title')
 
@@ -308,6 +309,18 @@ def update_artwork_title(aId):
                                                 
     db.session.commit()
     return {'status' : 'success'}
+
+
+@app.route('/api/update-artwork-portfolio-id/<aId>', methods=['POST'])
+def update_artwork_portfolio(aId):
+    """Commit updated artwork portfolio to database."""
+    
+    pId = request.json.get('pId')
+    crud_a.update_artwork_by_id(artwork_id=aId, portfolio_id=pId)
+                                                
+    db.session.commit()
+    return {'status' : 'success'}
+
 
 if __name__ == "__main__":
     connect_to_db(app)

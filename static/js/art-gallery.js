@@ -101,14 +101,27 @@ class GalleryArtwork {
                 if (data.status == 'success') {
                     //update card title in DOM
                     $(`h6[title-me=${this.id}]`).text(this.title)
-                    console.log(this.title)
                 }
             });
     }
 
     // Update based on either select option or newly created portfolio
     updatePortfolio(newPortfolioID) {
-        //fetch to update portfolioID
+       
+        const pId = { pId: newPortfolioID}
+        
+        fetch(`/api/update-artwork-portfolio-id/${this.id}`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(pId)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status == 'success') {
+                   
+                    this.portfolioId = newPortfolioID
+                }
+            });
 
          // update this.portfolioId if fetch successful
          this.portfolioId = newPortfolioID
