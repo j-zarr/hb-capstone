@@ -196,7 +196,6 @@ function createArtworkCard(obj) {
         }
 
         if (createNewPortfolio.val()) {
-            console.log(createNewPortfolio.val())
             a.updateCreatedPortfolio(createNewPortfolio.val())
         }
 

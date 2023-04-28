@@ -122,11 +122,6 @@ class GalleryArtwork {
                     this.portfolioId = newPortfolioID
                 }
             });
-
-         // update this.portfolioId if fetch successful
-         this.portfolioId = newPortfolioID
-
-        
     }
 
 
@@ -136,6 +131,20 @@ class GalleryArtwork {
         // update this.portfolioId to return from fetch
 
         // update DOM card to have this.portfolioID
+
+        const pTitle = { pTitle: newPortfolioTitle}
+        
+        fetch(`/api/update-artwork-new-portfolio/${this.id}`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(pTitle)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status == 'success') {
+                    this.portfolioId = data.message;
+                }
+            });
 
     }
 

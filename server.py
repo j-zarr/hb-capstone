@@ -15,6 +15,20 @@ app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 
 
+# Helper function to create new portfolio 
+# for saving new artwork and updating artwork's portfolio
+def get_new_portfolio_id(new_portfolio_title):
+         # Create the new_portfolio
+        new_portfolio = crud_p.create_portfolio(
+            user_id=session['user_id'], p_title=new_portfolio_title)
+        db.session.add(new_portfolio)
+        db.session.commit()
+
+        # Get the portfolio_if of the new portfolio
+        created_portfolio = crud_p.get_portfolio_by_user_id_p_title(
+            user_id=session['user_id'], p_title=new_portfolio_title)
+        return created_portfolio.portfolio_id
+
 
 
 # helper function to not allow user to navigate to user page in url wwithout logging in 
@@ -134,10 +148,6 @@ def get_user_portfolio_titles():
 def save_new_artwork():
     """Create new artwork for user and commit to database."""
     
-    ###### TO DO: ######################
-    ###Split up into helper functions####
-    ####################################
-    
     # Get inputs for title and portfolio from save form
     a_title = request.json.get("artwork-title")
     existing_portfolio_id = request.json.get("portfolio-id")
@@ -145,22 +155,11 @@ def save_new_artwork():
     new_portfolio_title = request.json.get("new-portfolio-title")
     base64_artwork_str = request.json.get('artwork-dataURL').split('base64,')[1] #remove prefix
 
-
-    def get_new_portfolio_id():
-         # Create the new_portfolio
-        new_portfolio = crud_p.create_portfolio(
-            user_id=session['user_id'], p_title=new_portfolio_title)
-        db.session.add(new_portfolio)
-        db.session.commit()
-
-        # Get the portfolio_if of the new portfolio
-        created_portfolio = crud_p.get_portfolio_by_user_id_p_title(
-            user_id=session['user_id'], p_title=new_portfolio_title)
-        return created_portfolio.portfolio_id
     
     # Get the portfolio relevant portfolio id based on user selection 
-    # (id of existing portfolio or the newly created portfolio)
-    portfolio_id = get_new_portfolio_id() if not existing_portfolio_id else existing_portfolio_id
+    # id of existing portfolio or the newly created portfolio)
+    # (helper fn def at top of file)
+    portfolio_id = get_new_portfolio_id(new_portfolio_title) if not existing_portfolio_id else existing_portfolio_id
     portfolio_title = new_portfolio_title if not existing_portfolio_id else existing_portfolio_title
       
     # Set up key and accessibility to S3 bucket
@@ -320,6 +319,21 @@ def update_artwork_portfolio(aId):
                                                 
     db.session.commit()
     return {'status' : 'success'}
+
+
+@app.route('/api/update-artwork-new-portfolio/<aId>', methods=['POST'])
+def update_artwork_newly_created_portfolio(aId):
+    """Return new pId for new updated artwork porfolio."""
+
+    p_title = request.json.get('pTitle')
+
+    new_p_id = get_new_portfolio_id(p_title) #helper fn def at top of file
+
+    crud_a.update_artwork_by_id(artwork_id=aId, portfolio_id=new_p_id)
+
+    db.session.commit()
+    return {'status' : 'success', 'message': new_p_id}
+
 
 
 if __name__ == "__main__":
