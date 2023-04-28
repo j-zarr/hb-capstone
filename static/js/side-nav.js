@@ -15,13 +15,14 @@ $(document).ready(() => {
             .then(response => response.json())
             .then(data => {
                 if (data.status == 'success') {
+
                     data.message.forEach((pair) => {
                         let element = `<option 
                                             class="portfolio-options"
                                             id=${pair[1]} 
                                             value=${pair[0]}> 
                                             ${pair[0]}
-                                        </option>`
+                                        </option>`;
                         $('.options').before(element);
                    });
                 }
@@ -88,26 +89,26 @@ $(document).ready(() => {
        
          // update the HTML with the gallery and features for click of nav link "artworks"
         $('#all-artworks').click(()=>{
-            $('#content-area').html(galleryHTML.artworkCardContainer);
+            $('#content-area').html(galleryHTML.cardContainer);
             
             // fn def in art-gallery.js
-            getAllArtworks(populatePortfolioSelect) 
+            getAllArtworks() 
         })
         
         
          // update the HTML with the gallery and features for click of nav link "portfolios"
         $('#all-portfolios').click(()=>{
-            $('#content-area').html(galleryHTML.portfolioCardContainer);
+            $('#content-area').html(galleryHTML.cardContainer);
 
             // fn def in art-gallery.js
-            getAllPortfolios(populatePortfolioSelect);  
+            getAllPortfolios();  
         })
             
         // update DOM with portfolio search results
         $('#search-portfolios-btn').click(()=>{
             if( !$('#search-portfolios-input').val()){ return}
 
-            $('#content-area').html(galleryHTML.portfolioCardContainer);
+            $('#content-area').html(galleryHTML.cardContainer);
 
              // fn def in art-gallery.js
              getSearchPortfolioResults();

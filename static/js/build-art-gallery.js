@@ -7,7 +7,7 @@ const galleryHTML = {
 
     galleryWall: `<div class="parallax"> </div>`,
 
-    portfolioCardContainer:
+    cardContainer:
         `
         <div class="parallax">
             <div class="cardsContainer" style="text-align: center; padding: 20px 100px 50px 100px;">
@@ -71,17 +71,6 @@ const galleryHTML = {
 
 </div>`,
 
-
-    artworkCardContainer:
-        `
- <div class="parallax">
-     <div class="cardsContainer" style="text-align: center; padding: 20px 100px 50px 100px;">
-         
-     <div id="card-to-add"> </div>
-         
-     </div>
- </div>`,
-
     artworkCard:
         `
          <div class="card" id="added-card" style="
@@ -116,7 +105,7 @@ const galleryHTML = {
                             </li>
                             <li>
                                  <select name="update-p-title" id="update-p-title">
-                                     <option class="options" value="">--Choose an portfolio--</option>
+                                     <option id="options-placeholder" value="">--Choose an portfolio--</option>
                                 </select>
                              </li>
                              <li>

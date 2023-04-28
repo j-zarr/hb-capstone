@@ -221,7 +221,7 @@ def update_portfolio_title(pId):
 
 
 @app.route('/api/search-porfolios',  methods=['POST'])
-def get_portfolio_searcg_results():
+def get_portfolio_search_results():
     """Return list of matched portfolio titles"""
 
     search_param = request.json.get('searchParam')
@@ -287,6 +287,17 @@ def get_portfolio_artworks(pId):
     return {'status' : 'success',
             'message': all_artworks
             }
+
+
+@app.route('/api/delete-artwork/<aId>')
+def delete_artwork(aId):
+
+     """Commit deletion of artwork to database"""
+
+     crud_a.delete_artwork_by_id(int(aId))
+     db.session.commit()
+
+     return {"status": "success"}
 
 
 

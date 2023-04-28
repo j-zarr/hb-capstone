@@ -32,11 +32,15 @@ class GalleryPortfolio {
             });
     }
 
-    openPortfolio(populatePortfolioSelect) {
+    openPortfolio() {
         fetch(`/api/get-portfolio-artworks/${this.id}`)
             .then(response => response.json())
             .then(data => {
                 if (data.status == 'success') {
+
+                     // remove portfolio cards by resetting html card container
+                     $('#content-area').html(galleryHTML.cardContainer);
+
                     data.message.forEach((obj) => {
 
                         if(Object.keys(data.message).length < 1){
@@ -47,11 +51,8 @@ class GalleryPortfolio {
                              </div> `);
                         }
 
-                        // remove portfolio cards by resetting html
-                        $('#content-area').html(galleryHTML.portfolioCardContainer);
-
                         // create a card for each artwork
-                        createArtworkCard(obj, populatePortfolioSelect); //fn def in card-adder.js
+                        createArtworkCard(obj); 
     
                     }); 
                 }
@@ -69,9 +70,9 @@ class GalleryPortfolio {
                     $(`#${this.id}`).remove();
                 }
             });
-
     }
 }
+
 
 
 //************** Artwork Card Class ***********//
@@ -83,7 +84,7 @@ class GalleryArtwork {
         this.id = id;
         this.portfolioId = portfolioId;
         this.path = path;
-
+        
     }
 
     updateTitle(newTitle) {
@@ -93,13 +94,34 @@ class GalleryArtwork {
 
     // Update based on either select option or newly created portfolio
     updatePortfolio(newPortfolioID) {
-        this.portfolioId = newPortfolioID
-        return this.portfolioId
+        //fetch to update portfolioID
+
+         // update this.portfolioId if fetch successful
+         this.portfolioId = newPortfolioID
+
+        
+    }
+
+
+    updateCreatedPortfolio(newPortfolioTitle){
+        // fetch to create new portfolio
+
+        // update this.portfolioId to return from fetch
+
+        // update DOM card to have this.portfolioID
+
     }
 
     deleteArtwork() {
-
+        fetch(`/api/delete-artwork/${this.id}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status == 'success') {
+                    $(`#${this.id}`).remove();
+                }
+            });
     }
+    
 }
 
 //*************<< set cards for all portfolios >>***********/
@@ -115,7 +137,7 @@ function getAllPortfolios(populatePortfolioSelect) {
                 data.message.forEach((pair) => {
 
                     // create a card for each portfolio 
-                    createPortfolioCard(pair, populatePortfolioSelect);
+                    createPortfolioCard(pair);
 
                 }); 
             }
@@ -157,8 +179,6 @@ function getSearchPortfolioResults(){
 }
 
 
-//*******<< set cards for one portfolio's artwworks >>*******//
-
 
 //***********<< set cards for searched artwworks >>**********//
 
@@ -167,7 +187,7 @@ function getSearchPortfolioResults(){
 //*************<< set cards for all artwworks >>*************//
 
 // Get all user artworks and create a card for each
-function getAllArtworks(populatePortfolioSelect) {
+function getAllArtworks() {
 
     fetch('api/get-user-artworks')
         .then(response => response.json())
@@ -175,9 +195,9 @@ function getAllArtworks(populatePortfolioSelect) {
             if (data.status == 'success') {
 
                 data.message.forEach((obj) => {
-
+                    
                     // create a card for each artwork
-                    createArtworkCard(obj, populatePortfolioSelect); //fn def in card-adder.js
+                    createArtworkCard(obj); 
 
                 }); 
             }
