@@ -83,7 +83,7 @@ const galleryHTML = {
                     border: 2px solid rgba(7, 7, 7, 0.12);
                     font-size: 16px;">
                     
-            <div class="card-img" style="height:300px;"></div>
+            <div id="card-img" style="height:300px;"></div>
 
                 <div class="card-options dropup">
                     <a href="#" class="d-flex align-items-center align-middle text-decoration-none dropdown-toggle"

@@ -101,9 +101,10 @@ def connect_to_db(flask_app, db_uri="postgresql:///artworks", echo=True):
 if __name__ == "__main__":
     from server import app
 
+    # import os
+    # os.system("dropdb artworks")
+    # os.system("createdb artworks")
+
     connect_to_db(app, echo=False)
 
-# import os
-# os.system("dropdb artworks")
-# os.system("createdb artworks")
-# db.create_all()
+    # db.create_all()

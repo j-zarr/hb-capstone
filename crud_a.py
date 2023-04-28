@@ -1,4 +1,4 @@
-"""CRUD operations Artwork for table in artworks database."""
+"""CRUD operations for Artwork table in artworks database."""
 
 from model import db, connect_to_db, User, Portfolio, Artwork
 
@@ -55,11 +55,10 @@ def get_all_artworks_by_user_id(user_id):
 def get_artworks_by_search_param(search_param, user_id):
     """Return a list of artworks that match search input"""
 
-    #### HOW TO DO JOIN PROPERLY HERE ###
     artworks: list= db.session.query(Artwork).filter(
         Portfolio.user_id == user_id).filter(
         Artwork.a_title.ilike(f'%{search_param}%')).order_by(db.func.lower(
-        Artwork.a_title)).all()
+        Artwork.a_title)).join(Portfolio).all()
     
     return artworks
 

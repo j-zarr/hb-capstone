@@ -185,7 +185,7 @@ def save_new_artwork():
     # Body = the file sending, convert to image file from dataURL string
     artwork_bucket.Object(file_name).put(Body=base64.b64decode(base64_artwork_str), Key=f"{session['user_id']}/{file_name}")
     
-    file_path = f"https://{artwork_bucket.name}.s3.amazonwas.com/{session['user_id']}/{file_name}"
+    file_path = f"https://{artwork_bucket.name}.s3.amazonaws.com/{session['user_id']}/{file_name}"
    
     new_artwork = crud_a.create_artwork(portfolio_id=portfolio_id, 
                                         a_title=a_title,
