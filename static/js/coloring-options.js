@@ -22,10 +22,10 @@ function setLineWidth(){
  
 
 // Initialize selectedColor and selectedOpacity to default value 
-let selectedColor = "#00FF00";
+let selectedColor =  "#00FF00";
 let selectedOpacity = 1;
 
-  // Initialize selectedWidth  default value (as int)
+// Initialize selectedWidth  default value (as int)
 let selectedWidth = 10;
 
 

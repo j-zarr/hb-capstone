@@ -90,7 +90,13 @@ function submitSaveForm(canvas) {
                 $('#message').remove();
                 //reload create page 
                 $('#create-link').prop('disabled', false);
-                $('#create-link').click()
+
+                $('#create-link').click(); //reload canvas
+
+                // Reset selectedColor, selectedOpacity, selectedWidth to default values 
+                selectedColor =  "#00FF00";
+                selectedOpacity = 1;
+                selectedWidth = 10;
             }, 3000);
         });
 }

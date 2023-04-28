@@ -20,8 +20,8 @@ function paint(canvas){
     brush.strokeLineCap = 'bevel';
 }
 
-// ******** TO DO: revisit if have time to change ************/
-// **********sprayBrush to a custom brush ************/
+// ******** TO DO: revisit if time permits:  ************/
+// ********** Replace with custom PatternBrush to mimick water color strokes ************/
 
 //Create custom water-color brush 
 function waterColor(canvas){
