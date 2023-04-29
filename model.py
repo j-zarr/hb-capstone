@@ -22,7 +22,7 @@ class User(db.Model):
                       unique=True, 
                       nullable=False) 
     
-    password = db.Column(db.String(25), 
+    password = db.Column(db.Text, 
                          nullable=False)
 
     # one user to many portfolios
@@ -108,3 +108,7 @@ if __name__ == "__main__":
     connect_to_db(app, echo=False)
 
     # db.create_all()
+
+
+
+

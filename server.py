@@ -2,6 +2,7 @@
 
 from flask import (Flask, render_template, request, session, redirect,url_for ,jsonify)
 from jinja2 import StrictUndefined
+import hashlib
 import boto3
 import os
 import re
@@ -58,7 +59,9 @@ def login_user():
 
     user = crud_u.get_user_by_email(email)
 
-    if user and user.password == password:
+    hashed = hashlib.sha256(password.encode()).hexdigest() 
+
+    if user and user.password == hashed:
 
         #store user info in session
         session['user_id'] = user.user_id
@@ -94,10 +97,13 @@ def create_user():
     username = request.form.get("username")
     email = request.form.get("email")
     password = request.form.get("password")
+
+    # hash password
+    hashed = hashlib.sha256(password.encode()).hexdigest()
    
     new_user = crud_u.create_user(username=username,
                                 email=email, 
-                                password=password)
+                                password=hashed)
     db.session.add(new_user)
     db.session.commit()
 
