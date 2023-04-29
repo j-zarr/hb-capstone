@@ -26,7 +26,11 @@ function activateCanvasBtns(canvas) {
     $('button').click(function () {
         // Deselect previously selected button and select current cliked button 
         $('button').css('color', 'white');
-        $(this).css('color', '#55DD33');
+
+        if ($(this).attr('id') != 'select-object') { //handle select click separately
+            $(this).css('color', '#55DD33');
+            deselect(canvas);
+        }
 
         // Set drawing mode to false on any non-drawing button click
         if ($(this).attr('id') != 'draw' || $(this).attr('id') != 'paint') {
@@ -39,58 +43,58 @@ function activateCanvasBtns(canvas) {
     //****************<< function definitions in coloring-options.js >>****************/
 
     // Update the selected-opacity value on input change (as int)
-    $('#selected-opacity').change(setOpacity) ;
+    $('#selected-opacity').change(setOpacity);
 
     // Get the selected-color value on input change
-    $('#selected-color').change(setColor); 
+    $('#selected-color').change(setColor);
 
     // Update selected-width on input change (as int)
-    $('#selected-width').change(setLineWidth) 
+    $('#selected-width').change(setLineWidth)
 
-    
+
     //****************<< Adding shapes to the canvas on shape button clicks >>*********************/
     //****************<< function definitions in shapes.js >>**************************************/
 
 
     // Helper function to set canvas location and commomn attributes for shapes
     const commonShapeSettings = (obj) => {
-    obj.top = canvas.getCenter().top;
-    obj.left = canvas.getCenter().left;
-    obj.fill = '';
-    obj.stroke = selectedColor;
-    obj.strokeWidth = selectedWidth;
-    obj.strokeUniform = true;
-    obj.hoverCursor = 'crosshair';
-    obj.selectable = false;
-}
+        obj.top = canvas.getCenter().top;
+        obj.left = canvas.getCenter().left;
+        obj.fill = '';
+        obj.stroke = selectedColor;
+        obj.strokeWidth = selectedWidth;
+        obj.strokeUniform = true;
+        obj.hoverCursor = 'crosshair';
+        obj.selectable = false;
+    }
 
     // Create and add new Square on click event of square button
-    $('#square').click(()=>{
+    $('#square').click(() => {
         createSquare(canvas, commonShapeSettings);
     });
-        
+
 
     // Create and add new circle on click event of circle button
-    $('#circle').click(()=>{
+    $('#circle').click(() => {
         createCircle(canvas, commonShapeSettings);
     });
-        
+
 
     // Create and add new Triangle on click event of triangle button
-    $('#triangle').click(()=>{
+    $('#triangle').click(() => {
         createTriangle(canvas, commonShapeSettings);
     });
-    
-        
+
+
     // Create and add new Line on click event of line button
-    $('#line').click(()=>{
-        createLine(canvas, commonShapeSettings);   
+    $('#line').click(() => {
+        createLine(canvas, commonShapeSettings);
     });
-    
-        
-    
-//************************<< Setting brush type for paint/draw button click >>************************/
-//***********************<< function definitions in drawing-mode.js >>*********************************/
+
+
+
+    //************************<< Setting brush type for paint/draw button click >>************************/
+    //***********************<< function definitions in drawing-mode.js >>*********************************/
 
     // Helper function to set drawing mode to true on any drawing tool button click
     $('.drawing-mode').click(function () {
@@ -99,21 +103,21 @@ function activateCanvasBtns(canvas) {
 
 
     // Create new PencilBrush to draw with on click event of pencil button
-    $('#draw').click(()=>{
+    $('#draw').click(() => {
         draw(canvas);
     });
 
-    
+
     // Create new freeDrawingBrush to paint with on click event of paintbrush button
-    $('#paint').click(()=> {  //try PatternBrush and using a water color img to make a better paint like brush
-        paint(canvas); 
+    $('#paint').click(() => {  //try PatternBrush and using a water color img to make a better paint like brush
+        paint(canvas);
     });
 
 
     // After MVP change from SprayBrush to custom patterBrush to mimmick watercolor strokes
     // Create new SprayBrush to draw with on click event of sguiggles button
     $('#water-color').click(() => {
-        waterColor(canvas); 
+        waterColor(canvas);
     });
 
 
@@ -124,67 +128,78 @@ function activateCanvasBtns(canvas) {
     // Store stack of removed item to be able to restore
     let removed = []  //To be emptied on clear canvas
 
+    let selectIsActive = false; // Initialize select button active as false
 
     // Set all objects (shapes and drawings) already on canvas to be selectable on select-object button click
-    $('#select-object').click(()=> {
-        select(canvas);
+    $('#select-object').click(function () {
+
+        // if select button active and reclicked, deselect all objects
+        if (selectIsActive) {
+            selectIsActive = false;
+            $(this).css('color', 'white');
+            deselect(canvas);
+        } else {
+            selectIsActive = true;
+            $(this).css('color', '#55DD33');
+            select(canvas);
+        }
     });
 
     // Set fill to selected color on color-fill button click
     $('#color-fill').click(() => {
-        fillColor(canvas); 
+        fillColor(canvas);
     });
 
 
     // Delete selected object on click of delete-obj button
-    $('#delete-obj').click(()=> {
-        deleteObj(canvas, removed);   
+    $('#delete-obj').click(() => {
+        deleteObj(canvas, removed);
     });
 
 
     //********************<< Handler for changing canvas background to white/transparent>> *********************************/ 
-   //****************<< function definition in set-canvas-bg-color.js >>****************************/
+    //****************<< function definition in set-canvas-bg-color.js >>****************************/
 
-   $('#set-canvas-bg').change(()=> {
+    $('#set-canvas-bg').change(() => {
         setCanvasBackground(canvas);
-   })
-    
-   //********************<< Handlers for undo + redo, clear + restore>> *********************************/ 
-   //****************<< function definitions in undo-redo-clear-restore.js >>****************************/
+    })
+
+    //********************<< Handlers for undo + redo, clear + restore>> *********************************/ 
+    //****************<< function definitions in undo-redo-clear-restore.js >>****************************/
 
 
     // Set undo click handler
-    $('#undo').click(()=> {
+    $('#undo').click(() => {
         undo(canvas, removed)
     });
 
-        
+
     // Set redo click handler 
-    $('#redo').click(() =>{
+    $('#redo').click(() => {
         redo(canvas, removed);
     });
 
-    
+
     // set event handler for click on 'clear' to clear the canvas 
-    $('#clear').click(()=>{
+    $('#clear').click(() => {
         clearCanvas(canvas, removed);
     });
 
 
     //restore cleared canvas
-    $('#restore').click(()=>{
+    $('#restore').click(() => {
         restoreCanvas(canvas);
     });
 
 
-//*****************<< Saving the completed canvas to the database>>*****************************/
-//****************<< function definition in save-artwork.js >>****************************************************/
-    
-    // Set event handler for submit button in dropdown form (save click)
-    $('#save-form').submit((evt)=>{
+    //*****************<< Saving the completed canvas to the database>>*****************************/
+    //****************<< function definition in save-artwork.js >>****************************************************/
 
-         // return if no artwork to save
-         if (canvas.isEmpty()) {
+    // Set event handler for submit button in dropdown form (save click)
+    $('#save-form').submit((evt) => {
+
+        // return if no artwork to save
+        if (canvas.isEmpty()) {
             evt.preventDefault();
             // Create error message if tries to save an empty canvas and return
             displayErrorMessage('Cannot save an empty canvas!');
@@ -194,9 +209,9 @@ function activateCanvasBtns(canvas) {
         evt.preventDefault();
 
         submitSaveForm(canvas);
-        
+
     });
-    
+
 
 } //close for activateCanvasBtns
 
