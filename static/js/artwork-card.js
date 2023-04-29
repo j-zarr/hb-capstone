@@ -21,7 +21,7 @@ class GalleryArtwork {
         this.title = newTitle
         const title = { title: this.title }
 
-        fetch(`/api/update-artwork-title/${this.id}`, {
+        fetch(`/api/update-artwork-title/${this.id}/${this.portfolioId}`, {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(title)

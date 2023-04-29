@@ -4,6 +4,7 @@ from flask import (Flask, render_template, request, session, redirect,url_for ,j
 from jinja2 import StrictUndefined
 import boto3
 import os
+import re
 import uuid
 import base64
 from model import connect_to_db, db
@@ -175,11 +176,13 @@ def save_new_artwork():
     
     artwork_bucket = s3.Bucket(name='artworks-images')
 
+    # replace special chars and spaces with '-' for file-path
+    replaced_title = re.sub('[^a-zA-Z0-9 \n\.]', '-', a_title)
+    replaced_title = replaced_title.replace(' ', '-')
+    
     # Create a unique filename for the artwork
-    # Replace any spaces in user specified artwork title with "-" to store in S3
-    file_name = f"{uuid.uuid4().hex}-{a_title.replace(' ', '-')}.png"
-
-
+    file_name = f"{uuid.uuid4().hex}-{replaced_title}.png"
+    
     # Save artwork image to Amazon S3
     # Key = filename,  prepend {user_id/} to create "folder" objects for each user's artworks
     # Body = the file sending, convert to image file from dataURL string
@@ -193,7 +196,7 @@ def save_new_artwork():
     db.session.add(new_artwork)
     db.session.commit()
 
-    msg = (f"{new_artwork.a_title} saved to portfolio:{portfolio_title}!")
+    msg = (f"{new_artwork.a_title} saved to {portfolio_title} portfolio!")
     return jsonify({ 'status': 'success', 'message': msg })
 
 
@@ -262,7 +265,7 @@ def get_all_user_artworks():
        
         # titles are sorted within their portfolios only,
         #  so sort here by all artwork titles
-        all_artworks.sort(key=lambda alphabetize : alphabetize[0], reverse=True)
+        all_artworks.sort(key=lambda alphabetize : str(alphabetize[0]), reverse=True)
         
 
     return {'status' : 'success',
@@ -305,13 +308,13 @@ def delete_artwork(aId):
      return {"status": "success"}
 
 
-@app.route('/api/update-artwork-title/<aId>', methods=['POST'])
-def update_artwork_title(aId):
+@app.route('/api/update-artwork-title/<aId>/<pId>', methods=['POST'])
+def update_artwork_title(aId, pId):
     """ Commit updated artwork title to database."""
     
     title = request.json.get('title')
 
-    crud_a.update_artwork_by_id(artwork_id=aId ,new_title=title)
+    crud_a.update_artwork_by_id(artwork_id=aId ,new_title=title, portfolio_id=pId)
                                                 
     db.session.commit()
     return {'status' : 'success'}

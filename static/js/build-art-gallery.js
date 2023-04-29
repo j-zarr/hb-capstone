@@ -85,6 +85,8 @@ const galleryHTML = {
                     
             <div id="card-img" style="height:300px;"></div>
 
+            <h6 id="current-title"> </h6>
+
                 <div class="card-options dropup">
                     <a href="#" class="d-flex align-items-center align-middle text-decoration-none dropdown-toggle"
                                     data-bs-toggle="dropdown" aria-expanded="false" id="dropdown-update" 
@@ -124,7 +126,6 @@ const galleryHTML = {
                     </ul> 
                  </div>
                  
-                    <h6 id="current-title"> </h6>
 
                 </div>
                       
