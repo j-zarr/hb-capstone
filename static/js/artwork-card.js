@@ -30,13 +30,13 @@ class GalleryArtwork {
             .then(data => {
                 if (data.status == 'success') {
                     //update card title in DOM
-                    $(`h6[title-me=${this.id}]`).text(this.title)
+                    $(`h5[title-me=${this.id}]`).text(this.title);
                 }
             });
     }
 
     // Update based on either select option or newly created portfolio
-    updatePortfolio(newPortfolioID) {
+    updatePortfolio(newPortfolioID, portfolioTitle) {
 
         const pId = { pId: newPortfolioID }
 
@@ -49,7 +49,10 @@ class GalleryArtwork {
             .then(data => {
                 if (data.status == 'success') {
 
-                    this.portfolioId = newPortfolioID
+                    this.portfolioId = newPortfolioID;
+
+                     //update card title in DOM
+                     $(`h6[portfolio-title-me=${this.id}]`).text(portfolioTitle);
                 }
             });
     }
@@ -67,6 +70,9 @@ class GalleryArtwork {
             .then(data => {
                 if (data.status == 'success') {
                     this.portfolioId = data.message;
+
+                    //update card title in DOM
+                    $(`h6[portfolio-title-me=${this.id}]`).text(newPortfolioTitle);
                 }
             });
 
@@ -127,10 +133,16 @@ function createArtworkCard(obj) {
     $(`#card-img-${aId}`).html(`<img src=${filePath} width="250" height="300"  id="image">`);
     $('#image').wrap(` <div class="card-img" style="height:300px; width: 250px;"></div>`);
 
+    let curr_portfolio = '';
 
     // populate select options for user portfolios
     portfolios_arr.forEach(item => {
-        let el = `<option 
+
+        // get current portfolio name
+        if (item[0] == pId) {
+            curr_portfolio = item[1];
+        } 
+            let el = `<option 
                             id=${item[0]}
                             value=${item[1]} >
 
@@ -138,15 +150,18 @@ function createArtworkCard(obj) {
 
                             </option>`;
 
-        $('#options-placeholder').before(el);
+            $('#options-placeholder').before(el);
     });
 
 
-    // Add the artrwork title to the card
+    // Add the artrwork title and current portfolio to the card
     $('#current-title').text(title);
+    $('#current-portfolio').text(curr_portfolio);
+                             
 
-    //add unique attr to be able to select title if updated
+    //add unique attr to be able to select title/piortfolio if updated
     $('#current-title').attr('title-me', aId);
+    $('#current-portfolio').attr('portfolio-title-me', aId);
 
     // Replace the id with the artwork id (as aId) so card can be selected to remove
     $('#added-card').attr('id', aId);
@@ -189,7 +204,7 @@ function createArtworkCard(obj) {
         }
 
         if (newTitle.val()) {
-            a.updateTitle(newTitle.val())
+            a.updateTitle(newTitle.val()) //class method
         }
 
         // check if more than one portfolio field changed
@@ -203,15 +218,22 @@ function createArtworkCard(obj) {
         }
 
         if (selectPortfolio.val()) {
+            
+            // if selecting current portfolio return
+            if(selectPortfolio.val() == curr_portfolio){ 
+                selectPortfolio.val('');  //reset value
+                return;
+            }
+
             const changePortfolio = selectPortfolio
                 .children(':selected')
                 .attr('id');
 
-            a.updatePortfolio(changePortfolio)
+            a.updatePortfolio(changePortfolio, selectPortfolio.val()) //class method
         }
 
         if (createNewPortfolio.val()) {
-            a.updateCreatedPortfolio(createNewPortfolio.val())
+            a.updateCreatedPortfolio(createNewPortfolio.val()) //class method
         }
 
         //reset form 

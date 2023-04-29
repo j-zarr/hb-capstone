@@ -85,7 +85,8 @@ const galleryHTML = {
                     
             <div id="card-img" style="height:300px;"></div>
 
-            <h6 id="current-title"> </h6>
+            <h5 id="current-title"> </h5>
+            <h6 id="current-portfolio"> </h6>
 
                 <div class="card-options dropup">
                     <a href="#" class="d-flex align-items-center align-middle text-decoration-none dropdown-toggle"
@@ -107,7 +108,7 @@ const galleryHTML = {
                             </li>
                             <li>
                                  <select name="update-p-title" id="update-p-title">
-                                     <option id="options-placeholder" value="">--Choose an portfolio--</option>
+                                     <option id="options-placeholder" value="">--Update portfolio--</option>
                                 </select>
                              </li>
                              <li>
