@@ -16,9 +16,19 @@ function undo(canvas, removed) {
     // get last object added to canvas, add to removed stack and remove from canvas
     let last = canvas._objects[canvas._objects.length - 1];
 
-    removed.push(last);
-    canvas.remove(last);
-    canvas.requestRenderAll();  
+    if (last.hasFill()) {
+         const clone = new fabric.Object(last)
+       
+        removed.push(clone);
+        last.fill = '';
+        canvas.requestRenderAll();
+    }
+
+    else {
+        removed.push(last);
+        canvas.remove(last);
+        canvas.requestRenderAll();
+    }
 }
 
 

@@ -184,7 +184,7 @@ function activateCanvasBtns(canvas) {
 
     // set event handler for click on 'clear' to clear the canvas 
     $('#clear').click(() => {
-        clearCanvas(canvas, removed, cloned);
+        clearCanvas(canvas, removed);
     });
 
 
