@@ -77,7 +77,7 @@ function submitSaveForm(canvas) {
         formInputData['new-portfolio-title'] = $('#new-portfolio-title').val();
     }
 
-
+   
     fetch('/api/save-artwork', {
         method: 'POST',
         mode: 'cors',

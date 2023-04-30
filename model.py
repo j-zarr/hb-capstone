@@ -69,7 +69,7 @@ class Artwork(db.Model):
                              db.ForeignKey("portfolios.portfolio_id"),
                              nullable=False)
     a_title = db.Column(db.String(75))   
-    
+
     file_path = db.Column(db.String(100))
 
     portfolio = db.relationship("Portfolio", 

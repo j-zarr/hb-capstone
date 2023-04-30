@@ -128,6 +128,11 @@ function activateCanvasBtns(canvas) {
     // To be emptied on clear canvas
     const removed = [];   // To store removed item to be able to redo
    
+    // Initialize stack 
+    // Note: color-fill will modify the obj, to be able to undo color-fill, need to store
+    // a new copied object without the color-fill at the current index.
+    // Will only work for a single obj that is a shape, not multi-selected
+    const cloned = [];  // Emptied on clear canvas
 
     let selectIsActive = false; // Initialize select button active as false
 
@@ -184,7 +189,7 @@ function activateCanvasBtns(canvas) {
 
     // set event handler for click on 'clear' to clear the canvas 
     $('#clear').click(() => {
-        clearCanvas(canvas, removed);
+        clearCanvas(canvas, removed, cloned);
     });
 
 
@@ -211,7 +216,6 @@ function activateCanvasBtns(canvas) {
         evt.preventDefault();
 
         submitSaveForm(canvas);
-
     });
 
 

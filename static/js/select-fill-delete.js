@@ -3,6 +3,10 @@
 // function definitions called by activateBtnClick from art-canvas.js
 // functions for selecting, adding color-fill, deleting objects
 
+
+
+
+
 // Make all canvas object selectable (single object or groups)
 function select(canvas) {
     canvas.getObjects().map(obj => {
@@ -31,8 +35,15 @@ function deselect(canvas) {
 function fillColor(canvas, cloned) {
     // Use getActiveObjects to include single or multiple selected objects
     const selectedObjects = canvas.getActiveObjects();
+   
     selectedObjects.forEach((obj) => { 
         obj.set('fill', selectedColor);
+        canvas.add(obj);
+        
+        // if(selectedObjects.length == 1 && obj.type != 'path'){
+        // let idx = canvas.getObjects().indexOf(obj);
+        // cloneWithoutFill(obj, cloned, idx, canvas);//fn def in clone-obj.js
+        // }
     });
     canvas.requestRenderAll();
 }

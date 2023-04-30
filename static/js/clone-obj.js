@@ -5,34 +5,60 @@
 // helper function to create copy of a filled obj without the fill
 // to handle undo of fill, since on fill entire obj overwritten
 
-function cloneWithoutFill(obj, cloned) {
+function cloneWithoutFill(obj, cloned, idx, canvas) {
 
     // Initialize var to hold cloned obj
     let clonedNoFill;
 
     if (obj.type == 'rect') {
-        
+
         clonedNoFill = new fabric.Rect({
-            fill: '',
             width: obj.width,
             height: obj.height,
+            fill: '',
             top: obj.top,
             left: obj.left,
             stroke: obj.stroke,
             strokeWidth: obj.strokeWidth,
-            hoverCursor: 'crosshair',
-            selectable: false
+            strokeUniform: obj.strokeUniform,
+            hoverCursor: obj.hoverCursor,
+            selectable: obj.selectable
         });
     }
-    // if(obj.type == 'circle')
+    if (obj.type == 'circle') {
+        clonedNoFill = new fabric.Circle({
+            radius: obj.radius,
+            fill: '',
+            top: obj.top,
+            left: obj.left,
+            stroke: obj.stroke,
+            strokeWidth: obj.strokeWidth,
+            strokeUniform: obj.strokeUniform,
+            hoverCursor: obj.hoverCursor,
+            selectable: obj.selectable
+        });
+    }
 
-    // if(obj.type == 'triangle')
-
-    // if(obj.type == 'path')
-
+    if (obj.type == 'triangle') {
+        clonedNoFill = new fabric.Triangle({
+            width: obj.width,
+            height: obj.height,
+            angle: obj.angle,
+            strokeLineJoin: obj.strokeLineJoin,
+            strokeMiterLimit: obj.strokeMiterLimit,
+            fill: '',
+            top: obj.top,
+            left: obj.left,
+            stroke: obj.stroke,
+            strokeWidth: obj.strokeWidth,
+            strokeUniform: obj.strokeUniform,
+            hoverCursor: obj.hoverCursor,
+            selectable: obj.selectable
+        });
+    }
 
     cloned.push(clonedNoFill)
-  //  console.log(cloned)
-    
-
+    canvas._objects.splice(idx, 0, cloned.pop());
+    canvas.requestRenderAll();
 }
+
