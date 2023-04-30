@@ -24,12 +24,12 @@ function deselect(canvas) {
         obj.lockMovementX = true;
         obj.lockMovementY = true;
         obj.hoverCursor = 'crosshair';
-        canvas.requestRenderAll();
     });
+    canvas.requestRenderAll();
 }
 
 // Apply color-fill to selected object/s
-function fillColor(canvas, cloned) {
+function fillColor(canvas) {
     // Use getActiveObjects to include single or multiple selected objects
     const selectedObjects = canvas.getActiveObjects();
    

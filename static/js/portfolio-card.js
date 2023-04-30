@@ -41,24 +41,23 @@ class GalleryPortfolio {
                     // remove portfolio cards by resetting html card container
                     $('#content-area').html(galleryHTML.cardContainer);
 
+                    if (data.message == 'none found') {
+                        $('#card-to-add').after(
+                            ` <div class="alert alert-dark alert-dismissible fade show" role="alert">
+                             Portfolio ${this.title} has no artworks!
+                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                         </div> `);
+
+                        return;
+                    }
+
                     data.message.forEach((obj) => {
-
-                        if (Object.keys(data.message).length < 1) {
-                            $('#card-to-add').after(
-                                ` <div class="alert alert-dark alert-dismissible fade show" role="alert">
-                                 Portfolio ${this.title} has no artworks!
-                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                             </div> `);
-                        }
-
                         // create a card for each artwork
                         createArtworkCard(obj); //fn def in card-adder.js
 
                     });
                 }
             });
-
-
     }
 
     // Delete this portfolio and all it's artworks

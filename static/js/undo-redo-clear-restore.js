@@ -8,27 +8,35 @@
 let canvasState = '';
 
 
+// Initialize stack to hold fill values for undo after fill
+let fillInfo = []
+
+
 function undo(canvas, removed) {
     // Check if objetcs exist on canvas
     if (canvas.isEmpty()) {
         return;
     }
+
     // get last object added to canvas, add to removed stack and remove from canvas
-    let last = canvas._objects[canvas._objects.length - 1];
-
-    if (last.hasFill()) {
-         const clone = new fabric.Object(last)
-       
-        removed.push(clone);
-        last.fill = '';
+   let last = canvas.item(canvas.size() - 1);
+    
+   // Handle removing of fill only, not entire object
+    if (last.fill != '') {
+           
+        fillInfo.push(last.fill);
+        canvas.remove(last);
+        removed.push(last);
         canvas.requestRenderAll();
-    }
 
-    else {
+        last.fill = ''; // this will also add the obj to the canvas
+        canvas.requestRenderAll();
+        
+        return;
+    }
         removed.push(last);
         canvas.remove(last);
         canvas.requestRenderAll();
-    }
 }
 
 
@@ -37,9 +45,15 @@ function redo(canvas, removed) {
     if (removed.length < 1) {
         return;
     }
-    // pop object from removed stack and add to canvas
-    canvas.add(removed.pop())
-    canvas.requestRenderAll()
+    if(fillInfo.length){
+        let popped = removed.pop()
+        popped.fill = fillInfo.pop();
+        canvas.add(popped);
+        canvas.requestRenderAll();
+        return;
+    }
+    canvas.add(removed.pop());
+    canvas.requestRenderAll();
 }
 
 
@@ -71,8 +85,14 @@ function restoreCanvas(canvas) {
         return;
     }
 
+    // don't restore previously cleared canvas onto a new drawing
+    if(!canvas.isEmpty()){
+        return;
+    }
+
     const objectsToRestore = canvas.loadFromJSON(canvasState)
     objectsToRestore.requestRenderAll();
+
     //reset canvasState 
     canvasState = '';
 }

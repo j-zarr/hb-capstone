@@ -21,7 +21,6 @@ function createCircle(canvas, commonShapeSettings){
     });
     commonShapeSettings(circle);
     canvas.add(circle);
-    canvas.requestRenderAll();
 }
 
 
@@ -35,7 +34,6 @@ function createTriangle(canvas, commonShapeSettings){
     });
     commonShapeSettings(triangle);
     canvas.add(triangle);
-    canvas.requestRenderAll();
 }
 
 
@@ -45,5 +43,4 @@ function createLine(canvas, commonShapeSettings){
         );
         commonShapeSettings(line);
         canvas.add(line);
-        canvas.requestRenderAll();
 }

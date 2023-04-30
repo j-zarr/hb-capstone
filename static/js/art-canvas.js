@@ -148,7 +148,7 @@ function activateCanvasBtns(canvas) {
 
     // Set fill to selected color on color-fill button click
     $('#color-fill').click(() => {
-        fillColor(canvas, removed);
+        fillColor(canvas);
     });
 
 

@@ -29,6 +29,10 @@ s3 = boto3.resource('s3',
 
 artwork_bucket = s3.Bucket(name='artworks-images')
 
+s3_client = boto3.client('s3', 
+                    aws_access_key_id=S3_KEY_ID,  
+                    aws_secret_access_key=S3_SECRET_KEY)
+
 
 # Helper function to create new portfolio 
 # for saving new artwork and updating artwork's portfolio
@@ -287,9 +291,10 @@ def get_portfolio_artworks(pId):
 
     all_artworks: list = []
 
-    # Check if user has noartworks
+    # # Check if user has no artworks
     if not artworks:
-        return {'status' : 'none found'}
+        return {'status' : 'success',
+                'message' : 'none found'}
 
     # Append each portfolio [title and id]
     for artwork in artworks:
@@ -314,7 +319,9 @@ def delete_artwork(aId):
      db.session.commit()
 
      #delete object from S3
-     s3.Object("artworks-images", f"{path}").delete()
+     key = path[41:]    
+     s3_client.delete_object(Bucket='artworks-images',
+                                        Key=key)
 
      return {"status": "success"}
 
