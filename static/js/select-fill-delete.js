@@ -4,9 +4,6 @@
 // functions for selecting, adding color-fill, deleting objects
 
 
-
-
-
 // Make all canvas object selectable (single object or groups)
 function select(canvas) {
     canvas.getObjects().map(obj => {
@@ -39,11 +36,6 @@ function fillColor(canvas, cloned) {
     selectedObjects.forEach((obj) => { 
         obj.set('fill', selectedColor);
         canvas.add(obj);
-        
-        // if(selectedObjects.length == 1 && obj.type != 'path'){
-        // let idx = canvas.getObjects().indexOf(obj);
-        // cloneWithoutFill(obj, cloned, idx, canvas);//fn def in clone-obj.js
-        // }
     });
     canvas.requestRenderAll();
 }

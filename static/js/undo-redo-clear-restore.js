@@ -33,7 +33,7 @@ function redo(canvas, removed) {
 }
 
 
-function clearCanvas(canvas, removed, cloned) {
+function clearCanvas(canvas, removed) {
 
     // Check if canvas empty - prevent saving a blank canvas to restore 
     if (canvas.isEmpty()) {
@@ -42,7 +42,6 @@ function clearCanvas(canvas, removed, cloned) {
 
     //Empty removed array to prevent redo - clear resets the entire canvas
     removed.length = 0;
-    cloned.length = 0;
 
     //Store canvas state before clearing to be able to restore
     canvasState = canvas.toJSON();
