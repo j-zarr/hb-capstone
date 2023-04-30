@@ -14,8 +14,8 @@ const canvasHTML =
 
             <div style="border: 1px solid black; display: flex; justify-content: center; align-items: center;"> 
                 <label for="color-hex"><i class="bi bi-palette2"></i></label>
-                <input type="color" id="selected-color" value="#00FF00" oninput="this.nextElementSibling.value = this.value">
-                <output>#00FF00<output> 
+                <input type="color" id="selected-color" value="#0091ff" oninput="this.nextElementSibling.value = this.value">
+                <output>#0091ff<output> 
             </div>
             
             <div style="border: 1px solid black; display: flex; justify-content: center; align-items: center;"> 

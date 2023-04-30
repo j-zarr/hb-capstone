@@ -125,8 +125,9 @@ function activateCanvasBtns(canvas) {
     //****************<< function definitions select-fill-delete.js >>***********************************************/
 
     // Initialize stack (as array) to be accessible to undo, redo, delete
-    // Store stack of removed item to be able to restore
-    let removed = []  //To be emptied on clear canvas
+    // To be emptied on clear canvas
+    const removed = [];   // To store removed item to be able to redo
+   
 
     let selectIsActive = false; // Initialize select button active as false
 
@@ -147,7 +148,7 @@ function activateCanvasBtns(canvas) {
 
     // Set fill to selected color on color-fill button click
     $('#color-fill').click(() => {
-        fillColor(canvas);
+        fillColor(canvas, removed);
     });
 
 
@@ -167,6 +168,7 @@ function activateCanvasBtns(canvas) {
     //********************<< Handlers for undo + redo, clear + restore>> *********************************/ 
     //****************<< function definitions in undo-redo-clear-restore.js >>****************************/
 
+    
 
     // Set undo click handler
     $('#undo').click(() => {

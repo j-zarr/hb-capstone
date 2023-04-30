@@ -14,14 +14,11 @@ class User(db.Model):
     user_id  = db.Column(db.Integer, 
                          autoincrement=True, 
                          primary_key=True)
-    
     username = db.Column(db.String(25),
                          nullable=False)
-    
     email = db.Column(db.String(25), 
                       unique=True, 
                       nullable=False) 
-    
     password = db.Column(db.Text, 
                          nullable=False)
 
@@ -41,15 +38,12 @@ class Portfolio(db.Model):
     portfolio_id = db.Column(db.Integer, 
                              autoincrement=True, 
                              primary_key=True) 
-    
     p_title = db.Column(db.String(75),
                         unique=True,
                         nullable=False)
-    
     user_id = db.Column(db.Integer, 
                         db.ForeignKey("users.user_id"),
                         nullable=False)
-
     user = db.relationship("User", 
                            back_populates="portfolios")
 
@@ -71,11 +65,9 @@ class Artwork(db.Model):
     artwork_id = db.Column(db.Integer, 
                            autoincrement=True, 
                            primary_key=True)
-    
     portfolio_id = db.Column(db.Integer, 
                              db.ForeignKey("portfolios.portfolio_id"),
                              nullable=False)
-
     a_title = db.Column(db.String(75))   
     
     file_path = db.Column(db.String(100))

@@ -16,6 +16,19 @@ app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 
+ # Set up key and accessibility to S3 bucket
+S3_KEY_ID = os.environ.get("S3_KEY_ID")
+S3_SECRET_KEY = os.environ.get("S3_SECRET_KEY")
+
+boto3.set_stream_logger('botocore', level='DEBUG')
+   
+s3 = boto3.resource('s3', 
+                    aws_access_key_id=S3_KEY_ID,  
+                    aws_secret_access_key=S3_SECRET_KEY
+                    )
+
+artwork_bucket = s3.Bucket(name='artworks-images')
+
 
 # Helper function to create new portfolio 
 # for saving new artwork and updating artwork's portfolio
@@ -168,19 +181,6 @@ def save_new_artwork():
     # (helper fn def at top of file)
     portfolio_id = get_new_portfolio_id(new_portfolio_title) if not existing_portfolio_id else existing_portfolio_id
     portfolio_title = new_portfolio_title if not existing_portfolio_id else existing_portfolio_title
-      
-    # Set up key and accessibility to S3 bucket
-    S3_KEY_ID = os.environ.get("S3_KEY_ID")
-    S3_SECRET_KEY = os.environ.get("S3_SECRET_KEY")
-
-    boto3.set_stream_logger('botocore', level='DEBUG')
-   
-    s3 = boto3.resource('s3', 
-                        aws_access_key_id=S3_KEY_ID,  
-                        aws_secret_access_key=S3_SECRET_KEY
-                        )
-    
-    artwork_bucket = s3.Bucket(name='artworks-images')
 
     # replace special chars and spaces with '-' for file-path
     replaced_title = re.sub('[^a-zA-Z0-9 \n\.]', '-', a_title)
@@ -304,12 +304,17 @@ def get_portfolio_artworks(pId):
             }
 
 
-@app.route('/api/delete-artwork/<aId>')
+@app.route('/api/delete-artwork/<aId>', methods=['POST'])
 def delete_artwork(aId):
      """Commit deletion of artwork to database."""
 
+     path = request.json.get('path')
+
      crud_a.delete_artwork_by_id(int(aId))
      db.session.commit()
+
+     #delete object from S3
+     s3.Object("artworks-images", f"{path}").delete()
 
      return {"status": "success"}
 

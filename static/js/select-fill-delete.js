@@ -28,10 +28,10 @@ function deselect(canvas) {
 }
 
 // Apply color-fill to selected object/s
-function fillColor(canvas) {
+function fillColor(canvas, cloned) {
     // Use getActiveObjects to include single or multiple selected objects
     const selectedObjects = canvas.getActiveObjects();
-    selectedObjects.forEach((obj) => {
+    selectedObjects.forEach((obj) => { 
         obj.set('fill', selectedColor);
     });
     canvas.requestRenderAll();

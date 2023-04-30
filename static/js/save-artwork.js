@@ -26,13 +26,13 @@ function validateForm() {
     if ($('#portfolio-title').val()
         && $('#new-portfolio-title').val()) {
         displayErrorMessage('Choose only one - a portfolio from the dropdown or a new portfolio!');
-        return;
+        return false;
     }
     // 2.Create error message if neither portfolio fields filled out and return
     else if (!$('#portfolio-title').val()
         && !$('#new-portfolio-title').val()) {
         displayErrorMessage('Choose a portfolio to add your artwork to!');
-        return;
+        return false;
     }
     //3. Create error message if user attempting to create a portfolio title that already exits
     else if ($('#new-portfolio-title').val()) {
@@ -43,17 +43,20 @@ function validateForm() {
                 displayErrorMessage(`Portfolio with title ${$('#new-portfolio-title').val()} already exits!
                                     Select the portfolio from the dropdown 
                                     or create a new portfolio with a unique title.`);
-                return;
+                return false;
             }
         }
     }
-
+    return true;
 }
 
 
 function submitSaveForm(canvas) {
 
-    validateForm()
+    // check if form valid
+    if(!validateForm()){
+        return;
+    }
 
     // Set data to send in request body
     const formInputData = {
@@ -94,7 +97,7 @@ function submitSaveForm(canvas) {
                 $('#create-link').click(); //reload canvas
 
                 // Reset selectedColor, selectedOpacity, selectedWidth to default values 
-                selectedColor =  "#00FF00";
+                selectedColor =  "#0091ff";
                 selectedOpacity = 1;
                 selectedWidth = 10;
             }, 3000);

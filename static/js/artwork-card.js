@@ -79,7 +79,11 @@ class GalleryArtwork {
     }
 
     deleteArtwork() {
-        fetch(`/api/delete-artwork/${this.id}`)
+        fetch(`/api/delete-artwork/${this.id}`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({path: this.path})
+        })
             .then(response => response.json())
             .then(data => {
                 if (data.status == 'success') {

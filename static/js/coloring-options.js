@@ -21,11 +21,9 @@ function setLineWidth(){
 //(only the shape objects in fabric.js have opacity properties so need to set manually with color property)
  
 
-// Initialize selectedColor and selectedOpacity to default value 
-let selectedColor =  "#00FF00";
+// Initialize selectedColor, selectedOpacity, selectedWidthto default value 
+let selectedColor =  "#0091ff";
 let selectedOpacity = 1;
-
-// Initialize selectedWidth  default value (as int)
 let selectedWidth = 10;
 
 
