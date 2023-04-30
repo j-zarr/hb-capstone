@@ -45,7 +45,7 @@ function redo(canvas, removed) {
     if (removed.length < 1) {
         return;
     }
-    if(fillInfo.length){
+    if(fillInfo.length){ //redo color fill if fill was undone
         let popped = removed.pop()
         popped.fill = fillInfo.pop();
         canvas.add(popped);
