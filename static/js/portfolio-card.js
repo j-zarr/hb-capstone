@@ -68,6 +68,10 @@ class GalleryPortfolio {
             .then(data => {
                 if (data.status == 'success') {
                     $(`#${this.id}`).remove();
+
+                    //reset portfolio options
+                    portfolios_arr .length = 0;
+                    userPortfolios(); 
                 }
             });
     }

@@ -77,6 +77,10 @@ class GalleryArtwork {
                 
                     //update card title in DOM
                     $(`h6[portfolio-title-me=${this.id}]`).text(newPortfolioTitle);
+                    
+                     //reset portfolio options
+                     portfolios_arr .length = 0;
+                     userPortfolios(); 
                 }
             });
     }
