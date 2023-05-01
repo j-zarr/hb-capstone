@@ -18,8 +18,8 @@ class GalleryArtwork {
     }
 
     updateTitle(newTitle) {
-        this.title = newTitle
-        const title = { title: this.title }
+        
+        const title = { title: newTitle }
 
         fetch(`/api/update-artwork-title/${this.id}/${this.portfolioId}`, {
             method: 'POST',
@@ -29,13 +29,15 @@ class GalleryArtwork {
             .then(response => response.json())
             .then(data => {
                 if (data.status == 'success') {
+                    this.title = newTitle
+
                     //update card title in DOM
                     $(`h5[title-me=${this.id}]`).text(this.title);
                 }
             });
     }
 
-    // Update based on either select option or newly created portfolio
+    // Update selected portfolio option 
     updatePortfolio(newPortfolioID, portfolioTitle) {
 
         const pId = { pId: newPortfolioID }
@@ -52,12 +54,14 @@ class GalleryArtwork {
                     this.portfolioId = newPortfolioID;
 
                      //update card title in DOM
-                     $(`h6[portfolio-title-me=${this.id}]`).text(portfolioTitle);
+                    $(`h6[portfolio-title-me=${this.id}]`).text(portfolioTitle);
+
                 }
             });
+           
     }
 
-
+    // Update to new created portfolio
     updateCreatedPortfolio(newPortfolioTitle) {
         const pTitle = { pTitle: newPortfolioTitle }
 
@@ -70,7 +74,7 @@ class GalleryArtwork {
             .then(data => {
                 if (data.status == 'success') {
                     this.portfolioId = data.message;
-
+                
                     //update card title in DOM
                     $(`h6[portfolio-title-me=${this.id}]`).text(newPortfolioTitle);
                 }
@@ -114,15 +118,15 @@ const userPortfolios = () => {
         });
 }
 
-// call userPortfolios to set value for glabal portfolios_Arr
-userPortfolios();
+// call userPortfolios to set value for global portfolios_Arr
+userPortfolios(); 
 
 
 //*****************<< create an artwork card  >>*****************/
 
 // Create artwork-card and event listeners
 function createArtworkCard(obj) {
-
+ 
     const [title, aId, pId, filePath] = obj;
 
     const a = new GalleryArtwork(title, aId, pId, filePath) // create class instance
@@ -225,7 +229,7 @@ function createArtworkCard(obj) {
             // if selecting current portfolio return
             if(selectPortfolio.children(':selected')
                                 .attr('id') == pId){ 
-                selectPortfolio.val('');  //reset value
+              //  selectPortfolio.val('');  //reset value
                 return;
             }
 

@@ -224,10 +224,10 @@ def delete_portfolio(pId):
 def update_portfolio_title(pId):
     """Commit updated portfolio title to database."""
 
-    title = request.json.get('title')
+    new_title = request.json.get('title')
 
     crud_p.update_portfolio_title(portfolio_id=int(pId),
-                                                new_title=title)
+                                                new_title=new_title)
     db.session.commit()
     return {'status' : 'success'}
 
@@ -332,7 +332,7 @@ def update_artwork_title(aId, pId):
     
     title = request.json.get('title')
 
-    crud_a.update_artwork_by_id(artwork_id=aId ,new_title=title, portfolio_id=pId)
+    crud_a.update_artwork_by_id(artwork_id=aId, new_title=title, portfolio_id=pId)
                                                 
     db.session.commit()
     return {'status' : 'success'}

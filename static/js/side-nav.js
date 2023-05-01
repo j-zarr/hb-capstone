@@ -90,8 +90,8 @@ $(document).ready(() => {
          // update the HTML with the gallery and features for click of nav link "artworks"
         $('#all-artworks').click(()=>{
             $('#content-area').html(galleryHTML.cardContainer);
-            
-            // fn def in art-gallery.js
+
+            // fn def in artwork-card.js
             getAllArtworks() 
         });
 
@@ -101,7 +101,7 @@ $(document).ready(() => {
 
             $('#content-area').html(galleryHTML.cardContainer);
 
-             // fn def in art-gallery.js
+             // fn def in artwork-card.js
              getSearchArtworkResults();
         });
         
@@ -110,7 +110,7 @@ $(document).ready(() => {
         $('#all-portfolios').click(()=>{
             $('#content-area').html(galleryHTML.cardContainer);
 
-            // fn def in art-gallery.js
+            // fn def in portfolio-card.js
             getAllPortfolios();  
         });
             
@@ -120,7 +120,7 @@ $(document).ready(() => {
 
             $('#content-area').html(galleryHTML.cardContainer);
 
-             // fn def in art-gallery.js
+             // fn def in portfolio-card.js
              getSearchPortfolioResults();
         });
         

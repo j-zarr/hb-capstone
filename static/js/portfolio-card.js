@@ -15,8 +15,7 @@ class GalleryPortfolio {
     }
 
     updateTitle(newTitle) {
-        this.title = newTitle;
-        const title = { title: this.title }
+        const title = { title: newTitle }
 
         fetch(`/api/update-portfolio-title/${this.id}`, {
             method: 'POST',
@@ -26,6 +25,8 @@ class GalleryPortfolio {
             .then(response => response.json())
             .then(data => {
                 if (data.status == 'success') {
+                    this.title = newTitle;
+
                     //update card title in DOM
                     $(`a[title-me=${this.id}]`).text(this.title)
                 }
@@ -53,7 +54,7 @@ class GalleryPortfolio {
 
                     data.message.forEach((obj) => {
                         // create a card for each artwork
-                        createArtworkCard(obj); //fn def in card-adder.js
+                        createArtworkCard(obj); //fn def in artwork-card.js.js
 
                     });
                 }
@@ -76,7 +77,7 @@ class GalleryPortfolio {
 //*****************<< create a portfolio card  >>*****************/
 
 // Create portfolio-card and event listeners
-function createPortfolioCard(pair,) {
+function createPortfolioCard(pair) {
 
     const title = pair[0];
     const pId = pair[1];

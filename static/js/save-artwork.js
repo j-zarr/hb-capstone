@@ -36,7 +36,7 @@ function validateForm() {
     }
     //3. Create error message if user attempting to create a portfolio title that already exits
     else if ($('#new-portfolio-title').val()) {
-        const portfolioOptions = [...document.querySelectorAll('.portfolio-options')].map((o) => o.value)
+        const portfolioOptions = [...document.querySelectorAll('.portfolio-options')].map((opt) => opt.value)
        
         for (const title of portfolioOptions) {
             if ($('#new-portfolio-title').val().toLowerCase() == title.toLowerCase()) {
