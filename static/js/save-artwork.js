@@ -22,19 +22,26 @@ function displayErrorMessage(errorMessage) {
 function validateForm() {
 
     //Checks before submitting to server
-    //1. Create error message if both portfolio fields filled out and return
+
+    //1. Title is not "0"  --> would be overriden with no value on update portfolio from gallery
+    if ($('#artwork-title').val() == 0){
+        displayErrorMessage('Cannot use "0" for title');
+        return false;
+    }
+
+    //2. Create error message if both portfolio fields filled out and return
     if ($('#portfolio-title').val()
         && $('#new-portfolio-title').val()) {
         displayErrorMessage('Choose only one - a portfolio from the dropdown or a new portfolio!');
         return false;
     }
-    // 2.Create error message if neither portfolio fields filled out and return
+    // 3.Create error message if neither portfolio fields filled out and return
     else if (!$('#portfolio-title').val()
         && !$('#new-portfolio-title').val()) {
         displayErrorMessage('Choose a portfolio to add your artwork to!');
         return false;
     }
-    //3. Create error message if user attempting to create a portfolio title that already exits
+    //4. Create error message if user attempting to create a portfolio title that already exits
     else if ($('#new-portfolio-title').val()) {
         const portfolioOptions = [...document.querySelectorAll('.portfolio-options')].map((opt) => opt.value)
        
@@ -57,6 +64,7 @@ function submitSaveForm(canvas) {
     if(!validateForm()){
         return;
     }
+
 
     // Set data to send in request body
     const formInputData = {

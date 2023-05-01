@@ -126,6 +126,8 @@ const userPortfolios = () => {
 userPortfolios(); 
 
 
+
+
 //*****************<< create an artwork card  >>*****************/
 
 // Create artwork-card and event listeners
@@ -148,14 +150,14 @@ function createArtworkCard(obj) {
 
     // populate select options for user portfolios
     portfolios_arr.forEach(item => {
-
+       
         // get current portfolio name
         if (item[0] == pId) {
             curr_portfolio = item[1];
         } 
             let el = `<option 
                             id=${item[0]}
-                            value=${item[1]} >
+                            value="${item[1]}" >
 
                             ${item[1]} 
 
@@ -215,6 +217,11 @@ function createArtworkCard(obj) {
         }
 
         if (newTitle.val()) {
+            if(newTitle.val() == 0){
+                alert('Cannot use "0" for title');
+                newTitle.val('');
+                return;
+            }
             a.updateTitle(newTitle.val()) //class method
         }
 
