@@ -309,6 +309,8 @@ def get_portfolio_artworks(pId):
             }
 
 
+
+
 @app.route('/api/delete-artwork/<aId>', methods=['POST'])
 def delete_artwork(aId):
      """Commit deletion of artwork to database."""
@@ -332,7 +334,7 @@ def update_artwork_title(aId, pId):
     
     title = request.json.get('title')
 
-    crud_a.update_artwork_by_id(artwork_id=aId, new_title=title, portfolio_id=pId)
+    crud_a.update_artwork_by_id(artwork_id=aId, portfolio_id=pId, new_title=title)
                                                 
     db.session.commit()
     return {'status' : 'success'}

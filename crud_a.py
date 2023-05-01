@@ -5,13 +5,10 @@ from model import db, connect_to_db, Portfolio, Artwork
 
 # create artwork, a_title can be optional, but attaching to a portfolio is required
 # otherwise artwork will not be connected to the user
-def create_artwork(portfolio_id, **kwargs):
+# front-end replaces no value for title as "untitled"
+def create_artwork(portfolio_id, a_title, file_path):
     """Create and return a new artwork."""
    
-    a_title = kwargs.get('a_title') 
-    file_path = kwargs.get('file_path')
-
-
     artwork = Artwork(portfolio_id=portfolio_id,
                        a_title=a_title, 
                        file_path=file_path)
@@ -64,13 +61,15 @@ def get_artworks_by_search_param(search_param, user_id):
 
 
 #use **kwargs to option to update title or portfolio artwork belongs to
-def update_artwork_by_id(artwork_id, **kwargs):
+def update_artwork_by_id(artwork_id, portfolio_id, **kwargs):
     """Update artwork title by primary key, or update it's portfolio by portfolio."""
 
     artwork = Artwork.query.get(artwork_id) 
+
+    artwork.portfolio_id = portfolio_id
     
-    artwork.a_title = kwargs.get('new_title') 
-    artwork.portfolio_id = kwargs.get('portfolio_id') 
+    if kwargs.get('new_title', 0) != 0:
+        artwork.a_title = kwargs['new_title']
 
 
 def delete_artwork_by_id(artwork_id):
