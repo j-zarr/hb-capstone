@@ -75,7 +75,6 @@ class GalleryArtwork {
                     $(`h6[portfolio-title-me=${this.id}]`).text(newPortfolioTitle);
                 }
             });
-
     }
 
     deleteArtwork() {
@@ -193,7 +192,7 @@ function createArtworkCard(obj) {
         // get val of a-title input
         const newTitle = $(`input[update-my-title = ${aId} ]`)
 
-        //get portfolio id from selected option 
+        //get portfolio from selected option 
         const selectPortfolio = $(`select[update-my-p = ${aId} ]`)
 
         //get value of new portfolio tile to create
@@ -201,9 +200,9 @@ function createArtworkCard(obj) {
 
 
         // return if no values to update
-        if (newTitle.val() == ''
-            && selectPortfolio.val() == ''
-            && createNewPortfolio.val() == '') {
+        if (!newTitle.val() 
+            && !selectPortfolio.val() 
+            && !createNewPortfolio.val()) {
             return;
         }
 
@@ -224,7 +223,8 @@ function createArtworkCard(obj) {
         if (selectPortfolio.val()) {
             
             // if selecting current portfolio return
-            if(selectPortfolio.val() == curr_portfolio){ 
+            if(selectPortfolio.children(':selected')
+                                .attr('id') == pId){ 
                 selectPortfolio.val('');  //reset value
                 return;
             }

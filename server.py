@@ -1,6 +1,6 @@
 """Server for art app."""
 
-from flask import (Flask, render_template, request, session, redirect,url_for ,jsonify)
+from flask import (Flask, render_template, request, session, redirect, url_for ,jsonify)
 from jinja2 import StrictUndefined
 import hashlib
 import boto3

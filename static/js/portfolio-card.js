@@ -111,7 +111,7 @@ function createPortfolioCard(pair,) {
         evt.preventDefault();
 
         const newTitle = $(`input[update-me = ${pId} ]`)
-        if (newTitle.val() == '') {
+        if (!newTitle.val()) {
             return;
         }
         p.updateTitle(newTitle.val()); //class method
