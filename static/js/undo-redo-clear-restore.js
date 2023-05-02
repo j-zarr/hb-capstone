@@ -19,22 +19,17 @@ function undo(canvas, removed) {
     }
 
     // get last object added to canvas, add to removed stack and remove from canvas
-    let last = canvas.item(canvas.size() - 1);
-    //let last = canvas._objects[canvas._objects.length - 1]
+    const last = canvas.item(canvas.size() - 1);
+   
     
-   // Handle removing of fill only, not entire object
+   // Handle removing of filled obj
     if (last.fill != '') {
            
         fillInfo.push(last.fill);
-        canvas.remove(last);
-        removed.push(last);
-        canvas.requestRenderAll();
-
+       
         last.fill = ''; // this will also add the obj to the canvas
-        canvas.requestRenderAll();
-        
-        return;
     }
+        // remove non-filled obj
         removed.push(last);
         canvas.remove(last);
         canvas.requestRenderAll();
@@ -42,18 +37,17 @@ function undo(canvas, removed) {
 
 
 function redo(canvas, removed) {
-    // Check if anything in removed stack to be added
+    // Check if anything in removed
     if (removed.length < 1) {
         return;
     }
+
+    const toRedo = removed.pop()
+    
     if(fillInfo.length){ //redo color fill if fill was undone
-        let popped = removed.pop()
-        popped.fill = fillInfo.pop();
-        canvas.add(popped);
-        canvas.requestRenderAll();
-        return;
+        toRedo.fill = fillInfo.pop();  
     }
-    canvas.add(removed.pop());
+    canvas.add(toRedo);
     canvas.requestRenderAll();
 }
 
