@@ -22,21 +22,41 @@ function activateCanvasBtns(canvas) {
 
     //***************<< For any button click related to the canvas >>***************/
 
+    let selectIsActive = false; // Initialize select button active as false
 
     $('button').click(function () {
         // Deselect previously selected button and select current cliked button 
         $('button').css('color', 'white');
 
-        if ($(this).attr('id') != 'select-object') { //handle select click separately
+       if ($(this).attr('id') != 'select-object') { //handle select click separately
             $(this).css('color', '#55DD33');
-            deselect(canvas);
-        }
+           deselect(canvas);
+           selectIsActive = false; 
+       }
 
         // Set drawing mode to false on any non-drawing button click
         if ($(this).attr('id') != 'draw' || $(this).attr('id') != 'paint') {
             canvas.isDrawingMode = false;
         }
     });
+
+
+
+    // Set all objects (shapes and drawings) already on canvas to be selectable on select-object button click
+    $('#select-object').click(function () {
+       
+        // if select button active and reclicked, deselect all objects
+        if (selectIsActive) {
+            selectIsActive = false;
+            $(this).css('color', 'white');
+            deselect(canvas);
+        } else {
+            selectIsActive = true;
+            $(this).css('color', '#55DD33');
+            select(canvas);
+        }
+    });
+
 
 
     // ***************<< Setting opacity, color, line-width on click >>****************/
@@ -127,24 +147,7 @@ function activateCanvasBtns(canvas) {
     // Initialize stack (as array) to be accessible to undo, redo, delete
     // To be emptied on clear canvas
     const removed = [];   // To store removed item to be able to redo
-    
 
-    let selectIsActive = false; // Initialize select button active as false
-
-    // Set all objects (shapes and drawings) already on canvas to be selectable on select-object button click
-    $('#select-object').click(function () {
-
-        // if select button active and reclicked, deselect all objects
-        if (selectIsActive) {
-            selectIsActive = false;
-            $(this).css('color', 'white');
-            deselect(canvas);
-        } else {
-            selectIsActive = true;
-            $(this).css('color', '#55DD33');
-            select(canvas);
-        }
-    });
 
     // Set fill to selected color on color-fill button click
     $('#color-fill').click(() => {
@@ -168,7 +171,7 @@ function activateCanvasBtns(canvas) {
     //********************<< Handlers for undo + redo, clear + restore>> *********************************/ 
     //****************<< function definitions in undo-redo-clear-restore.js >>****************************/
 
-    
+
 
     // Set undo click handler
     $('#undo').click(() => {
