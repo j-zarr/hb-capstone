@@ -1,0 +1,52 @@
+#logo {
+    display: flex;
+    align-items: center;
+    height: 70px;
+    width: 130px;
+    background-image: url('../../static/assets/water-color1.png');
+    background-size: 50px 50px;
+    background-position: 55% 45%;
+    background-repeat: no-repeat;
+    color: white;
+    font-size: 20px;
+    font-weight: lighter;
+    
+}
+
+#nav-menu-bar, #nav-menu-border{
+    width: auto;
+    background-color: rgb(37, 37, 37);
+    /* #051923; */
+
+}
+
+
+ #logout{
+    color: #00A6FB;
+    margin: 5px;
+    width: 90px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+#create-link, #gallery-link{
+    color: #00A6FB;
+    margin: 5px;
+    width: 90px;
+    text-align: center;
+}
+
+
+
+body {
+    background-image: linear-gradient(rgba(76, 0, 255, 1), rgba(255, 255, 255, 0.1)),
+        url(/static/assets/geo-pattern.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+/* purple */
+/* color:#7B68EE; 
+border-color:#7B68EE; */
+

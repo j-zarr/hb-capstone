@@ -7,30 +7,35 @@
 // Create updated menu options (for create link click)
 const navCreateMenu =
 `
+<br>
+<hr>
+<br>
 <li>
     <div class="px-0 align-middle">
-        <span class="ms-1 d-none d-sm-inline" style="color:#7B68EE;"> White Canvas 
+        <span class="ms-1 d-none d-sm-inline" style="color:rgba(255,255,255,0.8);"> White Canvas 
             <input type="checkbox" value="" id="set-canvas-bg" class="form-check-input">
         </span>
     </div>
 </li>
 
+<br>
+
 <li>
-    <a href="#" class="nav-link px-0 align-middle" id="clear">
-    <span class="ms-1 d-none d-sm-inline" style="color:#7B68EE;">Clear</span></a>
+    <a href="#" class="nav-link px-0 align-middle" id="clear" style="color:rgba(255,255,255,0.8)";>
+    <span class="ms-1 d-none d-sm-inline" >Clear</span></a>
 </li>
 <li>
-    <a href="#" class="nav-link px-0 align-middle" id="restore">
-    <span class="ms-1 d-none d-sm-inline" style="color:#7B68EE;">Restore</span></a>
+    <a href="#" class="nav-link px-0 align-middle" id="restore" style="color:rgba(255,255,255,0.8)";>
+    <span class="ms-1 d-none d-sm-inline">Restore</span></a>
 </li>
 
 <li>
     <div class="dropdown nav-link px-0 align-middle">
      <a href="#" class="d-flex align-items-center align-middle text-decoration-none dropdown-toggle" 
-            id="dropdown-save" data-bs-toggle="dropdown" aria-expanded="false"  style="color:#7B68EE;">
-     <span class="ms-1 d-none d-sm-inline" style="color:#7B68EE;">Save</span></a>
+            id="dropdown-save" data-bs-toggle="dropdown" aria-expanded="false" style="color:rgba(255,255,255,0.8)";>
+     <span class="ms-1 d-none d-sm-inline" style="color:rgba(255,255,255,0.8)";">Save</span></a>
 
-        <ul class="dropdown-menu" aria-labelledby="dropdown-save">
+        <ul class="dropdown-menu" aria-labelledby="dropdown-save"  style="background-color: #00A6FB;">
             <form action="/api/save-artwork" method="post" id="save-form">
             
                 <li style="margin: 20px">
@@ -52,12 +57,13 @@ const navCreateMenu =
                     <hr class="dropdown-divider">
                 </li>
                 <li style=" display: flex; justify-content: center; align-items: center;">
-                    <input type="submit"  value="submit" class="btn btn-outline-dark" id="submit-save">
+                    <input type="submit"  value="submit" class="btn" id="submit-save"
+                                                                style="color:#051923;
+                                                                border: 1px solid #051923">
                 </li>
             </form>
         </ul>
         
     </div>
-</li> 
+</li> `;
 
-<hr>`;

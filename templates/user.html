@@ -3,8 +3,12 @@
 {% block title %} ARTwrks - {{ session.get('username') }}{% endblock %}
 
 {% block head %}
-
+<link rel="stylesheet" href="/static/css/user.css">
+<link rel="stylesheet" href="/static/css/create.css">
+<link rel="stylesheet" href="/static/css/gallery.css">
 {% endblock %}
+
+
 
 {% block navbar %}
 
@@ -14,14 +18,14 @@
 
 <div class="container-fluid" id="side-nav">
     <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" id="nav-menu-border">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100"
+                id="nav-menu-bar">
 
-                <span style="display: flex; align-items: center;  height: 60px; width: 100px; background-image: url('../../static/assets/water-color1.png'); 
-                background-size: 40px 40px; background-position: 70% 40%; background-repeat: no-repeat;">
+                <span id="logo">
                     ARTwrks</span>
-                <br></br>
-                <!-- <span class="fs-5 d-none d-sm-inline" id="menu"> Menu </span>  -->
+                <br><br><br>
+                <!-- <span class="fs-5 d-none d-sm-inline px-0" style="margin-left: 5px;" id="menu"> Menu </span> <br> -->
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
                     <li>
                         <a href="#" class="nav-link px-0 align-middle" id="create-link">
@@ -36,23 +40,33 @@
 
                     <div id="nav-menu"></div>
 
-                    <li>
-                        <a href="/logout" class="nav-link px-0 align-middle" id="logout">
-                            <span class="ms-1 d-none d-sm-inline">Logout</span></a>
-                    </li>
-                </ul>
-                <hr>
 
-                <div class="pb-4">    
-                        <span><i class="bi bi-person-circle"></i></span>
-                        <span class="d-none d-sm-inline mx-1">{{ session.get('username') }}</span>
-                   
+                </ul>
+                <hr style="color: white; width: 96%;  height: 2px;">
+
+                <div class="pb-4">
+
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
+                       
+                        <li style="color: #4C00FF; font-weight: bold;">
+                            <span><i class="bi bi-person-circle"></i></span>
+                            <span class="d-none d-sm-inline mx-1">{{ session.get('username') }}</span>
+                        </li>
+
+                        <li>
+                            <a href="/logout" class="nav-link px-0 align-middle" id="logout">
+                                <span class="ms-1 d-none d-sm-inline">Logout</span></a>
+                        </li>
+
+                    </ul>
                 </div>
+
+
             </div>
         </div>
 
 
-        <div class="col py-3" id="content-area" style="padding: 0px;"></div>
+        <div class="col py-3" id="content-area"></div>
 
     </div>
 </div>
@@ -63,7 +77,7 @@
 <script src="/static/js/coloring-options.js"></script>
 <script src="/static/js/shapes.js"></script>
 <script src="/static/js/drawing-mode.js"></script>
-<script src= "/static/js/select-fill-delete.js"></script>
+<script src="/static/js/select-fill-delete.js"></script>
 <script src="/static/js/set-canvas-bg-color.js"></script>
 <script src="/static/js/undo-redo-clear-restore.js"></script>
 <script src="/static/js/save-artwork.js"></script>

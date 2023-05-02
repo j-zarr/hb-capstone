@@ -1,29 +1,41 @@
 {% extends 'base.html' %}
 
-{% block title %} ARTwrks {% endblock %}
+{% block title %} ARTwrks - Login {% endblock %}
 
+{% block head %} 
+    <link rel="stylesheet" href="/static/css/login-register.css">
+{% endblock %}
 
 {% block content %}
 
 <form action="/login" method="POST">
-    <h4>LOGIN</h4>
 
-    <label for="email">Email</label>
-    <input type="email" name="email" id="email"><br>
+    <h4>LOGIN</h4> <br> 
 
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password"><br>
+    <div class="form-outline mb-4">
+        <input type="email" name="email" id="email" class="form-control">
+        <label for="email" class="form-label"> Email </label>
+    </div>
 
-    <input type = "submit">
+    <div class="form-outline mb-4">
+        <input type="password" name="password" id="password" class="form-control">
+        <label for="password" class="form-label">Password</label>
+    </div>
+
+    <button id="login" type="submit" class="btn btn-outline-dark btn-block mb-4">Login</button>
+
+    <br><br>
+
+    <div class="text-center">
+        <p>Not a member? <a href="/signup">Register</a></p>
+    </div>
+
 </form>
 
-<form action="/signup" method="GET">
-    <span>Don't have an account?</span><button>SIGNUP</button>
-</form>  
 
 {% if error %}
-    <p> {{ error }} </p>
-   
+<p id="err-msg"> {{ error }} </p>
+
 {% endif %}
 
 {% endblock %}

@@ -4,10 +4,6 @@ $(document).ready(() => {
 
      //Note: use 'function()' syntax to maintain access to $(this)
 
-    // get the bootstrap shade of blue to use 
-    const blueColor = $('#logout').css('color')
-
-
      // Helper function to populate the portfolio tiles for the 
          //save-dropdown-form and artwork-update-form
          function populatePortfolioSelect(){
@@ -39,12 +35,15 @@ $(document).ready(() => {
     $('#create-link').click(function () {
 
         // disable create link from being clicked again and reloading page
-        // Change color of create link to indicate which menu currently on 
-        $('#gallery-link').css('color', blueColor);
+        // Change border of create link to indicate which menu currently on 
+        $('#gallery-link').css('border-style', 'none')
+                           
         $('#gallery-link').prop('disabled', false);
-
         $(this).prop('disabled', true);
-        $(this).css('color', '#e6e8fa');
+        $(this).css('border', '1px solid #00A6FB');
+                        
+        // update body bg-img
+        $('body').css('background-image', 'none');
 
         // update the menu options in the HTML
         $('#nav-menu').html(navCreateMenu).fadeIn();
@@ -56,8 +55,8 @@ $(document).ready(() => {
 
         //instantiate fabric.js canvas on html camvas id
         const myCanvas = new fabric.Canvas('c', {
-            width: 800,
-            height: 800,
+            width: 950,
+            height: 850,
             selectionFullyContained: true
         });
 
@@ -75,11 +74,18 @@ $(document).ready(() => {
     $('#gallery-link').click(function () {
 
         // disable gallery link from being clicked again and reloading page
-        // Change color of gallery link to indicate which menu currently on 
-        $('#create-link').css('color', blueColor);
+        // Change border of gallery link to indicate which menu currently on 
+        $('#create-link').css('border-style', 'none');
         $('#create-link').prop('disabled', false);
         $(this).prop('disabled', true);
-        $(this).css('color', '#e6e8fa');
+        $(this).css('border', '1px solid #00A6FB');
+
+
+         // update body bg-img
+         $('body').css({'background-image': 'url(/static/assets/brick-wall.jpg',
+         'background-repeat': 'no-repeat',
+         'background-size': 'cover',
+        ' background-attachment': 'fixed'});
 
         // update the menu options in the HTML
         $('#nav-menu').html(navGalleryMenu).fadeIn();

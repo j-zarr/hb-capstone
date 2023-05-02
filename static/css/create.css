@@ -1,0 +1,68 @@
+
+#content-area{
+    margin: 0px;
+    padding: 0px;
+    top: 0px;
+}
+
+.coloring-options {
+    background-color: rgb(37, 37, 37);
+    color: rgba(255, 255, 255, 0.85);
+    /* padding: 10px;   */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;  
+    text-align: center;
+    width: 100%;
+    position: relative;
+    top: -16px;
+    left: 0px;
+    border-left: 3px solid rgba(255, 255, 255, 0.85);
+}
+
+.coloring-field {
+    padding: 10px;
+    /* width: auto;  */
+    /* border-width: 0px 1px 0px 1px;
+    border-color: rgba(255, 255, 255, 0.85);
+    border-style: solid; */
+}
+
+
+
+.canvas-buttons{
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.canvas-buttons button {
+    border-radius: 5px;
+    color: white;
+    background-color: rgb(37, 37, 37);  
+}
+
+
+#undo,
+#redo,
+#delete-obj,
+#color-fill,
+#select-object {
+    border-radius: 50%;
+}
+
+
+#art-canvas {
+    text-align: center;
+}
+
+.canvas-container{
+    margin: 0 auto;
+}
+
+#c,
+#c-bg {
+    display: inline-block;
+    vertical-align: middle;
+}
+

@@ -88,7 +88,7 @@ def login_user():
         return redirect(url_for('user_page'))
     
     else:
-        error = "Incorrect login details, try again or click signup to create an ARTwrks account"
+        error = "Incorrect login details, try again or click register to create an ARTwrks account"
         return render_template("homepage.html", error=error)
 
 

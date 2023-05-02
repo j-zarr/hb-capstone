@@ -1,0 +1,49 @@
+body {
+    background-image: linear-gradient(rgba(76, 0, 255, 1), rgba(255, 255, 255, 0.1)),
+        url(/static/assets/geo-pattern.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+form {
+    margin-top: 10%;
+    margin-left: 30%;
+    margin-right: 30%;
+    height: 500px;
+    padding: 70px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.85);
+
+}
+
+
+h4,
+a {
+    text-align: center;
+    color: #4c00ff;
+}
+
+label,
+button {
+    color: #051923;
+}
+
+#login:hover,
+#register:hover {
+    background-color: #4c00ff;
+    border: 1px solid #4c00ff;
+}
+
+#err-msg{
+    margin: 25px;
+    color: white;
+    text-align: center;
+    background-color: rgba(5, 25, 35, 0.9);
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    border-radius: 5px;
+}
