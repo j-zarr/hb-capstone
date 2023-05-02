@@ -19,7 +19,8 @@ function undo(canvas, removed) {
     }
 
     // get last object added to canvas, add to removed stack and remove from canvas
-   let last = canvas.item(canvas.size() - 1);
+    let last = canvas.item(canvas.size() - 1);
+    //let last = canvas._objects[canvas._objects.length - 1]
     
    // Handle removing of fill only, not entire object
     if (last.fill != '') {

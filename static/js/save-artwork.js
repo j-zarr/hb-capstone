@@ -105,7 +105,7 @@ function submitSaveForm(canvas) {
                 $('#create-link').click(); //reload canvas
 
                 // Reset selectedColor, selectedOpacity, selectedWidth to default values 
-                selectedColor =  "#00A6FB";
+                selectedColor =  "#0084ff";
                 selectedOpacity = 1;
                 selectedWidth = 10;
             }, 3000);

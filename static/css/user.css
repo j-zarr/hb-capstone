@@ -22,7 +22,7 @@
 
 
  #logout{
-    color: #00A6FB;
+    color: #0084ff;
     margin: 5px;
     width: 90px;
     text-align: center;
@@ -30,7 +30,7 @@
 }
 
 #create-link, #gallery-link{
-    color: #00A6FB;
+    color: #0084ff;
     margin: 5px;
     width: 90px;
     text-align: center;

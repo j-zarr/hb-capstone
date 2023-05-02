@@ -7,7 +7,6 @@
 // Create updated menu options (for gallery link click)
 const navGalleryMenu =
 `
-<hr>
 <br><br>
 <div>
     <li>

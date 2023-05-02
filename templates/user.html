@@ -40,22 +40,18 @@
 
                     <div id="nav-menu"></div>
 
-
                 </ul>
-                <hr style="color: white; width: 96%;  height: 2px;">
+                
+                <hr style="color: white; width: 96%;  height: 3px; background-color: white; border-radius: 5px;">
 
                 <div class="pb-4">
 
                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
-                       
-                        <li style="color: #4C00FF; font-weight: bold;">
-                            <span><i class="bi bi-person-circle"></i></span>
-                            <span class="d-none d-sm-inline mx-1">{{ session.get('username') }}</span>
-                        </li>
 
                         <li>
                             <a href="/logout" class="nav-link px-0 align-middle" id="logout">
-                                <span class="ms-1 d-none d-sm-inline">Logout</span></a>
+                               
+                                <i class="bi bi-box-arrow-in-left"></i> <span class="ms-1 d-none d-sm-inline">{{ session.get('username') }} </span></a>
                         </li>
 
                     </ul>

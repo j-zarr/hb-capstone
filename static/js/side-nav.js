@@ -40,7 +40,7 @@ $(document).ready(() => {
                            
         $('#gallery-link').prop('disabled', false);
         $(this).prop('disabled', true);
-        $(this).css('border', '1px solid #00A6FB');
+        $(this).css('border', '1px solid #0084ff');
                         
         // update body bg-img
         $('body').css('background-image', 'none');
@@ -78,7 +78,7 @@ $(document).ready(() => {
         $('#create-link').css('border-style', 'none');
         $('#create-link').prop('disabled', false);
         $(this).prop('disabled', true);
-        $(this).css('border', '1px solid #00A6FB');
+        $(this).css('border', '1px solid #0084ff');
 
 
          // update body bg-img

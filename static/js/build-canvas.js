@@ -13,8 +13,8 @@ const canvasHTML =
 
             <div class="coloring-field" style="margin-top: -10px; margin-right:100px;"> 
                 <label for="color-hex"><i class="bi bi-palette2"></i></label>
-                <input type="color" id="selected-color" value="#0091ff" oninput="this.nextElementSibling.value = this.value">
-                <output>#0091ff<output> 
+                <input type="color" id="selected-color" value="#0084ff" oninput="this.nextElementSibling.value = this.value">
+                <output>#0084ff<output> 
             </div>
             
             <div class="coloring-field" style="width: 15%; margin-right: 100px;"> 
