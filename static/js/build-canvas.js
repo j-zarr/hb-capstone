@@ -39,6 +39,7 @@ const canvasHTML =
             <span><button id="delete-obj" title="delete-obj"><i class="bi bi-trash"></i></button></span>
             <span><button class="redo-and-undo" id="redo" title="redo"><i class="bi bi-arrow-clockwise"></i></button></span>
             <span><button class="redo-and-undo" id="undo" title="undo"><i class="bi bi-arrow-counterclockwise"></i></button></span>
+            <span><button id="color-fill" title="color-fill"><i class="bi bi-paint-bucket"></i></button></span>
             <span><button id="select-object" title="select-object"><i class="bi bi-arrows-move"></i></button></span>
             <span><button class="drawing-mode" id="water-color" title="water-color"><i class="bi bi-water"></i></button></span>
             <span><button class="drawing-mode" id="paint" title="paint"><i class="bi bi-brush"></i></button></span>
