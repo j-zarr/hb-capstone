@@ -22,13 +22,13 @@ function undo(canvas, removed) {
     //const last = canvas._objects[canvas._objects.length - 1] //also have access ._objects array
 
     // // Handle removing fill (Note: fabric.js modifies obj on fill, so will remove enire obj)
-    if (last.fill != '') {
-        fillInfo.push(last.fill);
-        last.clone(function (cloned) {
-            canvas.add(cloned.set(
-                'fill', ''));
-        });
-    }
+    // if (last.fill != '') {
+    //     fillInfo.push(last.fill);
+    //     last.clone(function (cloned) {
+    //         canvas.add(cloned.set(
+    //             'fill', ''));
+    //     });
+    // }
 
     removed.push(last)
     canvas.remove(last);
@@ -42,22 +42,16 @@ function redo(canvas, removed) {
         return;
     }
 
+     /////// TO REVISIT /////////
+     //// need to keep track of positions... add an id and store in a dict??
     // // redo fill if fill was undone, then add to canvas
-    if (fillInfo.length > 0) {
-        const last = canvas.item(canvas.size() - 1); // remove unfilled obj from canvas 
-        
-        const toAdd = removed.pop();
-        canvas.add(toAdd);
-        toAdd.set('fill' , `${fillInfo.pop()}`);
-
-       // removed.push(last);
-         canvas.remove(last);
-        canvas.requestRenderAll();
-        return;
-    }
-
+    
     // otherwise just add removed obj
     canvas.add(removed.pop());
+    // if (fillInfo.length > 0) {
+    //     const obj = canvas.item(canvas.size()-1);
+    //     obj.set('fill', `${fillInfo.pop()}`);
+    // }
     canvas.requestRenderAll();
 }
 
