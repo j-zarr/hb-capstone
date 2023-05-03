@@ -15,9 +15,42 @@ a:hover {
     color: #4c00ff;
 }
 
-.coloring-options {
+/* modify bootstrap checkbox */
+.custom-checkbox:checked{
+        background-color:rgb(37,37,37);
+}
+
+/* modify range slider */
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: 'none';
+    background: rgb(37,37,37);
+    height: 17px;
+    width: 7px;
+    border-radius: 2px;
+    border: 1px solid white;
+}
+  
+
+/* Remove if  want same color for side nav on all pages */
+/* #nav-menu-border{
+    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(37, 37, 37, 0.9); 
+  }  */
+
+
+.canvas-modify-option{
     color: rgb(37, 37, 37);
-    background-color: rgba(255, 255, 255, 0.65);
+    letter-spacing: .2rem;
+    
+}
+
+.coloring-options {
+    /* color: rgb(37, 37, 37);
+    background-color: rgba(255, 255, 255, 0.65); */
+
+    background-color: rgb(37, 37, 37);
+    color: rgba(255, 255, 255, 0.65); 
+
     letter-spacing: .2rem;
     display: flex;
     justify-content: center;
@@ -32,7 +65,8 @@ a:hover {
 }
 
 .coloring-field {
-    padding: 10px;
+    padding-top: 30px;
+    padding-bottom: 10px;
 }
 
 

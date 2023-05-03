@@ -36,23 +36,24 @@ $(document).ready(() => {
 
         // disable create link from being clicked again and reloading page
         // Change border of create link to indicate which menu currently on 
-        $('#gallery-link').css('color', '#0084ff')
-                        .mouseover(function(){
-                        $('#gallery-link').css('color', '#4c00ff');
-                        }).mouseout(function(){
-                        $('#gallery-link').css('color', '#0084ff');});
+        $('#gallery-link').removeClass('clicked').addClass('unclicked');
         $('#gallery-link').prop('disabled', false) 
         $(this).prop('disabled', true);
-        $(this).css('color', '#4c00ff');
+        $(this).removeClass('unclicked').addClass('clicked');
 
 
-        // update body bg-img
+        // // update body bg-img
+        // $('body').css({
+        //     'background-image': `linear-gradient(rgba(76, 0, 255, 1), rgba(255, 255, 255, 0.1)),
+        //                          url(/static/assets/geo-pattern.jpg`,
+        //     'background-repeat': 'no-repeat',
+        //     'background-size': 'cover',
+        //     'background-attachment': 'fixed'
+        // });
+
         $('body').css({
-            'background-image': `linear-gradient(rgba(76, 0, 255, 1), rgba(255, 255, 255, 0.1)),
-                                 url(/static/assets/geo-pattern.jpg`,
-            'background-repeat': 'no-repeat',
-            'background-size': 'cover',
-            'background-attachment': 'fixed'
+            'background-image': 'none',
+            'background-color': '#373737'
         });
 
         // update the menu options in the HTML
@@ -85,14 +86,10 @@ $(document).ready(() => {
 
         // disable gallery link from being clicked again and reloading page
         // Change border of gallery link to indicate which menu currently on 
-        $('#create-link').css('color', '#0084ff')
-                            .mouseover(function(){
-                            $('#create-link').css('color', '#4c00ff');
-                            }).mouseout(function(){
-                            $('#create-link').css('color', '#0084ff');});      
+        $('#create-link').removeClass('clicked').addClass('unclicked')    
         $('#create-link').prop('disabled', false);
         $(this).prop('disabled', true);
-        $(this).css('color', '#4c00ff');
+        $(this).removeClass('unclicked').addClass('clicked');
 
         // update body bg-img
         $('body').css({

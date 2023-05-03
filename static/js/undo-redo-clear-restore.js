@@ -7,9 +7,6 @@
 // Initialize variable to hold canvas state, to be accessible to clear and restore
 let canvasState = '';
 
-// Initialize stack to hold fill info on undo, restore on redo by popping 
-const fillInfo = [];
-
 
 function undo(canvas, removed) {
     // Check if objetcs exist on canvas
@@ -20,15 +17,6 @@ function undo(canvas, removed) {
     // get last object added to canvas, add to removed stack and remove from canvas
     const last = canvas.item(canvas.size() - 1); //canvas.item(idx) gets obj at the specified index
     //const last = canvas._objects[canvas._objects.length - 1] //also have access ._objects array
-
-    // // Handle removing fill (Note: fabric.js modifies obj on fill, so will remove enire obj)
-    // if (last.fill != '') {
-    //     fillInfo.push(last.fill);
-    //     last.clone(function (cloned) {
-    //         canvas.add(cloned.set(
-    //             'fill', ''));
-    //     });
-    // }
 
     removed.push(last)
     canvas.remove(last);
@@ -42,16 +30,7 @@ function redo(canvas, removed) {
         return;
     }
 
-     /////// TO REVISIT /////////
-     //// need to keep track of positions... add an id and store in a dict??
-    // // redo fill if fill was undone, then add to canvas
-    
-    // otherwise just add removed obj
     canvas.add(removed.pop());
-    // if (fillInfo.length > 0) {
-    //     const obj = canvas.item(canvas.size()-1);
-    //     obj.set('fill', `${fillInfo.pop()}`);
-    // }
     canvas.requestRenderAll();
 }
 
@@ -64,8 +43,7 @@ function clearCanvas(canvas, removed) {
     }
 
     //Empty removed array to prevent redo - clear resets the entire canvas
-    removed.length = 0;
-    fillInfo.length = 0;
+    removed = [];
 
     //Store canvas state before clearing to be able to restore
     canvasState = canvas.toJSON();
@@ -96,3 +74,18 @@ function restoreCanvas(canvas) {
     //reset canvasState 
     canvasState = '';
 }
+
+
+    /////// TO REVISIT /////////////////////
+    ///(Note: fabric.js modifies obj on fill, so will remove enire obj on undo)
+    //// need to keep track of positions..but positions also moving depending on when things are added and redone/undone
+    //....... add a custom attribute on obj with removed fill?? 
+    //Solution may just be to add a sepearte feature to specifically undo (/and redo) fill
+    //  
+    ////Leaving this here so I remember how to create a deep clone of a fabric.js obj, in case needed 
+    //  obj.clone(function (cloned) {
+    //      canvas.add(cloned.set(
+    //         'fill', ''));
+    //   });
+    // 
+    ///////////////////////////////////////

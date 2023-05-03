@@ -17,7 +17,7 @@ const canvasHTML =
                 <output style="display:block";>#4c00ff<output> 
             </div>
             
-            <div class="coloring-field" style="width: 15%; margin-right: 100px;"> 
+            <div class="coloring-field" style="width: 10%; margin-right: 100px;"> 
                 <label for="selected-opacity">Opacity</label>
                 <input type="range" class="form-range" id="selected-opacity" min="0" max="1" value="1" step="0.1" 
                 oninput="this.nextElementSibling.value = this.value">
@@ -54,10 +54,10 @@ const canvasHTML =
         <div id="art-canvas">
         <div id="c-bg" style="z-index: -20; 
                             background-image:
-                                linear-gradient(45deg, #E8E8E8 25%, transparent 25%),
-                                linear-gradient(45deg, transparent 75%, #E8E8E8 75%),
-                                linear-gradient(45deg, transparent 75%, #E8E8E8 75%),
-                                linear-gradient(45deg, #E8E8E8 25%, #fff 25%);    
+                                linear-gradient(45deg, #ededf3 25%, transparent 25%),
+                                linear-gradient(45deg, transparent 75%, #ededf3 75%),
+                                linear-gradient(45deg, transparent 75%, #ededf3 75%),
+                                linear-gradient(45deg, #ededf3 25%, #fff 25%);    
                             background-size:100px 100px;       
                             background-position:0 0, 0 0, -50px -50px, 50px 50px; 
                             width: 900px; height:800px">

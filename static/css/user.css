@@ -31,14 +31,20 @@
 }
 
 
-#create-link, #gallery-link{
+.unclicked{
     font-weight: bold;
     color: #0084ff;
 }
 
-#create-link:hover, #gallery-link:hover{
+.unclicked:hover{
     color: #4c00ff;
 }
+
+.clicked{
+    font-weight: bold;
+    color: #4c00ff;
+}
+
 
 body {
     background-image: linear-gradient(rgba(76, 0, 255, 1), rgba(255, 255, 255, 0.1)),
