@@ -8,7 +8,11 @@ function activateCanvasBtns(canvas) {
 
     // Deselect buttons if selected from coloring otions (color picker, opacity, width)
     $('.coloring-options').on('input', function () {
-        $('button').css('color', 'white');
+        $('button').css('color', 'white').prop('disabled', false)
+                            .mouseover(function(){
+                            $(this).css('color', 'rgb(37,37,37');
+                            }).mouseout(function(){
+                            $(this).css('color', 'white');});
 
         // Set drawing mode and selectable to false after user selects color options
         // so new clicks will be updated with new color options 
@@ -28,18 +32,22 @@ function activateCanvasBtns(canvas) {
 
     $('button').click(function () {
         // Deselect previously selected button and select current cliked button 
-        $('button').css('color', 'white')
+        $('button').css('color', 'white').prop('disabled', false)
                             .mouseover(function(){
+                            $(this).css('backgroundColor', 'blanchedalmond')
                             $(this).css('color', 'rgb(37,37,37');
                             }).mouseout(function(){
+                            $(this).css('backgroundColor', 'rgb(37,37,37')
                             $(this).css('color', 'white');});
 
        if ($(this).attr('id') != 'select-object') { //handle select click separately
-            $(this).css('color', '#55DD33')
+            $(this).css('color', '#55DD33').css('backgroundColor','rgb(37,37,37').prop('disabled', true)
                             .mouseover(function(){
-                            $(this).css('color', 'rgb(37,37,37');
+                            $(this).css('color', '#55DD33');
+                            $(this).css('backgroundColor', 'rgb(37,37,37');
                             }).mouseout(function(){
                             $(this).css('color', '#55DD33');});
+                           
            deselect(canvas);
            selectIsActive = false; 
        }
@@ -59,7 +67,7 @@ function activateCanvasBtns(canvas) {
         // if select button active and reclicked, deselect all objects
         if (selectIsActive) {
             selectIsActive = false;
-            $(this).css('color', 'white');
+            $(this).css('color', 'white')
             deselect(canvas);
         } else {
             selectIsActive = true;
@@ -75,6 +83,8 @@ function activateCanvasBtns(canvas) {
 
     // ***************<< Setting opacity, color, line-width on click >>****************/
     //****************<< function definitions in coloring-options.js >>****************/
+
+
 
     // Update the selected-opacity value on input change (as int)
     $('#selected-opacity').change(setOpacity);

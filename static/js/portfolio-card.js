@@ -67,7 +67,7 @@ class GalleryPortfolio {
             .then(response => response.json())
             .then(data => {
                 if (data.status == 'success') {
-                    $(`#${this.id}`).remove();
+                    $(`#${this.id}`).fadeOut('slow').remove();
 
                     //reset portfolio options
                     portfolios_arr .length = 0;
@@ -89,7 +89,7 @@ function createPortfolioCard(pair) {
     const p = new GalleryPortfolio(title, pId); // create class instance
 
     // Add to new portfolio card to DOM
-    $('#card-to-add').after(galleryHTML.portfolioCard);
+    $('#card-to-add').after(galleryHTML.portfolioCard).fadeIn('slow', 'linear');
 
     // add the potrfolio title to the card
     $('#p-artworks').text(title);

@@ -94,7 +94,7 @@ class GalleryArtwork {
             .then(response => response.json())
             .then(data => {
                 if (data.status == 'success') {
-                    $(`#${this.id}`).remove();
+                    $(`#${this.id}`).fadeOut('slow').remove();
                 }
             });
     }
@@ -138,7 +138,7 @@ function createArtworkCard(obj) {
     const a = new GalleryArtwork(title, aId, pId, filePath) // create class instance
 
     // Add new artwork card to DOM
-    $('#card-to-add').after(galleryHTML.artworkCard);
+    $('#card-to-add').after(galleryHTML.artworkCard).fadeIn('slow','linear');
 
 
     // add image link to S3 bucket url

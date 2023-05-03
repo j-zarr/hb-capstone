@@ -37,11 +37,15 @@ $(document).ready(() => {
         // disable create link from being clicked again and reloading page
         // Change border of create link to indicate which menu currently on 
         $('#gallery-link').removeClass('clicked').addClass('unclicked');
+        $('#gallery-link').children('span').removeClass('clicked').addClass('unclicked');
+
         $('#gallery-link').prop('disabled', false) 
         $(this).prop('disabled', true);
+
         $(this).removeClass('unclicked').addClass('clicked');
+        $(this).children('span').removeClass('unclicked').addClass('clicked'); 
 
-
+        // Looks good but distractracting for canvas/may clash with user canvas colors
         // // update body bg-img
         // $('body').css({
         //     'background-image': `linear-gradient(rgba(76, 0, 255, 1), rgba(255, 255, 255, 0.1)),
@@ -54,10 +58,10 @@ $(document).ready(() => {
         $('body').css({
             'background-image': 'none',
             'background-color': '#373737'
-        });
+        }).fadeIn('slow');
 
         // update the menu options in the HTML
-        $('#nav-menu').html(navCreateMenu).fadeIn();
+        $('#nav-menu').html(navCreateMenu);
 
         populatePortfolioSelect();
 
@@ -86,10 +90,14 @@ $(document).ready(() => {
 
         // disable gallery link from being clicked again and reloading page
         // Change border of gallery link to indicate which menu currently on 
-        $('#create-link').removeClass('clicked').addClass('unclicked')    
+        $('#create-link').removeClass('clicked').addClass('unclicked'); 
+        $('#create-link').children('span').removeClass('clicked').addClass('unclicked');
+
         $('#create-link').prop('disabled', false);
         $(this).prop('disabled', true);
+
         $(this).removeClass('unclicked').addClass('clicked');
+        $(this).children('span').removeClass('unclicked').addClass('clicked'); 
 
         // update body bg-img
         $('body').css({
@@ -97,10 +105,10 @@ $(document).ready(() => {
             'background-repeat': 'no-repeat',
             'background-size': 'cover',
             'background-attachment': 'fixed'
-        });
+        }).fadeIn('slow');
 
         // update the menu options in the HTML
-        $('#nav-menu').html(navGalleryMenu).fadeIn();
+        $('#nav-menu').html(navGalleryMenu);
 
         // Add gallery background image
         $('#content-area').html(galleryHTML.galleryWall);

@@ -1,6 +1,22 @@
 
-#create-link:hover, #gallery-link:hover{
+/* #create-link:hover, #gallery-link:hover{
     color: #4c00ff;
+} */
+
+
+#search-portfolios-btn:hover, #search-artworks-btn:hover{
+    color: white;
+    background-color:#0084ff;
+}
+
+#search-portfolios-btn, #search-artworks-btn{
+    border: 1px solid #0084ff;
+    color: #0084ff;
+    background-color: white;
+}
+
+#search-portfolios-input, #search-artworks-input{
+    border-radius: 5px 0px 0px 5px;
 }
 
 #submit-artwork-update:hover,

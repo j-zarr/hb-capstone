@@ -38,16 +38,16 @@ const navGalleryMenu =
 
     <li>
         <div class="input-group input-group-sm mb-3">
-            <input type="search" id="search-portfolios-input" class="form-control rounded" placeholder="Search portfolios" aria-label="Search" aria-describedby="search-addon" />
-            <button type="button" id="search-portfolios-btn" class="btn btn-outline-primary" style="color:#0084ff;">
+            <input type="search" id="search-portfolios-input" class="form-control" placeholder="Search portfolios" aria-label="Search" aria-describedby="search-addon" />
+            <button type="button" id="search-portfolios-btn" class="btn">
                                 <i class="bi bi-search"></i></button>
         </div>
     </li>
         
     <li>
         <div class="input-group input-group-sm mb-3">
-            <input type="search" id="search-artworks-input" class="form-control rounded" placeholder="Search artworks" aria-label="Search" aria-describedby="search-addon" />
-            <button type="button" id="search-artworks-btn" class="btn btn-outline-primary" style="color:#0084ff;">
+            <input type="search" id="search-artworks-input" class="form-control" placeholder="Search artworks" aria-label="Search" aria-describedby="search-addon" />
+            <button type="button" id="search-artworks-btn" class="btn">
                                 <i class="bi bi-search"></i></button>
         </div> 
     </li>
