@@ -2,12 +2,12 @@
 
 $(document).ready(() => {
 
-     //Note: use 'function()' syntax to maintain access to $(this)
+    //Note: use 'function()' syntax to maintain access to $(this)
 
-     // Helper function to populate the portfolio tiles for the 
-         //save-dropdown-form and artwork-update-form
-         function populatePortfolioSelect(){
-            fetch('/api/user-portfolio-titles')
+    // Helper function to populate the portfolio tiles for the 
+    //save-dropdown-form and artwork-update-form
+    function populatePortfolioSelect() {
+        fetch('/api/user-portfolio-titles')
             .then(response => response.json())
             .then(data => {
                 if (data.status == 'success') {
@@ -20,10 +20,10 @@ $(document).ready(() => {
                                             ${pair[0]}
                                         </option>`;
                         $('.options').before(element);
-                   });
+                    });
                 }
             });
-        }
+    }
 
 
     //*****************<< Updated DOM for clicking "create" in main menu >>*****************/
@@ -36,18 +36,28 @@ $(document).ready(() => {
 
         // disable create link from being clicked again and reloading page
         // Change border of create link to indicate which menu currently on 
-        $('#gallery-link').css('border-style', 'none')
-                           
-        $('#gallery-link').prop('disabled', false);
+        $('#gallery-link').css('color', '#0084ff')
+                        .mouseover(function(){
+                        $('#gallery-link').css('color', '#4c00ff');
+                        }).mouseout(function(){
+                        $('#gallery-link').css('color', '#0084ff');});
+        $('#gallery-link').prop('disabled', false) 
         $(this).prop('disabled', true);
-        $(this).css('border', '1px solid #0084ff');
-                        
+        $(this).css('color', '#4c00ff');
+
+
         // update body bg-img
-        $('body').css('background-image', 'none');
+        $('body').css({
+            'background-image': `linear-gradient(rgba(76, 0, 255, 1), rgba(255, 255, 255, 0.1)),
+                                 url(/static/assets/geo-pattern.jpg`,
+            'background-repeat': 'no-repeat',
+            'background-size': 'cover',
+            'background-attachment': 'fixed'
+        });
 
         // update the menu options in the HTML
         $('#nav-menu').html(navCreateMenu).fadeIn();
-        
+
         populatePortfolioSelect();
 
         // update the HTML with the canvas and canvas features
@@ -55,8 +65,8 @@ $(document).ready(() => {
 
         //instantiate fabric.js canvas on html camvas id
         const myCanvas = new fabric.Canvas('c', {
-            width: 950,
-            height: 850,
+            width: 900,
+            height: 800,
             selectionFullyContained: true
         });
 
@@ -75,61 +85,66 @@ $(document).ready(() => {
 
         // disable gallery link from being clicked again and reloading page
         // Change border of gallery link to indicate which menu currently on 
-        $('#create-link').css('border-style', 'none');
+        $('#create-link').css('color', '#0084ff')
+                            .mouseover(function(){
+                            $('#create-link').css('color', '#4c00ff');
+                            }).mouseout(function(){
+                            $('#create-link').css('color', '#0084ff');});      
         $('#create-link').prop('disabled', false);
         $(this).prop('disabled', true);
-        $(this).css('border', '1px solid #0084ff');
+        $(this).css('color', '#4c00ff');
 
-
-         // update body bg-img
-         $('body').css({'background-image': 'url(/static/assets/brick-wall.jpg',
-         'background-repeat': 'no-repeat',
-         'background-size': 'cover',
-        ' background-attachment': 'fixed'});
+        // update body bg-img
+        $('body').css({
+            'background-image': 'url(/static/assets/brick-wall.jpg',
+            'background-repeat': 'no-repeat',
+            'background-size': 'cover',
+            'background-attachment': 'fixed'
+        });
 
         // update the menu options in the HTML
         $('#nav-menu').html(navGalleryMenu).fadeIn();
 
         // Add gallery background image
         $('#content-area').html(galleryHTML.galleryWall);
-       
-         // update the HTML with the gallery and features for click of nav link "artworks"
-        $('#all-artworks').click(()=>{
+
+        // update the HTML with the gallery and features for click of nav link "artworks"
+        $('#all-artworks').click(() => {
             $('#content-area').html(galleryHTML.cardContainer);
 
             // fn def in artwork-card.js
-            getAllArtworks() 
+            getAllArtworks()
         });
 
         // update DOM with artwork search results
-        $('#search-artworks-btn').click(()=>{
-            if( !$('#search-artworks-input').val()){ return}
+        $('#search-artworks-btn').click(() => {
+            if (!$('#search-artworks-input').val()) { return }
 
             $('#content-area').html(galleryHTML.cardContainer);
 
-             // fn def in artwork-card.js
-             getSearchArtworkResults();
+            // fn def in artwork-card.js
+            getSearchArtworkResults();
         });
-        
-        
-         // update the HTML with the gallery and features for click of nav link "portfolios"
-        $('#all-portfolios').click(()=>{
+
+
+        // update the HTML with the gallery and features for click of nav link "portfolios"
+        $('#all-portfolios').click(() => {
             $('#content-area').html(galleryHTML.cardContainer);
 
             // fn def in portfolio-card.js
-            getAllPortfolios();  
+            getAllPortfolios();
         });
-            
+
         // update DOM with portfolio search results
-        $('#search-portfolios-btn').click(()=>{
-            if( !$('#search-portfolios-input').val()){ return}
+        $('#search-portfolios-btn').click(() => {
+            if (!$('#search-portfolios-input').val()) { return }
 
             $('#content-area').html(galleryHTML.cardContainer);
 
-             // fn def in portfolio-card.js
-             getSearchPortfolioResults();
+            // fn def in portfolio-card.js
+            getSearchPortfolioResults();
         });
-        
+
     });
 
 

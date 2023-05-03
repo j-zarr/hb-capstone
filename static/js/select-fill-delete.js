@@ -35,7 +35,6 @@ function fillColor(canvas) {
    
     selectedObjects.forEach((obj) => { 
         obj.set('fill', selectedColor);
-        canvas.add(obj);
     });
     canvas.requestRenderAll();
 }

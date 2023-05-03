@@ -5,10 +5,20 @@
     top: 0px;
 }
 
+
+button:hover,
+a:hover {
+    font-weight: bold;
+}
+
+#create-link:hover, #gallery-link:hover{
+    color: #4c00ff;
+}
+
 .coloring-options {
-    background-color: rgb(37, 37, 37);
-    color: rgba(255, 255, 255, 0.85);
-    /* padding: 10px;   */
+    color: rgb(37, 37, 37);
+    background-color: rgba(255, 255, 255, 0.65);
+    letter-spacing: .2rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,17 +28,12 @@
     position: relative;
     top: -16px;
     left: 0px;
-    border-left: 2px solid rgba(255, 255, 255, 0.85);
+    border-left: 1px solid #4c00ff;
 }
 
 .coloring-field {
     padding: 10px;
-    /* width: auto;  */
-    /* border-width: 0px 1px 0px 1px;
-    border-color: rgba(255, 255, 255, 0.85);
-    border-style: solid; */
 }
-
 
 
 .canvas-buttons{
@@ -40,6 +45,11 @@
     border-radius: 5px;
     color: white;
     background-color: rgb(37, 37, 37);  
+}
+
+.canvas-buttons button:hover{
+    background-color: blanchedalmond;
+    color:rgb(37, 37, 37);  
 }
 
 
@@ -66,3 +76,9 @@
     vertical-align: middle;
 }
 
+#save-form{
+    background-color: transparent;   
+}
+.dropdown-menu{
+    background-color: rgba(255, 255, 255, 0.35);
+}

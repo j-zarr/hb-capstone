@@ -12,9 +12,9 @@ const canvasHTML =
         <div class="coloring-options">
 
             <div class="coloring-field" style="margin-top: -10px; margin-right:100px;"> 
-                <label for="color-hex"><i class="bi bi-palette2"></i></label>
-                <input type="color" id="selected-color" value="#0084ff" oninput="this.nextElementSibling.value = this.value">
-                <output>#0084ff<output> 
+                <label for="selected-color" style="display:block"; ><i class="bi bi-palette2"></i></label> 
+                <input type="color" style= width: 50px; height:50px;" id="selected-color" value="#4c00ff" oninput="this.nextElementSibling.value = this.value">
+                <output style="display:block";>#4c00ff<output> 
             </div>
             
             <div class="coloring-field" style="width: 15%; margin-right: 100px;"> 
@@ -60,8 +60,8 @@ const canvasHTML =
                                 linear-gradient(45deg, #E8E8E8 25%, #fff 25%);    
                             background-size:100px 100px;       
                             background-position:0 0, 0 0, -50px -50px, 50px 50px; 
-                            width: 950px; height:850px">
-        <canvas id="c" style="border:1px solid #6b696d;" ></canvas>
+                            width: 900px; height:800px">
+        <canvas id="c" style="border:1px solid white" ></canvas>
         </div>
             
     </div>`;

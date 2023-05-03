@@ -22,14 +22,24 @@ function activateCanvasBtns(canvas) {
 
     //***************<< For any button click related to the canvas >>***************/
 
+    // Note: need to reset hover (once jquery changes a property the hover acted on, need to reset hover)
+
     let selectIsActive = false; // Initialize select button active as false
 
     $('button').click(function () {
         // Deselect previously selected button and select current cliked button 
-        $('button').css('color', 'white');
+        $('button').css('color', 'white')
+                            .mouseover(function(){
+                            $(this).css('color', 'rgb(37,37,37');
+                            }).mouseout(function(){
+                            $(this).css('color', 'white');});
 
        if ($(this).attr('id') != 'select-object') { //handle select click separately
-            $(this).css('color', '#55DD33');
+            $(this).css('color', '#55DD33')
+                            .mouseover(function(){
+                            $(this).css('color', 'rgb(37,37,37');
+                            }).mouseout(function(){
+                            $(this).css('color', '#55DD33');});
            deselect(canvas);
            selectIsActive = false; 
        }
@@ -40,6 +50,7 @@ function activateCanvasBtns(canvas) {
         }
     });
 
+ 
 
 
     // Set all objects (shapes and drawings) already on canvas to be selectable on select-object button click
@@ -52,11 +63,14 @@ function activateCanvasBtns(canvas) {
             deselect(canvas);
         } else {
             selectIsActive = true;
-            $(this).css('color', '#55DD33');
+            $(this).css('color', '#55DD33')
+                        .mouseover(function(){
+                        $(this).css('color', 'rgb(37,37,37');
+                        }).mouseout(function(){
+                        $(this).css('color', '#55DD33');});
             select(canvas);
         }
     });
-
 
 
     // ***************<< Setting opacity, color, line-width on click >>****************/
@@ -175,7 +189,7 @@ function activateCanvasBtns(canvas) {
 
     // Set undo click handler
     $('#undo').click(() => {
-        undo(canvas, removed)
+        undo(canvas, removed);
     });
 
 

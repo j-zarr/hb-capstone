@@ -1,4 +1,8 @@
 
+#create-link:hover, #gallery-link:hover{
+    color: #4c00ff;
+}
+
 #submit-artwork-update:hover,
 #submit-portfolio-update:hover {
     background-color: #303030;

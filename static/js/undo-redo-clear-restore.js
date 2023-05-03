@@ -7,9 +7,8 @@
 // Initialize variable to hold canvas state, to be accessible to clear and restore
 let canvasState = '';
 
-
-// Initialize stack to hold fill values for undo after fill
-let fillInfo = []
+// Initialize stack to hold fill info on undo, restore on redo by popping 
+const fillInfo = [];
 
 
 function undo(canvas, removed) {
@@ -19,35 +18,46 @@ function undo(canvas, removed) {
     }
 
     // get last object added to canvas, add to removed stack and remove from canvas
-    const last = canvas.item(canvas.size() - 1);
-   
-    
-   // Handle removing of filled obj
+    const last = canvas.item(canvas.size() - 1); //canvas.item(idx) gets obj at the specified index
+    //const last = canvas._objects[canvas._objects.length - 1] //also have access ._objects array
+
+    // // Handle removing fill (Note: fabric.js modifies obj on fill, so will remove enire obj)
     if (last.fill != '') {
-           
         fillInfo.push(last.fill);
-       
-        last.fill = ''; // this will also add the obj to the canvas
+        last.clone(function (cloned) {
+            canvas.add(cloned.set(
+                'fill', ''));
+        });
     }
-        // remove non-filled obj
-        removed.push(last);
-        canvas.remove(last);
-        canvas.requestRenderAll();
+
+    removed.push(last)
+    canvas.remove(last);
+    canvas.requestRenderAll();
 }
 
 
 function redo(canvas, removed) {
-    // Check if anything in removed
+    // Check if anything in removed 
     if (removed.length < 1) {
         return;
     }
 
-    const toRedo = removed.pop()
-    
-    if(fillInfo.length){ //redo color fill if fill was undone
-        toRedo.fill = fillInfo.pop();  
+    // // redo fill if fill was undone, then add to canvas
+    if (fillInfo.length > 0) {
+        const last = canvas.item(canvas.size() - 1); // remove unfilled obj from canvas 
+        
+        const toAdd = removed.pop();
+        canvas.add(toAdd);
+        toAdd.set('fill' , `${fillInfo.pop()}`);
+
+       // removed.push(last);
+         canvas.remove(last);
+        canvas.requestRenderAll();
+        return;
     }
-    canvas.add(toRedo);
+
+    // otherwise just add removed obj
+    canvas.add(removed.pop());
     canvas.requestRenderAll();
 }
 
@@ -61,6 +71,7 @@ function clearCanvas(canvas, removed) {
 
     //Empty removed array to prevent redo - clear resets the entire canvas
     removed.length = 0;
+    fillInfo.length = 0;
 
     //Store canvas state before clearing to be able to restore
     canvasState = canvas.toJSON();
@@ -81,7 +92,7 @@ function restoreCanvas(canvas) {
     }
 
     // don't restore previously cleared canvas onto a new drawing
-    if(!canvas.isEmpty()){
+    if (!canvas.isEmpty()) {
         return;
     }
 
