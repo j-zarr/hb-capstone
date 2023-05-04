@@ -33,13 +33,14 @@ const galleryHTML = {
                 cursor: pointer;">
  
  
-    <div id="p-card-title-link">
+    
      <a href="#" id="p-artworks" style="text-decoration:none;"> 
-     <span> <i class="bi bi-folder2-open"></i></span>  
-     <span id="current-p-title"></span>
-       
+        <div id="p-card-title-link">
+             <span> <i class="bi bi-folder2-open"></i></span>  
+             <span id="current-p-title"></span>
+         </div>
      </a> 
-   </div>
+  
  
  <br>
 

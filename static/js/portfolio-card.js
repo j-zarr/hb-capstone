@@ -64,6 +64,7 @@ class GalleryPortfolio {
 
     // Delete this portfolio and all it's artworks
     deletePortfolio() {
+
         fetch(`/api/delete-porfolio/${this.id}`)
             .then(response => response.json())
             .then(data => {
@@ -71,11 +72,12 @@ class GalleryPortfolio {
                     $(`#${this.id}`).fadeOut('slow').remove();
 
                     //reset portfolio options
-                    portfolios_arr .length = 0;
-                    userPortfolios(); 
+                    portfolios_arr.length = 0;
+                    userPortfolios();
                 }
             });
     }
+    
 }
 
 
