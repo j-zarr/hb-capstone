@@ -3,99 +3,6 @@
     color: #4c00ff;
 } */
 
-
-#search-portfolios-btn:hover, #search-artworks-btn:hover{
-    color: white;
-    background-color:#0084ff;
-}
-
-#search-portfolios-btn, #search-artworks-btn{
-    border: 1px solid #0084ff;
-    color: #0084ff;
-    background-color: white;
-}
-
-#search-portfolios-input, #search-artworks-input{
-    border-radius: 5px 0px 0px 5px;
-}
-
-#submit-artwork-update:hover,
-#submit-portfolio-update:hover {
-    background-color: #303030;
-    color: white;
-}
-
-#update-p-title {
-    display: flex;
-    width: 75%;
-
-}
-
-/* FIGURE OUT HOW TO DISPLAY SAVE BTN ON RIGHT SIDE OF INPUT*/
-#submit-portfolio-update {
-    display: grid;
-    color: #303030;
-    background-color: white;
-    width: 20%;
-    border-radius: 5px;
-}
-
-#submit-artwork-update {
-    color: #303030;
-    background-color: white;
-    border-radius: 5px;
-    width: 100%;
-    height: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-}
-
-#delete-artwork:hover,
-#delete-portfolio:hover {
-    background-color: #fc2647;
-    color: white;
-}
-
-#delete-artwork,
-#delete-portfolio {
-    color: #fc2647;
-    background-color: white;
-    border-radius: 5px;
-    width: 100%;
-    height: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-
-}
-
-.card-options li {
-    margin: 10px;
-}
-
-.card-options input,
-select {
-    width: 100%;
-    height: 25px;
-}
-
-.parallax {
-    /* The image used */
-    background-image: url('/static/assets/brick-wall.jpg');
-
-    /* Full height */
-    height: 100%;
-
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
 /* Turn off parallax scrolling for tablets and phones. Increase the pixels if needed */
 @media only screen and (max-device-width: 1366px) {
     .parallax {
@@ -103,10 +10,124 @@ select {
     }
 }
 
-#current-title {
-    background-color: rgb(250, 250, 250);
-    color: rgb(38, 151, 226);
+
+
+#all-portfolios, #all-artworks{
+    border: 1px solid;
+    text-align: center;
+    margin-bottom:20px;
+    margin-top:20px; 
+    width: 150px;
+   
+    color:#4c00ff;
+}
+
+#all-portfolios:hover, #all-artworks:hover{
+    color: white;
+    background-color:#4c00ff;
+}
+
+#search-portfolios-btn:hover, #search-artworks-btn:hover{
+    color: white;
+    background-color:#4c00ff;
+}
+
+#search-portfolios-btn, #search-artworks-btn{
+    border: 1px solid #4c00ff;
+    color: #4c00ff;
+    background-color: white;
+}
+
+#search-portfolios-input, #search-artworks-input{
+    border-radius: 5px 0px 0px 5px;
+    width: 145px;
+    height: 40px;
+}
+
+/* artwork-card artwork-title */
+#artwork-info {
+    padding: 5px;
+    margin-top: 7px;
+    width: 250px; 
+    font-weight: lighter;
+    background-color: rgb(249, 249, 241);
     border-radius: 4px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.7);
-    cursor: none;
+    
 }
+
+#current-title, #current-portfolio{
+    display: inline-block;
+    color: rgb(37, 37, 37);
+    font-weight: lighter;
+}
+
+
+
+
+/* update card form */
+.dropdown-menu{
+    background-color: rgba(0, 0, 0, 0.85);
+    text-align: center; 
+    width: 235px;
+    height: 270px;
+}
+
+.card-options input,
+select {
+    width: 90%;
+    height: 25px;
+    margin: 5px;
+    border-radius: 5px;
+    border: none;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+}
+
+
+
+#submit-artwork-update:hover,
+#submit-portfolio-update:hover {
+    color: black;
+    background-color: #2FF924;
+}
+
+
+#submit-artwork-update {  
+    color: #2FF924;
+    background-color: black;
+    border-radius: 50%;
+}
+
+#delete-artwork:hover{
+    color: black;
+    background-color: rgb(227, 26, 63);
+   
+}
+
+#delete-artwork {
+    color: rgb(227, 26, 63);
+    background-color: black;
+    height: 25px;
+    border-radius: 5px;
+    border: none;
+}
+
+
+
+
+/* .parallax { */
+    /* The image used */
+    /* background-image: url('/static/assets/brick-wall.jpg'); */
+
+    /* Full height */
+    /* height: 100%; */
+
+    /* Create the parallax scrolling effect */
+    /* background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+} */
+

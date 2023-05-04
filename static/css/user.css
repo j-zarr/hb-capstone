@@ -13,6 +13,7 @@
     
 }
 
+
 #nav-menu-bar, #nav-menu-border{
     width: auto;
 }
@@ -24,12 +25,16 @@
  #logout{
     color: #0084ff;
     margin: 5px;
-    width: 90px;
+    width: auto;
     text-align: center;
     margin-bottom: 40px;
     
 }
 
+#out-icon:hover, #logout:hover{
+    color: #4c00ff;
+    font-weight: bold;
+}
 
 .unclicked{
     font-weight: bold;

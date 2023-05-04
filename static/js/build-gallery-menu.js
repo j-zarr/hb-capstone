@@ -10,22 +10,12 @@ const navGalleryMenu =
 <br><br>
 <div>
     <li>
-        <a href="#" class="nav-link px-0 align-middle" id="all-portfolios" 
-                        style="border: 1px solid;
-                        text-align: center;
-                        margin-bottom:20px;
-                        margin-top:20px; 
-                        color:#0084ff;">
+        <a href="#" class="nav-link px-0 align-middle" id="all-portfolios">
             <span class="ms-1 d-none d-sm-inline";">Portfolios</span></a>
     </li>
        
     <li>
-        <a href="#" class="nav-link px-0 align-middle" id="all-artworks" 
-                        style="border: 1px solid;
-                        text-align: center;
-                        margin-bottom:20px;
-                        margin-top:20px; 
-                        color:#0084ff;">
+        <a href="#" class="nav-link px-0 align-middle" id="all-artworks"> 
             <span class="ms-1 d-none d-sm-inline";">Artworks</span></a>
     </li>
    

@@ -65,8 +65,10 @@ $(document).ready(() => {
 
         populatePortfolioSelect();
 
-        // update the HTML with the canvas and canvas features
+        // update the HTML with the canvas and canvas features, reset css
         $('#content-area').html(canvasHTML);
+        $('#nav-menu-border').css('position', 'relative');
+               
 
         //instantiate fabric.js canvas on html camvas id
         const myCanvas = new fabric.Canvas('c', {
@@ -99,22 +101,29 @@ $(document).ready(() => {
         $(this).removeClass('unclicked').addClass('clicked');
         $(this).children('span').removeClass('unclicked').addClass('clicked'); 
 
-        // update body bg-img
+        // update body bg-img with parallax scroll
         $('body').css({
-            'background-image': 'url(/static/assets/brick-wall.jpg',
+            'background-image': 'url("/static/assets/brick-wall.jpg")',
+            'height': '100%',
+            'background-attachment': 'fixed',
+            'background-position': 'center',
             'background-repeat': 'no-repeat',
-            'background-size': 'cover',
-            'background-attachment': 'fixed'
-        }).fadeIn('slow');
+            'background-size': 'cover'
+            
+         }).fadeIn('400', 'linear');
 
-        // update the menu options in the HTML
-        $('#nav-menu').html(navGalleryMenu);
+        // update the menu options in the HTML, adjust css
+         $('#nav-menu').html(navGalleryMenu);
+         $('#nav-menu-border').css('position', 'fixed');
 
-        // Add gallery background image
-        $('#content-area').html(galleryHTML.galleryWall);
+         // Add gallery wall
+        $('#content-area').html(galleryHTML.galleryWall);                      
+         
 
+       
         // update the HTML with the gallery and features for click of nav link "artworks"
         $('#all-artworks').click(() => {
+
             $('#content-area').html(galleryHTML.cardContainer);
 
             // fn def in artwork-card.js

@@ -1,13 +1,10 @@
-
 #content-area{
     margin: 0px;
     padding: 0px;
     top: 0px;
 }
 
-
-button:hover,
-a:hover {
+#clear:hover, #restore:hover, #dropdown-save:hover{
     font-weight: bold;
 }
 

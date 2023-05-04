@@ -24,7 +24,7 @@ function validateForm() {
     //Checks before submitting to server
 
     //1. Title is not "0"  --> would be overriden with no value on update portfolio from gallery
-    if ($('#artwork-title').val() == 0){
+    if ($('#artwork-title').val() === '0'){
         displayErrorMessage('Cannot use "0" for title');
         return false;
     }
@@ -108,6 +108,6 @@ function submitSaveForm(canvas) {
                 selectedColor =  "#4c00ff";
                 selectedOpacity = 1;
                 selectedWidth = 10;
-            }, 3000);
+            }, 1500);
         });
 }

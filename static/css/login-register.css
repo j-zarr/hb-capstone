@@ -31,6 +31,16 @@ a {
     border: 1px solid #4c00ff;
 }
 
+#register-link{
+   position:fixed;
+   margin-left: 10px;
+}
+
+#register-link:hover{
+    font-weight: bold;
+
+}
+
 #err-msg{
     margin: 25px;
     color: white;

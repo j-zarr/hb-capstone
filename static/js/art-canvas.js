@@ -32,7 +32,7 @@ function activateCanvasBtns(canvas) {
 
     $('button').click(function () {
         // Deselect previously selected button and select current cliked button 
-        $('button').css('color', 'white').prop('disabled', false)
+        $('button').css('color', 'white')
                             .mouseover(function(){
                             $(this).css('backgroundColor', 'blanchedalmond')
                             $(this).css('color', 'rgb(37,37,37');
@@ -41,7 +41,7 @@ function activateCanvasBtns(canvas) {
                             $(this).css('color', 'white');});
 
        if ($(this).attr('id') != 'select-object') { //handle select click separately
-            $(this).css('color', '#55DD33').css('backgroundColor','rgb(37,37,37').prop('disabled', true)
+            $(this).css('color', '#55DD33').css('backgroundColor','rgb(37,37,37')
                             .mouseover(function(){
                             $(this).css('color', '#55DD33');
                             $(this).css('backgroundColor', 'rgb(37,37,37');

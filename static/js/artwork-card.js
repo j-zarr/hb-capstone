@@ -18,7 +18,7 @@ class GalleryArtwork {
     }
 
     updateTitle(newTitle) {
-        
+
         const title = { title: newTitle }
 
         fetch(`/api/update-artwork-title/${this.id}/${this.portfolioId}`, {
@@ -31,7 +31,7 @@ class GalleryArtwork {
                 if (data.status == 'success') {
                     this.title = newTitle
 
-                    //update card title in DOM
+                    //update card title in DOM 
                     $(`h5[title-me=${this.id}]`).text(this.title);
                 }
             });
@@ -53,12 +53,12 @@ class GalleryArtwork {
 
                     this.portfolioId = newPortfolioID;
 
-                     //update card title in DOM
+                    //update card title in DOM
                     $(`h6[portfolio-title-me=${this.id}]`).text(portfolioTitle);
 
                 }
             });
-           
+
     }
 
     // Update to new created portfolio
@@ -74,22 +74,25 @@ class GalleryArtwork {
             .then(data => {
                 if (data.status == 'success') {
                     this.portfolioId = data.message;
-                
+
                     //update card title in DOM
                     $(`h6[portfolio-title-me=${this.id}]`).text(newPortfolioTitle);
-                    
-                     //reset portfolio options
-                     portfolios_arr .length = 0;
-                     userPortfolios(); 
+
+                    //add portfolio option
+                    portfolios_arr.length = 0;
+                    userPortfolios();
+                    $('#content-area').html(galleryHTML.cardContainer);
+                    getAllArtworks();
                 }
             });
     }
 
     deleteArtwork() {
+
         fetch(`/api/delete-artwork/${this.id}`, {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({path: this.path})
+            body: JSON.stringify({ path: this.path })
         })
             .then(response => response.json())
             .then(data => {
@@ -123,8 +126,7 @@ const userPortfolios = () => {
 }
 
 // call userPortfolios to set value for global portfolios_Arr
-userPortfolios(); 
-
+userPortfolios();
 
 
 
@@ -132,16 +134,17 @@ userPortfolios();
 
 // Create artwork-card and event listeners
 function createArtworkCard(obj) {
- 
+
     const [title, aId, pId, filePath] = obj;
 
     const a = new GalleryArtwork(title, aId, pId, filePath) // create class instance
 
+
     // Add new artwork card to DOM
-    $('#card-to-add').after(galleryHTML.artworkCard).fadeIn('slow','linear');
+    $('#card-to-add').after(galleryHTML.artworkCard).fadeIn('slow', 'linear');
 
 
-    // add image link to S3 bucket url
+    // set image link to S3 bucket url
     $('#card-img').attr('id', `card-img-${aId}`) // create unique element for each card
     $(`#card-img-${aId}`).html(`<img src=${filePath} width="250" height="300"  id="image">`);
     $('#image').wrap(` <div class="card-img" style="height:300px; width: 250px;"></div>`);
@@ -150,12 +153,12 @@ function createArtworkCard(obj) {
 
     // populate select options for user portfolios
     portfolios_arr.forEach(item => {
-       
+
         // get current portfolio name
         if (item[0] == pId) {
             curr_portfolio = item[1];
-        } 
-            let el = `<option 
+        }
+        let el = `<option 
                             id=${item[0]}
                             value="${item[1]}" >
 
@@ -163,14 +166,14 @@ function createArtworkCard(obj) {
 
                             </option>`;
 
-            $('#options-placeholder').before(el);
+        $('#options-placeholder').before(el);
     });
 
 
     // Add the artrwork title and current portfolio to the card
     $('#current-title').text(title);
     $('#current-portfolio').text(curr_portfolio);
-                             
+
 
     //add unique attr to be able to select title/piortfolio if updated
     $('#current-title').attr('title-me', aId);
@@ -189,6 +192,7 @@ function createArtworkCard(obj) {
     $('#update-new-p-title').attr('update-me-new-p', aId);
 
 
+
     // Set event listener/handler for clicking delete
     $('#delete-artwork').click(() => {
         a.deleteArtwork() //class method
@@ -205,19 +209,19 @@ function createArtworkCard(obj) {
         //get portfolio from selected option 
         const selectPortfolio = $(`select[update-my-p = ${aId} ]`)
 
-        //get value of new portfolio tile to create
+        //get value of new portfolio title to create
         const createNewPortfolio = $(`input[update-me-new-p = ${aId}]`)
 
 
         // return if no values to update
-        if (!newTitle.val() 
-            && !selectPortfolio.val() 
+        if (!newTitle.val()
+            && !selectPortfolio.val()
             && !createNewPortfolio.val()) {
             return;
         }
 
         if (newTitle.val()) {
-            if(newTitle.val() == 0){
+            if (newTitle.val() == 0) {
                 alert('Cannot use "0" for title');
                 newTitle.val('');
                 return;
@@ -236,11 +240,11 @@ function createArtworkCard(obj) {
         }
 
         if (selectPortfolio.val()) {
-            
+
             // if selecting current portfolio return
-            if(selectPortfolio.children(':selected')
-                                .attr('id') == pId){ 
-              //  selectPortfolio.val('');  //reset value
+            if (selectPortfolio.children(':selected')
+                .attr('id') == pId) {
+                //  selectPortfolio.val('');  //reset value
                 return;
             }
 
@@ -252,6 +256,13 @@ function createArtworkCard(obj) {
         }
 
         if (createNewPortfolio.val()) {
+            // check if trying to create duplicate portfolio (portfolio titles must be unique)
+            for (const p of portfolios_arr) {
+                if (createNewPortfolio.val() == p[1]) {
+                    alert(`'${p[1]}' already exists in your portfolios!`);
+                    return;
+                }
+            }
             a.updateCreatedPortfolio(createNewPortfolio.val()) //class method
         }
 
@@ -278,7 +289,6 @@ function getAllArtworks() {
 
                     // create a card for each artwork
                     createArtworkCard(obj);
-
                 });
             }
         });
