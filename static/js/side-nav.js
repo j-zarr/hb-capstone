@@ -57,7 +57,7 @@ $(document).ready(() => {
 
         $('body').css({
             'background-image': 'none',
-            'background-color': '#373737'
+            'background-color': 'white'
         }).fadeIn('slow');
 
         // update the menu options in the HTML
@@ -103,7 +103,7 @@ $(document).ready(() => {
 
         // update body bg-img with parallax scroll
         $('body').css({
-            'background-image': 'url("/static/assets/brick-wall.jpg")',
+            'background-image': 'url("/static/assets/white-bg-texture.jpg")',
             'height': '100%',
             'background-attachment': 'fixed',
             'background-position': 'center',

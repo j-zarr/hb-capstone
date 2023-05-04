@@ -231,7 +231,14 @@ function createArtworkCard(obj) {
 
         // check if more than one portfolio field changed
         if (selectPortfolio.val() && createNewPortfolio.val()) {
-            alert('cannot add to more than one portfolio')
+
+            $('.cardsContainer').before(
+                `<div  class="alert alert-danger alert-dismissible fade show" role="alert" style="text-align:center;">
+                Cannot add to more than one portfolio!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>`
+            ); 
+           
             //reset form 
             selectPortfolio.val('');
             newTitle.val('');
@@ -259,7 +266,14 @@ function createArtworkCard(obj) {
             // check if trying to create duplicate portfolio (portfolio titles must be unique)
             for (const p of portfolios_arr) {
                 if (createNewPortfolio.val() == p[1]) {
-                    alert(`'${p[1]}' already exists in your portfolios!`);
+
+                    $('.cardsContainer').before(
+                        `<div  class="alert alert-danger alert-dismissible fade show" role="alert" style="text-align:center;">
+                        '${p[1]}' already exists in your portfolios!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>`
+                    ); 
+                  
                     return;
                 }
             }

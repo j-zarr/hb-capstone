@@ -22,46 +22,40 @@ const galleryHTML = {
 
     portfolioCard:
         `<div class="card" id="added-card" style="
-                margin: 25px;
+                margin: 25px 25px 25px 25px;
                 display: inline-block;
                 width: 300px; 
-                height: 250px;
-                background-color: rgba(0,0,0, 0.8);
+                height: 200px;
+                background-color: rgba(0,0,0, 1);
                 border-radius: 10px;
-                box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.9);
+                box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.7);
                 border: 2px solid rgba(7, 7, 7, 0.12);
-                font-size: 16px;   
                 cursor: pointer;">
- <br>
- <h5>
-     <a href="#" id="p-artworks" style="text-decoration:none; 
-                                 color:rgb(38, 151, 226); 
-                                 border: 1px solid rgb(38, 151, 226);
-                                 border-radius: 15px;
-                                 padding: 5px;
-                                 text-align: center;
-                                 font-family: Bradley Hand, cursive;"> 
-         
-     </a>
- </h5>
+ 
+ 
+    <div id="p-card-title-link">
+     <a href="#" id="p-artworks" style="text-decoration:none;"> 
+     <span> <i class="bi bi-folder2-open"></i></span>  
+     <span id="current-p-title"></span>
+       
+     </a> 
+   </div>
+ 
  <br>
 
  <div class="card-options">
      <a href="#" class="d-flex align-items-center align-middle text-decoration-none dropdown-toggle"
-         data-bs-toggle="dropdown" aria-expanded="false" id="dropdown-update" style="color: white; 
-             justify-content:center;">
-         <span class="ms-1 d-none d-sm-inline" style="color: white;">UPDATE</span></a>
-     <ul class="dropdown-menu" aria-labelledby="dropdown-update" style="border: none; 
-                 text-align:center; 
-                 width:100%;
-                 background-color:rgba(0,0,0, 0.5);">
+         data-bs-toggle="dropdown" aria-expanded="false" id="dropdown-update" style=" 
+             justify-content:center; font-size:20px;">
+         <span class="ms-1 d-none d-sm-inline"></span></a>
+     <ul class="dropdown-menu" aria-labelledby="dropdown-update" style="background-color:rgba(255,255,255, 0.7); width:295px; margin-left:5px;">
          <form action="/api/update-portfolio-title" method="post" id="update-portfolio-form">
 
              <li>
                  <input type="text" placeholder="Update title" name="update-p-title" id="update-p-title"
                      minlength="1" maxlength="75">
                      <span>
-                     <input type="submit" value="SAVE" id="submit-portfolio-update">
+                     <button type="submit" value="SAVE" id="submit-portfolio-update"><i class="bi bi-check-circle"></i></button>
                  </span>    
              </li>
          </form>
@@ -81,6 +75,7 @@ const galleryHTML = {
                     display: inline-block;
                     width: 250px; 
                     height: 300px;
+                    border-radius:0px;
                     background-color:transparent;
                     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.7);
                     border: 2px solid rgba(7, 7, 7, 0.12);
@@ -99,7 +94,11 @@ const galleryHTML = {
                               
                               
                         
-                    <ul class="dropdown-menu" aria-labelledby="dropdown-update">
+                    <ul class="dropdown-menu" aria-labelledby="dropdown-update" 
+                                    style="background-color: rgba(0, 0, 0,0.9); 
+                                            width:240px; 
+                                            margin-right:15px; 
+                                            height: 250px;">
                             
                          <form action="/api/update-artwork" method="post" id="update-artwork-form">
 
@@ -117,7 +116,7 @@ const galleryHTML = {
                             </li>
                             <br><br>
                             <li>
-                                <button aria-labelledby="DELETE ARTWORK" id="delete-artwork">DELETE</button>
+                                <button aria-labelledby="DELETE ARTWORK" id="delete-artwork">DELETE ARTWORK</button>
                             </li>
                             <br>
                             <li>

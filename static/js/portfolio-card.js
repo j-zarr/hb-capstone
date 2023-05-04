@@ -28,7 +28,7 @@ class GalleryPortfolio {
                     this.title = newTitle;
 
                     //update card title in DOM
-                    $(`a[title-me=${this.id}]`).text(this.title)
+                    $(`span[title-me=${this.id}]`).text(this.title)
                 }
             });
     }
@@ -44,7 +44,8 @@ class GalleryPortfolio {
 
                     if (data.message == 'none found') {
                         $('#card-to-add').after(
-                            ` <div class="alert alert-dark alert-dismissible fade show" role="alert">
+                            ` <div class="alert alert-dark alert-dismissible fade show" role="alert" 
+                            style="background-color: rgba(0, 0, 0, 0.6); color: rgb(30,30,30);">
                              Portfolio ${this.title} has no artworks!
                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                          </div> `);
@@ -92,10 +93,10 @@ function createPortfolioCard(pair) {
     $('#card-to-add').after(galleryHTML.portfolioCard).fadeIn('slow', 'linear');
 
     // add the potrfolio title to the card
-    $('#p-artworks').text(title);
+    $('#current-p-title').text(title);
 
     //add unique attr to be able to select
-    $('#p-artworks').attr('title-me', pId)
+    $('#current-p-title').attr('title-me', pId)
 
     // Replace the id with the portfolio id (as pId) so card can be selected to remove
     $('#added-card').attr('id', pId);

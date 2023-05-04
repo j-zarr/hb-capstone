@@ -6,15 +6,12 @@
 
 // helper function for error messages for validateForm
 function displayErrorMessage(errorMessage) {
-    $('#save-form').append(
-        `<div id="error-message" class="alert alert-danger" role="alert">
+    $('.coloring-options').after(
+        `<div id="error-message" class="alert alert-danger alert-dismissible fade show" role="alert">
             ${errorMessage}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>`
     );
-    
-    setTimeout(() => {
-        $('#error-message').remove();
-    }, 1500);
 }
 
 
@@ -94,9 +91,9 @@ function submitSaveForm(canvas) {
     })
         .then(response => response.json())
         .then(data => {
-            document.getElementById('save-form').reset()
-            $('#save-form').append(
-                `<div id="message" class="alert alert-success" role="alert"> ${data.message} </div>`)
+            document.getElementById('save-form').reset();
+            $('.coloring-options').after(
+                `<div id="message" class="alert alert-success" role="alert"> ${data.message} </div>`);
             setTimeout(() => {
                 $('#message').remove();
                 //reload create page 
@@ -108,6 +105,6 @@ function submitSaveForm(canvas) {
                 selectedColor =  "#4c00ff";
                 selectedOpacity = 1;
                 selectedWidth = 10;
-            }, 1500);
+            }, 2500);
         });
 }

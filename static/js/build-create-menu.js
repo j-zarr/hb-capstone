@@ -34,8 +34,9 @@ const navCreateMenu =
             id="dropdown-save" data-bs-toggle="dropdown" aria-expanded="false">
      <span class="ms-1 d-none d-sm-inline  canvas-modify-option">Save</span></a>
 
+     <form action="/api/save-artwork" method="post" id="save-form">
         <ul class="dropdown-menu" aria-labelledby="dropdown-save">
-            <form action="/api/save-artwork" method="post" id="save-form">
+            
             
                 <li style="margin: 20px">
                     <label for="artwork-title">Artwork title: </label>
@@ -56,12 +57,12 @@ const navCreateMenu =
                     <hr class="dropdown-divider">
                 </li>
                 <li style=" display: flex; justify-content: center; align-items: center;">
-                    <input type="submit"  value="submit" class="btn btn-outline-dark" id="submit-save">
-                                                                
+                    <input type="submit"  value="submit" class="btn btn-outline-light" id="submit-save">                                             
                 </li>
-            </form>
-        </ul>
-        
+          
+            </ul>
+        </form>
+
     </div>
 </li> `;
 

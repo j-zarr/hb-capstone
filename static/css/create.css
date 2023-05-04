@@ -36,7 +36,7 @@ input[type='range']::-webkit-slider-thumb {
 
 
 .canvas-modify-option{
-    color: rgb(37, 37, 37);
+    color: rgba(255,255,255, 0.5);
     letter-spacing: .2rem;
     
 }
@@ -45,8 +45,9 @@ input[type='range']::-webkit-slider-thumb {
     /* color: rgb(37, 37, 37);
     background-color: rgba(255, 255, 255, 0.65); */
 
-    background-color: rgb(37, 37, 37);
-    color: rgba(255, 255, 255, 0.65); 
+    background-color: rgb(30, 30, 30);
+    color: rgb(255, 255, 255); 
+    font-weight: lighter;
 
     letter-spacing: .2rem;
     display: flex;
@@ -58,7 +59,7 @@ input[type='range']::-webkit-slider-thumb {
     position: relative;
     top: -16px;
     left: 0px;
-    border-left: 1px solid #4c00ff;
+    /* border-left: 1px solid #4c00ff; */
 }
 
 .coloring-field {
@@ -107,9 +108,27 @@ input[type='range']::-webkit-slider-thumb {
     vertical-align: middle;
 }
 
-#save-form{
-    background-color: transparent;   
-}
-.dropdown-menu{
-    background-color: rgba(255, 255, 255, 0.35);
-}
+/* save drop-down form */
+ ul.dropdown-menu.show {
+    color: blanchedalmond;
+    height: auto;
+    font-weight: lighter;
+    background-color: rgba(0,0,0, 0.85);
+ }
+
+ #submit-save{
+    color: blanchedalmond;
+    border: 1px solid blanchedalmond;
+ }
+
+ #submit-save:hover{
+    background-color: blanchedalmond;
+    color:black;
+ }
+
+
+ 
+ /* border: none; 
+                 text-align:center; 
+                 width:100%;
+                 background-color:rgba(0,0,0, 0.5); */

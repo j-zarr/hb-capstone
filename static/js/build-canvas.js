@@ -61,7 +61,7 @@ const canvasHTML =
                             background-size:100px 100px;       
                             background-position:0 0, 0 0, -50px -50px, 50px 50px; 
                             width: 900px; height:800px">
-        <canvas id="c" style="border:1px solid white" ></canvas>
+        <canvas id="c" style="border:1px solid rgb(37,37,37);" ></canvas>
         </div>
             
     </div>`;
