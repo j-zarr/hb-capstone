@@ -4,16 +4,36 @@
 //**********<< Class def and functions for Artwork Card >**************//
 
 
+//************* Current-Cards-Set Class ***********/
+
+// Class to hold all the current GalleryArtwork instances 
+// so can update select portfoloio options for all if a new one created when update one 
+class GalleryCardsSet {
+    constructor(cards){
+        this.cards = cards; //set
+    }
+
+    addCard(GalleryArtwork){
+        this.cards.add(GalleryArtwork);
+    }
+
+    deleteCard(GalleryArtwork){
+        this.cards.delete(GalleryArtwork)
+    }
+
+    
+}
 
 //************** Artwork Card Class ***********//
 
 // Artwork Card class
 class GalleryArtwork {
-    constructor(title, id, portfolioId, path) {
+    constructor(title, id, portfolioId, path, portfolioOptions) {
         this.title = title;
         this.id = id;
         this.portfolioId = portfolioId;
         this.path = path;
+        this.portfolioOptions = portfolioOptions
 
     }
 
@@ -62,7 +82,7 @@ class GalleryArtwork {
     }
 
     // Update to new created portfolio
-    updateCreatedPortfolio(newPortfolioTitle) {
+    updateCreatedPortfolio(newPortfolioTitle, currentCards ) {
         const pTitle = { pTitle: newPortfolioTitle }
 
         fetch(`/api/update-artwork-new-portfolio/${this.id}`, {
@@ -78,17 +98,31 @@ class GalleryArtwork {
                     //update card title in DOM
                     $(`h6[portfolio-title-me=${this.id}]`).text(newPortfolioTitle);
 
-                    //add portfolio option
-                    portfolios_arr.length = 0;
-                    userPortfolios();
-                    $('#content-area').html(galleryHTML.cardContainer);
-                    getAllArtworks();
+                    //Append new porfolio to portfolio array --> will update all references 
+                    // (won't be in abc order but don't feel worth refetching. Will be updated on subsequent fetch)
+                    portfolios_arr.push([this.portfolioId, newPortfolioTitle]);
+
+                    // update select option in DOM
+                    const newOption = `<option 
+                                            id=${this.portfolioId}
+                                            value="${newPortfolioTitle}">
+                                            ${newPortfolioTitle} 
+                                        </option>`; 
+
+                    currentCards.cards.forEach(card => {
+                            $(`#${card.id}`).find('#options-placeholder').before(newOption);
+                            console.log( $(`#${card.id}`).find('#options-placeholder'))
+                    });                                     
+
                 }
-            });
+            });    
     }
 
-    deleteArtwork() {
 
+    deleteArtwork(currentCards) {
+
+        currentCards.deleteCard(this);
+           
         fetch(`/api/delete-artwork/${this.id}`, {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
@@ -109,7 +143,7 @@ class GalleryArtwork {
 // global variable to hold user portfolios
 // bc of async fetch need to have array set before using it in createArtworkCard fn
 // so needs to be global var
-const portfolios_arr = [];
+let portfolios_arr = [];
 
 //Helper function to get all the user portfolios 
 const userPortfolios = () => {
@@ -130,15 +164,18 @@ userPortfolios();
 
 
 
+
 //*****************<< create an artwork card  >>*****************/
 
 // Create artwork-card and event listeners
-function createArtworkCard(obj) {
+function createArtworkCard(obj, currentCards) {
 
+    
     const [title, aId, pId, filePath] = obj;
 
-    const a = new GalleryArtwork(title, aId, pId, filePath) // create class instance
+    const a = new GalleryArtwork(title, aId, pId, filePath, portfolios_arr) // create class instance
 
+    currentCards.addCard(a);
 
     // Add new artwork card to DOM
     $('#card-to-add').after(galleryHTML.artworkCard).fadeIn('slow', 'linear');
@@ -195,7 +232,7 @@ function createArtworkCard(obj) {
 
     // Set event listener/handler for clicking delete
     $('#delete-artwork').click(() => {
-        a.deleteArtwork() //class method
+        a.deleteArtwork(currentCards) //class method
     });
 
 
@@ -233,7 +270,8 @@ function createArtworkCard(obj) {
         if (selectPortfolio.val() && createNewPortfolio.val()) {
 
             $('.cardsContainer').before(
-                `<div  class="alert alert-danger alert-dismissible fade show" role="alert" style="text-align:center;">
+                `<div  class="alert alert-danger alert-dismissible fade show" role="alert" 
+                            style="text-align:center; margin-left:250px; margin-right:20px;">
                 Cannot add to more than one portfolio!
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>`
@@ -268,7 +306,8 @@ function createArtworkCard(obj) {
                 if (createNewPortfolio.val() == p[1]) {
 
                     $('.cardsContainer').before(
-                        `<div  class="alert alert-danger alert-dismissible fade show" role="alert" style="text-align:center;">
+                        `<div  class="alert alert-danger alert-dismissible fade show" role="alert" 
+                                        style="text-align:center; margin-left:250px; margin-right:20px;">
                         '${p[1]}' already exists in your portfolios!
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>`
@@ -277,7 +316,7 @@ function createArtworkCard(obj) {
                     return;
                 }
             }
-            a.updateCreatedPortfolio(createNewPortfolio.val()) //class method
+            a.updateCreatedPortfolio(createNewPortfolio.val(), currentCards) //class method
         }
 
         //reset form 
@@ -292,7 +331,7 @@ function createArtworkCard(obj) {
 //*************<< get cards for all artwworks >>*************//
 
 // Get all user artworks and create a card for each
-function getAllArtworks() {
+function getAllArtworks(currentCards) {
 
     fetch('api/get-user-artworks')
         .then(response => response.json())
@@ -302,7 +341,7 @@ function getAllArtworks() {
                 data.message.forEach((obj) => {
 
                     // create a card for each artwork
-                    createArtworkCard(obj);
+                    createArtworkCard(obj, currentCards);
                 });
             }
         });
@@ -311,7 +350,7 @@ function getAllArtworks() {
 
 //***********<< get cards for searched artworks >>**********//
 
-function getSearchArtworkResults() {
+function getSearchArtworkResults(currentCards) {
     fetch('/api/search-artworks', {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -326,7 +365,8 @@ function getSearchArtworkResults() {
 
                 if (Object.keys(data.message).length < 1) {
                     $('#card-to-add').after(
-                        ` <div class="alert alert-dark alert-dismissible fade show" role="alert">
+                        ` <div class="alert alert-dark alert-dismissible fade show" role="alert"
+                                            style="text-align:center; margin-left:250px; margin-right:20px;">
                              No results found for ${$('#search-artworks-input').val()}
                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                          </div> `);
@@ -334,7 +374,7 @@ function getSearchArtworkResults() {
 
                 data.message.forEach((obj) => {
                     // create a card for each portfolio 
-                    createArtworkCard(obj);
+                    createArtworkCard(obj, currentCards);
 
                 });
 

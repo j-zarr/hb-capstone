@@ -33,19 +33,16 @@ class GalleryPortfolio {
             });
     }
 
-    openPortfolio() {
+    openPortfolio(currentCards) {
         fetch(`/api/get-portfolio-artworks/${this.id}`)
             .then(response => response.json())
             .then(data => {
                 if (data.status == 'success') {
 
-                    // remove portfolio cards by resetting html card container
-                    $('#content-area').html(galleryHTML.cardContainer);
-
                     if (data.message == 'none found') {
-                        $('#card-to-add').after(
+                        $('.cardsContainer').before(
                             ` <div class="alert alert-dark alert-dismissible fade show" role="alert" 
-                            style="background-color: rgba(0, 0, 0, 0.6); color: rgb(30,30,30);">
+                            style="background-color: rgba(0, 0, 0, 0.6); color: rgb(30,30,30); text-align:center; margin-left:250px; margin-right:20px;">
                              Portfolio ${this.title} has no artworks!
                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                          </div> `);
@@ -53,9 +50,12 @@ class GalleryPortfolio {
                         return;
                     }
 
+                    // remove portfolio cards by resetting html card container
+                    $('#content-area').html(galleryHTML.cardContainer);
+
                     data.message.forEach((obj) => {
                         // create a card for each artwork
-                        createArtworkCard(obj); //fn def in artwork-card.js.js
+                        createArtworkCard(obj, currentCards); //fn def in artwork-card.js.js
 
                     });
                 }
@@ -73,7 +73,7 @@ class GalleryPortfolio {
 
                     //reset portfolio options
                     portfolios_arr.length = 0;
-                    userPortfolios();
+                    userPortfolios();//resets portfolios_arr // fn def in artwork-card.js
                 }
             });
     }
@@ -84,7 +84,7 @@ class GalleryPortfolio {
 //*****************<< create a portfolio card  >>*****************/
 
 // Create portfolio-card and event listeners
-function createPortfolioCard(pair) {
+function createPortfolioCard(pair, currentCards) {
 
     const title = pair[0];
     const pId = pair[1];
@@ -128,7 +128,7 @@ function createPortfolioCard(pair) {
 
     // Set event listener/handler for clicking see portfolio's artwworks
     $('#p-artworks').click(() => {
-        p.openPortfolio(); //class method
+        p.openPortfolio(currentCards); //class method
     });
 }
 
@@ -138,7 +138,7 @@ function createPortfolioCard(pair) {
 //*************<< get cards for all portfolios >>***********/
 
 // Get all user portfolios and create a card for each
-function getAllPortfolios() {
+function getAllPortfolios(currentCards) {
 
     fetch('/api/user-portfolio-titles')
         .then(response => response.json())
@@ -148,7 +148,7 @@ function getAllPortfolios() {
                 data.message.forEach((pair) => {
 
                     // create a card for each portfolio 
-                    createPortfolioCard(pair);
+                    createPortfolioCard(pair, currentCards);
 
                 });
             }
@@ -159,7 +159,7 @@ function getAllPortfolios() {
 
 //*********<< get cards for searched portfolios >>**********//
 
-function getSearchPortfolioResults() {
+function getSearchPortfolioResults(currentCards) {
     fetch('/api/search-porfolios', {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -183,7 +183,7 @@ function getSearchPortfolioResults() {
                 data.message.forEach((pair) => {
 
                     // create a card for each portfolio 
-                    createPortfolioCard(pair);
+                    createPortfolioCard(pair, currentCards);
 
                 });
 

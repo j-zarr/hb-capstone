@@ -70,7 +70,7 @@ $(document).ready(() => {
         $('#nav-menu-border').css('position', 'relative');
                
 
-        //instantiate fabric.js canvas on html camvas id
+        //instantiate fabric.js canvas on html canvas id
         const myCanvas = new fabric.Canvas('c', {
             width: 900,
             height: 800,
@@ -126,8 +126,11 @@ $(document).ready(() => {
 
             $('#content-area').html(galleryHTML.cardContainer);
 
+            const cards = new Set();
+            const currentCards = new GalleryCardsSet(cards);
+
             // fn def in artwork-card.js
-            getAllArtworks()
+            getAllArtworks(currentCards)
         });
 
         // update DOM with artwork search results
@@ -136,8 +139,11 @@ $(document).ready(() => {
 
             $('#content-area').html(galleryHTML.cardContainer);
 
+            const cards = new Set();
+            const currentCards = new GalleryCardsSet(cards)
+
             // fn def in artwork-card.js
-            getSearchArtworkResults();
+            getSearchArtworkResults(currentCards);
         });
 
 
@@ -145,8 +151,11 @@ $(document).ready(() => {
         $('#all-portfolios').click(() => {
             $('#content-area').html(galleryHTML.cardContainer);
 
+            const cards = new Set();
+            const currentCards = new GalleryCardsSet(cards);
+
             // fn def in portfolio-card.js
-            getAllPortfolios();
+            getAllPortfolios(currentCards);
         });
 
         // update DOM with portfolio search results
@@ -155,8 +164,11 @@ $(document).ready(() => {
 
             $('#content-area').html(galleryHTML.cardContainer);
 
+            const cards = new Set();
+            const currentCards = new GalleryCardsSet(cards);
+
             // fn def in portfolio-card.js
-            getSearchPortfolioResults();
+            getSearchPortfolioResults(currentCards);
         });
 
     });

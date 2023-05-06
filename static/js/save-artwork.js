@@ -105,6 +105,6 @@ function submitSaveForm(canvas) {
                 selectedColor =  "#4c00ff";
                 selectedOpacity = 1;
                 selectedWidth = 10;
-            }, 2500);
+            }, 1500);
         });
 }

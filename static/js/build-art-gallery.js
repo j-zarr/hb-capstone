@@ -37,7 +37,7 @@ const galleryHTML = {
      <a href="#" id="p-artworks" style="text-decoration:none;"> 
         <div id="p-card-title-link">
              <span> <i class="bi bi-folder2-open"></i></span>  
-             <span id="current-p-title"></span>
+            <span id="current-p-title"></span>
          </div>
      </a> 
   
@@ -47,7 +47,7 @@ const galleryHTML = {
  <div class="card-options">
      <a href="#" class="d-flex align-items-center align-middle text-decoration-none dropdown-toggle"
          data-bs-toggle="dropdown" aria-expanded="false" id="dropdown-update" style=" 
-             justify-content:center; font-size:20px;">
+             justify-content:center; font-size:25px;">
          <span class="ms-1 d-none d-sm-inline"></span></a>
      <ul class="dropdown-menu" aria-labelledby="dropdown-update" style="background-color:rgba(255,255,255, 0.7); width:295px; margin-left:5px;">
          <form action="/api/update-portfolio-title" method="post" id="update-portfolio-form">

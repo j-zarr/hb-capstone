@@ -168,7 +168,7 @@ function activateCanvasBtns(canvas) {
     //***************** Adding select option and buttons that can use with select: color-fill, delete ***************/
     //****************<< function definitions select-fill-delete.js >>***********************************************/
 
-    // Initialize stack (as array) to be accessible to undo, redo, delete
+    // Initialize stack (as array) to be accessible to undo, redo, delete, clear
     // To be emptied on clear canvas
     const removed = [];   // To store removed item to be able to redo
 

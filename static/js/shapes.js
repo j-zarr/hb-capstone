@@ -11,7 +11,6 @@ function createSquare(canvas, commonShapeSettings){
     });
     commonShapeSettings(rect);
     canvas.add(rect);
-    canvas.requestRenderAll();
 }
 
 
