@@ -72,7 +72,7 @@ class GalleryPortfolio {
                     $(`#${this.id}`).fadeOut('slow').remove();
 
                     //reset portfolio options
-                    portfolios_arr.length = 0;
+                    portfolios_arr = [];
                     userPortfolios();//resets portfolios_arr // fn def in artwork-card.js
                 }
             });

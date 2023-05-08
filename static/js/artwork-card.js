@@ -111,7 +111,6 @@ class GalleryArtwork {
 
                     currentCards.cards.forEach(card => {
                             $(`#${card.id}`).find('#options-placeholder').before(newOption);
-                            console.log( $(`#${card.id}`).find('#options-placeholder'))
                     });                                     
 
                 }
@@ -169,8 +168,8 @@ userPortfolios();
 
 // Create artwork-card and event listeners
 function createArtworkCard(obj, currentCards) {
+     
 
-    
     const [title, aId, pId, filePath] = obj;
 
     const a = new GalleryArtwork(title, aId, pId, filePath, portfolios_arr) // create class instance
@@ -297,6 +296,7 @@ function createArtworkCard(obj, currentCards) {
                 .children(':selected')
                 .attr('id');
 
+                
             a.updatePortfolio(changePortfolio, selectPortfolio.val()) //class method
         }
 

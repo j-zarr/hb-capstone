@@ -106,5 +106,10 @@ function submitSaveForm(canvas) {
                 selectedOpacity = 1;
                 selectedWidth = 10;
             }, 1500);
+
+            //reset portfolio options -- needed if new portfolio created 
+            portfolios_arr = [];
+            userPortfolios();//resets portfolios_arr // fn def in artwork-card.js
         });
+
 }

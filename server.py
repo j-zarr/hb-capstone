@@ -13,12 +13,12 @@ import crud_u, crud_p, crud_a
 
 
 app = Flask(__name__)
-app.secret_key = "dev"
+app.secret_key = "dev"   #for development only, change for production/deployment
 app.jinja_env.undefined = StrictUndefined
 
- # Set up key and accessibility to S3 bucket
-S3_KEY_ID = os.environ.get("S3_KEY_ID")
-S3_SECRET_KEY = os.environ.get("S3_SECRET_KEY")
+# Set up key and accessibility to S3 bucket
+S3_KEY_ID = os.environ.get("S3_KEY_ID")  #IAM user access key ID
+S3_SECRET_KEY = os.environ.get("S3_SECRET_KEY") #IAM  user secret access key
 
 boto3.set_stream_logger('botocore', level='DEBUG')
    
@@ -27,11 +27,13 @@ s3 = boto3.resource('s3',
                     aws_secret_access_key=S3_SECRET_KEY
                     )
 
-artwork_bucket = s3.Bucket(name='artworks-images')
+artwork_bucket = s3.Bucket(name='artworks-images') #name of S3 bucket
 
 s3_client = boto3.client('s3', 
                     aws_access_key_id=S3_KEY_ID,  
                     aws_secret_access_key=S3_SECRET_KEY)
+
+bucket_name = 'artworks-images' #name of S3 bucket
 
 
 # Helper function to create new portfolio 
@@ -322,7 +324,7 @@ def delete_artwork(aId):
 
      #delete object from S3
      key = path[41:]    
-     s3_client.delete_object(Bucket='artworks-images',
+     s3_client.delete_object(Bucket=bucket_name,
                                         Key=key)
 
      return {"status": "success"}

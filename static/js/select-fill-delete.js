@@ -35,6 +35,7 @@ function fillColor(canvas) {
    
     selectedObjects.forEach((obj) => { 
         obj.set('fill', selectedColor);
+        obj.myColorFill = `${selectedColor}` //set custom attribute to undo/redo colorFill
     });
     canvas.requestRenderAll();
 }

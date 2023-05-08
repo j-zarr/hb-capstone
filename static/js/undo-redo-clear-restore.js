@@ -13,14 +13,17 @@ function undo(canvas, removed) {
     if (canvas.isEmpty()) {
         return;
     }
-
     // get last object added to canvas, add to removed stack and remove from canvas
     const last = canvas.item(canvas.size() - 1); //canvas.item(idx) gets obj at the specified index
     //const last = canvas._objects[canvas._objects.length - 1] //also have access ._objects array
 
+    // Note: fabric.js modifies obj on fill, so will remove enire obj on undo
+    // Will revisit to add a separate color-fill undo/redo feature 
+    //(Tried to incliude in universal undo/redo in a few differmt ways but none worked completly for all scenarios)
+ 
     removed.push(last)
     canvas.remove(last);
-    canvas.requestRenderAll();
+    canvas.requestRenderAll(); 
 }
 
 
@@ -30,7 +33,7 @@ function redo(canvas, removed) {
         return;
     }
 
-    canvas.add(removed.pop());
+    canvas.add(removed.pop())
     canvas.requestRenderAll();
 }
 
@@ -76,16 +79,10 @@ function restoreCanvas(canvas) {
 }
 
 
-    /////// TO REVISIT /////////////////////
-    ///(Note: fabric.js modifies obj on fill, so will remove enire obj on undo)
-    //// need to keep track of positions..but positions also moving depending on when things are added and redone/undone
-    //....... add a custom attribute on obj with removed fill?? 
-    //Solution may just be to add a sepearte feature to specifically undo (/and redo) fill
-    //  
-    ////Leaving this here so I remember how to create a deep clone of a fabric.js obj, in case needed 
+    ////Leaving this here so I remember how to create a deep clone of a fabric.js obj, 
+    // in case needed for additional features to add later
     //  obj.clone(function (cloned) {
     //      canvas.add(cloned.set(
     //         'fill', ''));
     //   });
     // 
-    ///////////////////////////////////////
