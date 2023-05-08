@@ -1,10 +1,14 @@
 ### Project Description
 ARTwrks is a web app where users can create art on a digital canvas (with a transparent or white background) using drawing/painting tools, geometric shapes, and  features such as opacity and resizing. The canvas can be saved to the user profile among multiple portfolios, for retrieving by title search, by portfolio, or all at once.  Both portfolios and artworks have an update-details feature.
 
+***
+
 ### Contents
 * [Tech Stack](#tech-stack) <br/>
 * [Installation](#installation) <br/>
 * [Features](#features) <br/>
+
+***
 
 ### Tech Stack
 Backend: Python, Flask, Postgresql, SQLAlchemy 
