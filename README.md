@@ -64,7 +64,7 @@ You can now navigate to 'localhost:5000' to access ARTwrks
 ***
 
 ### Features
-User can login to their profile or or register:
+User can login to their profile or register:
 ![alt text](https://github-my-images.s3.amazonaws.com/ARTwrks-login-register.png  "Login Form")
 <br/>
 
