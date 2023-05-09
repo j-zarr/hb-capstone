@@ -18,7 +18,7 @@ APIs: Fabric.js, Amazon S3
 ***
 
 ### Installation
-Install PostgreSQL (Mac OSX)
+Install PostgreSQL 
 
 Clone or fork this repo:
 
@@ -39,12 +39,13 @@ pip3 install -r requirements.txt
 Before running the  file, you will need an AWS S3 bucket set to public, and an IAM user. 
 
 Create a <kbd>secret.sh</kbd> file to store your IAM user access key ID and secret access keys:
+(Make sure to add secrets.sh to your <kbd>.gitignore</kbd> file.)
 ```
 export S3_KEY_ID='your_access_key_ID'
 export S3_SECRET_KEY='your_secret_access_key'
 ```
 
-Make sure to add secrets.sh to your <kbd>.gitignore</kbd> file
+
 
 In <kbd>server.py</kbd>, replace the name of the S3 bucket with your S3 bucket name, on lines 30 and 36.
 
