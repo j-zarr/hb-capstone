@@ -11,9 +11,9 @@ ARTwrks is a web app where users can create art on a digital canvas (with a tran
 ***
 
 ### Tech Stack
-Backend: Python, Flask, Postgresql, SQLAlchemy 
-Frontend: Javascript, jQuery, AJAX, HTML5, Jinja2, Bootstrap, CSS 
-APIs: Fabric.js, Amazon S3
+Backend: Python, Flask, Postgresql, SQLAlchemy <br/>
+Frontend: Javascript, jQuery, AJAX, HTML5, Jinja2, Bootstrap, CSS <br/>
+APIs: Fabric.js, Amazon S3 <br/>
 
 ***
 
