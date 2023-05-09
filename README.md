@@ -38,7 +38,7 @@ pip3 install -r requirements.txt
 
 Before running the  file, you will need an AWS S3 bucket set to public, and an IAM user. 
 
-Create a <kbd>secret.sh</kbd> file to store your IAM user access key ID and secret access keys:
+Create a <kbd>secret.sh</kbd> file to store your IAM user access key ID and secret access keys: <br/>
 (Make sure to add secrets.sh to your <kbd>.gitignore</kbd> file.)
 ```
 export S3_KEY_ID='your_access_key_ID'
@@ -78,7 +78,7 @@ Users can choose the color, opacity, and line width:
 <br/>
 
 Users can view their saved artworks and update the details:
-![alt text](https://github-my-images.s3.amazonaws.com/artworks-card.png "Artwwork Cards")
+![alt text](https://github-my-images.s3.amazonaws.com/artworks-card.png "Artwork Cards")
 <br/>
 
 Users can view their portfolios and update the details:
